@@ -1,4 +1,4 @@
-export default function Door() {
+export function Door() {
   return (
     <svg
       fill="#000000"

@@ -1,4 +1,4 @@
-export default function Shuffle() {
+export function Shuffle() {
   return (
     <svg
       width="16"

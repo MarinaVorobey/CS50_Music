@@ -1,4 +1,4 @@
-export default function Note() {
+export function Note() {
   return (
     <svg
       width="32"

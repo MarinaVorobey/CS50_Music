@@ -1,4 +1,4 @@
-export default function ThreeDots() {
+export function ThreeDots() {
   return (
     <svg
       width="23"

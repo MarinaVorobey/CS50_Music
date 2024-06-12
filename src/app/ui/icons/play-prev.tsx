@@ -1,4 +1,4 @@
-export default function PlayPrev() {
+export function PlayPrev() {
   return (
     <svg
       width="10"

@@ -1,4 +1,4 @@
-export default function Sound() {
+export function Sound() {
   return (
     <svg
       width="16"

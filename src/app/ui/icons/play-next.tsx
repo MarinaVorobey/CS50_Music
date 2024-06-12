@@ -1,4 +1,4 @@
-export default function PlayNext() {
+export function PlayNext() {
   return (
     <svg
       width="10"

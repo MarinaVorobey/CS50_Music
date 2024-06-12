@@ -1,4 +1,4 @@
-export default function Heart() {
+export function Heart() {
   return (
     <svg
       width="22"

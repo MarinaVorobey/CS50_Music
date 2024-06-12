@@ -1,4 +1,4 @@
-export default function Repeat() {
+export function Repeat() {
   return (
     <svg
       width="16"

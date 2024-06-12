@@ -1,4 +1,4 @@
-export default function Clock() {
+export function Clock() {
   return (
     <svg
       width="16"

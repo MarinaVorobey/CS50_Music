@@ -1,4 +1,4 @@
-export default function Play2() {
+export function Play2() {
   return (
     <svg
       width="32"
