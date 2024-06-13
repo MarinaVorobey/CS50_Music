@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import SideNavbar from "./ui/side-navbar";
-
-const inter = Inter({ subsets: ["latin"] });
+import { inter } from "./ui/fonts";
 
 export const metadata: Metadata = {
   title: "Solar_Player",
@@ -17,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} antialiased`}>
         <SideNavbar />
         {children}
       </body>

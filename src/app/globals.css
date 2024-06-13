@@ -33,7 +33,6 @@ a {
 
 abbr[title] {
   border-bottom: none;
-  text-decoration: underline;
   text-decoration: underline dotted;
 }
 
@@ -588,7 +587,7 @@ body {
   cursor: pointer;
 }
 
-@font-face {
+/* @font-face {
   font-family: "Circular";
   font-style: normal;
   font-weight: bold;
@@ -607,7 +606,7 @@ body {
   font-style: normal;
   font-weight: 500;
   src: url("../fonts/CircularStd-Medium.woff2") format("woff2"), url("../fonts/CircularStd-Medium.woff") format("woff");
-}
+} */
 
 .track__btn-dropdown:focus {
   outline: none;
@@ -735,9 +734,9 @@ body {
   font-size: 14px;
   letter-spacing: .09em;
   color: var(--color-greytxt);
-  background-image: url("../img/search.svg");
+  /* background-image: url("../img/search.svg");
   background-repeat: no-repeat;
-  background-position: left 15px top 10px;
+  background-position: left 15px top 10px; */
 }
 
 .header__search__field::placeholder {
