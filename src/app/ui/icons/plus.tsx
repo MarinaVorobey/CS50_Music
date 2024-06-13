@@ -1,4 +1,5 @@
 export function Plus() {
+  // Colored: svg => circle => fill => greyC4
   return (
     <svg
       width="50"
@@ -7,7 +8,7 @@ export function Plus() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="25" cy="25" r="25" fill="#C4C4C4" />
+      <circle cx="25" cy="25" r="25" fill="none" />
     </svg>
   );
 }

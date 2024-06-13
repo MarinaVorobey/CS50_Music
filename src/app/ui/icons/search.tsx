@@ -1,4 +1,5 @@
 export function Search() {
+  // Colored: svg => path => stroke => greyAA
   return (
     <svg
       width="24"
@@ -9,14 +10,14 @@ export function Search() {
     >
       <path
         d="M11.5 20C16.1944 20 20 16.1944 20 11.5C20 6.80558 16.1944 3 11.5 3C6.80558 3 3 6.80558 3 11.5C3 16.1944 6.80558 20 11.5 20Z"
-        stroke="#AAAAAA"
+        stroke="none"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M20.9999 21L17.5 17.5001"
-        stroke="#AAAAAA"
+        stroke="none"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -5,6 +5,7 @@ export type TIconNames =
   | "clock"
   | "door"
   | "heart"
+  | "heart2"
   | "note"
   | "play-next"
   | "play-prev"
@@ -26,6 +27,7 @@ const iconNamesToIcons: TIcons = {
   clock: icons.Clock(),
   door: icons.Door(),
   heart: icons.Heart(),
+  heart2: icons.Heart2(),
   note: icons.Note(),
   "play-next": icons.PlayNext(),
   "play-prev": icons.PlayPrev(),

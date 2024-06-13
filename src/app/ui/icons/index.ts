@@ -2,6 +2,7 @@ export * from "./calendar";
 export * from "./clock";
 export * from "./door";
 export * from "./heart";
+export * from "./heart2";
 export * from "./note";
 export * from "./play-next";
 export * from "./play-prev";
