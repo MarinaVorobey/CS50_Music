@@ -1,4 +1,4 @@
-export function ThreeDots() {
+export function ThreeDots(color: string) {
   // Colored: svg => circle => fill => greyC4
   return (
     <svg
@@ -8,9 +8,9 @@ export function ThreeDots() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="2" cy="2" r="2" fill="none" />
-      <circle cx="11.5" cy="2" r="2" fill="none" />
-      <circle cx="21" cy="2" r="2" fill="none" />
+      <circle cx="2" cy="2" r="2" fill={color} />
+      <circle cx="11.5" cy="2" r="2" fill={color} />
+      <circle cx="21" cy="2" r="2" fill={color} />
     </svg>
   );
 }

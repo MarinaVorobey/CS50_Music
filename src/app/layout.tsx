@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import SideNavbar from "./ui/layout/side-navbar";
+import { lato } from "./ui/fonts";
 import "./globals.css";
-import SideNavbar from "./ui/side-navbar";
-import { inter } from "./ui/fonts";
+import Header from "./ui/layout/header/header";
 
 export const metadata: Metadata = {
-  title: "Solar_Player",
+  title: "Solar_Music",
   description: "Music app created by Solar_Phoenix",
 };
 
@@ -15,9 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <SideNavbar />
-        {children}
+      <body className={`${lato.className} antialiased`}>
+        <Header />
+        <div className="content-wrap flex">
+          <SideNavbar />
+          {children}
+        </div>
       </body>
     </html>
   );
