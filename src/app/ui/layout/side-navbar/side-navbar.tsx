@@ -1,6 +1,7 @@
 import Link from "next/link";
-import Icon, { TIconNames } from "../icon";
-import { colors } from "../colors";
+import Icon, { TIconNames } from "../../icon";
+import { colors } from "../../colors";
+import styles from "./side-navbar.module.css";
 
 interface ILinkInfo {
   iconType?: TIconNames;
@@ -14,22 +15,22 @@ export default function SideNavbar() {
   const specialLinks: ILinkInfo[] = [
     {
       iconType: "play2",
-      iconClassName: "aside__icon",
-      className: "aside__link aside__special-link",
+      iconClassName: styles.icon,
+      className: `${styles.link} ${styles.special__link}`,
       path: "tracks",
       text: "Tracks",
     },
     {
       iconType: "note",
-      iconClassName: "aside__icon",
-      className: "aside__link aside__special-link",
+      iconClassName: styles.icon,
+      className: `${styles.link} ${styles.special__link}`,
       path: "playlists",
       text: "Playlists",
     },
     {
       iconType: "heart2",
-      iconClassName: "aside__icon-favorites",
-      className: "aside__special-link aside__link-active",
+      iconClassName: styles.icon,
+      className: `${styles.special} ${styles.link__active}`,
       path: "favorites",
       text: "Favorites",
     },
@@ -51,36 +52,36 @@ export default function SideNavbar() {
   ];
 
   return (
-    <aside className="aside">
-      <h2 className="aside__h2 visually-hidden">Left navigation pannel</h2>
+    <aside className={styles.aside}>
+      <h2 className={`${styles.h2} visually-hidden`}>Left navigation pannel</h2>
 
-      <nav className="aside__nav">
-        <ul className="aside__list">
+      <nav className={styles.nav}>
+        <ul className={styles.list}>
           {specialLinks.map(
             ({ text, path, className, iconClassName, iconType }) => (
-              <li key={path} className="aside__item">
+              <li key={path} className={styles.item}>
                 <Link href={path} className={className}>
                   {iconType ? (
                     <Icon
                       type={iconType}
                       className={iconClassName}
                       defaultColor={
-                        className?.includes("aside__link-active")
+                        className?.includes("link__active")
                           ? colors.whiteFF
                           : colors.orange
                       }
                     />
                   ) : null}
-                  <span className="aside__link__text">{text}</span>
+                  <span className={styles.link__text}>{text}</span>
                 </Link>
               </li>
             )
           )}
 
           {playlists.map(({ text, path }) => (
-            <li key={path} className="aside__item">
-              <Link href={path} className="aside__link">
-                <span className="aside__link__text">{text}</span>
+            <li key={path} className={styles.item}>
+              <Link href={path} className={styles.link}>
+                <span className={styles.link__text}>{text}</span>
               </Link>
             </li>
           ))}

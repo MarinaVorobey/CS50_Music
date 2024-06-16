@@ -6,7 +6,7 @@ export function User(color: string) {
       width="40px"
       height="40px"
       viewBox="796 796 200 200"
-      enable-background="new 796 796 200 200"
+      enableBackground="new 796 796 200 200"
     >
       <path
         fill={color}

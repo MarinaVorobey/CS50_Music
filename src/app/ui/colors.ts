@@ -8,5 +8,5 @@ export enum colors {
   black11 = "#11253D",
   black17 = "#171717",
   orange = "#FC6D3E",
-  purple = "#7B3CE8",
+  purple = "#ECDCF7",
 }

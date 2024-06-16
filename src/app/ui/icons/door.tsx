@@ -4,8 +4,8 @@ export function Door(color: string) {
     <svg
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      width="40px"
-      height="40px"
+      width="28px"
+      height="28px"
       viewBox="0 0 492.5 492.5"
     >
       <g>
