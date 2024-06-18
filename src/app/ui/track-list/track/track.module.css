@@ -1,0 +1,286 @@
+.item__number {
+  width: 100%;
+  max-width: 40px;
+}
+
+.item__name {
+  max-width: 434px;
+  padding-right: 10px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+}
+
+.item__album {
+  max-width: 363px;
+  width: 100%;
+  padding-right: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item__data {
+  width: 100%;
+  max-width: 488px;
+  padding-right: 10px;
+  margin-right: auto;
+  color: var(--greyA4);
+  font-weight: bold;
+}
+
+.item__like {
+  margin-right: 18px;
+}
+
+.item__time {
+  width: 100%;
+  max-width: 157px;
+}
+
+.item__drop {
+  width: 100%;
+  max-width: 43px;
+}
+
+.data__text {
+  margin-right: auto;
+}
+
+.item__drop {
+  position: relative;
+}
+
+.btn__dropdown:focus {
+  outline: none;
+  border-color: var(--greyAA);
+}
+
+.btn__dropdown:focus circle {
+  fill: var(--orange);
+}
+
+.btn__dropdown:active svg {
+  transform: rotate(90deg);
+}
+
+.btn__dropdown svg {
+  transition: transform 0.3s ease-in-out;
+}
+
+.name__link::before,
+.btn__dropdown {
+  transition: border-color 0.3s ease-in-out;
+}
+
+.name__link {
+  transition: color 0.3s ease-in-out;
+}
+
+.like__btn path,
+.btn__dropdown circle {
+  transition: fill 0.3s ease-in-out;
+}
+
+.name__link:focus {
+  color: var(--orange);
+}
+
+.name__link:focus::before {
+  border-color: var(--orange);
+}
+
+.like__btn:focus-visible path {
+  fill: var(--orange);
+}
+
+.name__link:focus-visible,
+.like__btn:focus-visible {
+  outline: none;
+}
+
+.img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 10px;
+}
+
+.name {
+  margin-bottom: 10px;
+}
+
+.name__link:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid var(--greyE8);
+  border-bottom: 1px solid var(--greyE8);
+}
+
+.author {
+  color: var(--greyA4);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.like__btn {
+  position: relative;
+  z-index: 2;
+}
+
+.btn__dropdown {
+  position: relative;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+/*
+.btn__dropdown.btn-dropdown--active {
+  transform: rotate(90deg);
+} */
+
+.dropdown {
+  position: absolute;
+  z-index: 100;
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.2));
+  border: 1px solid var(--greyA4);
+  background-color: #fff;
+  right: 0;
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+
+/* .dropdown.dropdown--active {
+  display: flex;
+} */
+
+.dropdown button {
+  padding: 10px 18px;
+  transition: background-color 0.3s ease-in-out, color 0.3s;
+}
+
+@media (min-width: 1200px) {
+  .name__link:hover {
+    color: var(--orange);
+  }
+
+  .name__link:hover::before {
+    border-color: var(--orange);
+  }
+
+  .like__btn:hover path {
+    fill: var(--orange);
+  }
+
+  .btn__dropdown:hover circle {
+    fill: var(--orange);
+  }
+
+  .btn__dropdown:hover {
+    border-color: var(--greyAA);
+  }
+
+  .dropdown button:hover {
+    background-color: var(--orange);
+    color: var(--whiteFF);
+  }
+}
+
+@media (max-width: 1440px) {
+  .header__album {
+    max-width: 262px;
+  }
+
+  .header__data {
+    max-width: 239px;
+  }
+
+  .header__time {
+    max-width: 99px;
+  }
+
+  .item__album {
+    max-width: 262px;
+  }
+
+  .item__data {
+    max-width: 239px;
+  }
+
+  .item__time {
+    max-width: 56px;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .header,
+  .data__text,
+  .item__time {
+    display: none;
+  }
+
+  .item__album,
+  .item__data {
+    max-width: none;
+    flex: 4;
+  }
+
+  .item__name {
+    max-width: none;
+    flex: 8;
+  }
+}
+
+@media (max-width: 768px) {
+  .item__album {
+    display: none;
+  }
+
+  .item__data {
+    flex: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .name {
+    margin-bottom: 4px;
+  }
+
+  .content {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .name__link {
+    font-size: 18px;
+  }
+
+  .item {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: var(--whiteFF);
+  }
+
+  .item:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  .name__link:before {
+    border: none;
+  }
+}

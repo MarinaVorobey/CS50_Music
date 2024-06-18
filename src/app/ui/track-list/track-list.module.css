@@ -1,0 +1,50 @@
+.title__h2 {
+  font-size: 30px;
+  font-weight: normal;
+}
+
+.content {
+  display: block;
+}
+
+.header {
+  color: var(--greyA4);
+  font-size: 12px;
+  letter-spacing: .09em;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.header__number {
+  width: 100%;
+  max-width: 40px;
+}
+
+.header__name {
+  max-width: 434px;
+  width: 100%;
+}
+
+.header__album {
+  max-width: 363px;
+  width: 100%;
+}
+
+.header__data {
+  width: 100%;
+  max-width: 488px;
+  margin-right: auto;
+}
+
+.header__time {
+  width: 100%;
+  max-width: 200px;
+}
+
+.item {
+  position: relative;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  align-items: center;
+}

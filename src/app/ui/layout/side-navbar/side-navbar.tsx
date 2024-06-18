@@ -15,21 +15,18 @@ export default function SideNavbar() {
   const specialLinks: ILinkInfo[] = [
     {
       iconType: "play2",
-      iconClassName: styles.icon,
-      className: `${styles.link} ${styles.special__link}`,
+      className: styles.link,
       path: "tracks",
       text: "Tracks",
     },
     {
       iconType: "note",
-      iconClassName: styles.icon,
-      className: `${styles.link} ${styles.special__link}`,
+      className: styles.link,
       path: "playlists",
       text: "Playlists",
     },
     {
       iconType: "heart2",
-      iconClassName: styles.icon,
       className: `${styles.special} ${styles.link__active}`,
       path: "favorites",
       text: "Favorites",
@@ -42,42 +39,43 @@ export default function SideNavbar() {
       text: "Playlist #1",
     },
     {
-      path: "playlists",
+      path: "playlist#2",
       text: "Playlist #2",
     },
     {
-      path: "favorites",
+      path: "playlist#3",
       text: "Playlist #3",
     },
   ];
 
   return (
     <aside className={styles.aside}>
-      <h2 className={`${styles.h2} visually-hidden`}>Left navigation pannel</h2>
+      <h2 className="visually-hidden">Left navigation pannel</h2>
 
       <nav className={styles.nav}>
         <ul className={styles.list}>
-          {specialLinks.map(
-            ({ text, path, className, iconClassName, iconType }) => (
-              <li key={path} className={styles.item}>
-                <Link href={path} className={className}>
-                  {iconType ? (
-                    <Icon
-                      type={iconType}
-                      className={iconClassName}
-                      defaultColor={
-                        className?.includes("link__active")
-                          ? colors.whiteFF
-                          : colors.orange
-                      }
-                    />
-                  ) : null}
-                  <span className={styles.link__text}>{text}</span>
-                </Link>
-              </li>
-            )
-          )}
+          {specialLinks.map(({ text, path, className, iconType }) => (
+            <li key={path} className={styles.item}>
+              <Link href={path} className={className}>
+                {iconType ? (
+                  <Icon
+                    type={iconType}
+                    className={styles.icon}
+                    defaultColor={
+                      className?.includes("link__active")
+                        ? colors.whiteFF
+                        : colors.orange
+                    }
+                  />
+                ) : null}
+                <span className={styles.link__text}>{text}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
+        <h3 className={styles.list__title}>Playlists:</h3>
+        <ul className={styles.list}>
           {playlists.map(({ text, path }) => (
             <li key={path} className={styles.item}>
               <Link href={path} className={styles.link}>

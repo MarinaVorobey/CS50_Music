@@ -130,6 +130,12 @@
   height: 4px;
 }
 
+@media (max-width: 992px) {
+  .volume {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .player {
     flex-direction: column;

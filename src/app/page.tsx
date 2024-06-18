@@ -1,6 +1,5 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import TrackList from "./ui/track-list/track-list";
 
 export default function Home() {
-  return <main className={styles.main}>Sample text</main>;
+  return <TrackList />;
 }
