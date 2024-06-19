@@ -1,56 +1,72 @@
+import Image from "next/image";
+import Link from "next/link";
+import styles from "./page.module.css";
+
 export default function Page() {
   return (
-    <section className="playlist section tabs-content" data-target="playlists">
-      <h2 className="playlist__h2 visually-hidden">Плейлисты</h2>
-      <ul className="playlist__list">
-        <li className="playlist__item">
-          <picture>
-            <source
-              srcSet="img/playlists__360%20(1).jpg"
-              media="(max-width: 576px)"
-            />
-            <source
-              srcSet="img/playlists__1440%20(1).jpg"
-              media="(max-width: 1440px)"
-            />
-            <img
-              className="playlist__img"
-              src="img/playlists%20(1).jpg"
-              alt="Любимые песни"
-            />
-          </picture>
-          <div className="playlist__content">
-            <h3 className="playlist__h3">
-              <a className="playlist__h3__link" href="/">
-                Любимые песни
-              </a>
+    <section>
+      <h2 className={`${styles.h2} visually-hidden`}>Playlists</h2>
+      <ul className={styles.list}>
+        <li className={styles.item}>
+          <Image
+            src="/playlist_covers/playlists%20(1).jpg"
+            width={360}
+            height={360}
+            className={styles.img__desktop}
+            alt="Favorite songs"
+          />
+          <Image
+            src="/playlist_covers/playlists__1440%20(1).jpg"
+            width={240}
+            height={240}
+            className={styles.img__tablet}
+            alt="Favorite songs"
+          />
+          <Image
+            src="/playlist_covers/playlists__360%20(1).jpg"
+            width={99}
+            height={99}
+            className={styles.img__mobile}
+            alt="Favorite songs"
+          />
+          <div className={styles.content}>
+            <h3 className={styles.h3}>
+              <Link className={styles.h3__link} href="/">
+                Favorite songs
+              </Link>
             </h3>
-            <span className="playlist__count">58 треков</span>
+            <span className={styles.count}>58 tracks</span>
           </div>
         </li>
-        <li className="playlist__item">
-          <picture>
-            <source
-              srcSet="img/playlists__360%20(1).jpg"
-              media="(max-width: 576px)"
-            />
-            <source
-              srcSet="img/playlists__1440%20(1).jpg"
-              media="(max-width: 1440px)"
-            />
-            <img
-              className="playlist__img"
-              src="img/playlists%20(1).jpg"
-              alt="Любимые песни"
-            />
-          </picture>
-          <div className="playlist__content">
-            <h3 className="playlist__h3">
-              <a className="playlist__h3__link" href="/">
-                Плейлист #1
-              </a>
+        <li className={styles.item}>
+          <Image
+            src="/playlist_covers/playlists%20(1).jpg"
+            width={360}
+            height={360}
+            className={styles.img__desktop}
+            alt="Favorite songs"
+          />
+          <Image
+            src="/playlist_covers/playlists__1440%20(1).jpg"
+            width={240}
+            height={240}
+            className={styles.img__tablet}
+            alt="Favorite songs"
+          />
+          <Image
+            src="/playlist_covers/playlists__360%20(1).jpg"
+            width={99}
+            height={99}
+            className={styles.img__mobile}
+            alt="Favorite songs"
+          />
+          <div className={styles.content}>
+            <h3 className={styles.h3}>
+              <Link className={styles.h3__link} href="/">
+                Favorite songs
+              </Link>
             </h3>
-            <span className="playlist__count">58 треков</span>
+            <span className={styles.count}>58 tracks</span>
           </div>
         </li>
       </ul>

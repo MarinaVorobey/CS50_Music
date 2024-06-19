@@ -44,7 +44,7 @@ export default function Player() {
         <div className={`${styles.track__name} flex`}>
           <Image
             className={styles.track__img}
-            src="/covers/cover1.jpg"
+            src="/track_covers/cover1.jpg"
             width={60}
             height={60}
             alt="Histoire Sans Nom - Ludovico Einaudi, Czech National Symphony Orchestra"

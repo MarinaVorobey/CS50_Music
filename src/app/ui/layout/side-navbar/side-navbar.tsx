@@ -16,7 +16,7 @@ export default function SideNavbar() {
     {
       iconType: "play2",
       className: styles.link,
-      path: "tracks",
+      path: "/",
       text: "Tracks",
     },
     {

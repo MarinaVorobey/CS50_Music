@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
+        <div id="modal-root" />
         <Header />
         <div className={`${styles.content_wrap} flex`}>
           <SideNavbar />

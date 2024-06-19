@@ -44,9 +44,17 @@
   opacity: .5;
 }
 
-.img {
+.img__desktop,
+.img__tablet,
+.img__mobile {
   width: 100%;
+  height: auto;
   margin-bottom: 20px;
+}
+
+.img__tablet,
+.img__mobile {
+  display: none;
 }
 
 .count {
@@ -63,6 +71,14 @@
 @media (max-width: 1440px) {
   .h3 {
     font-size: 24px;
+  }
+
+  .img__desktop {
+    display: none;
+  }
+
+  .img__tablet {
+    display: block;
   }
 
   .item {
@@ -119,11 +135,16 @@
     margin-right: 0px;
   }
 
-  .img {
+  .img__mobile {
+    display: block;
     margin-bottom: 0;
     margin-right: 20px;
     height: 100%;
     width: 99px;
+  }
+
+  .img__desktop {
+    display: none;
   }
 
   .content {

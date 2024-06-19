@@ -1,0 +1,32 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  max-width: 328px;
+  max-height: 600px;
+  padding: 20px;
+  border: 1px solid var(--greyAA);
+  background: var(--whiteFF);
+  transform: translate(-50%, -60%);
+}
+
+.footer {
+  width: 114px;
+  height: 32px;
+  padding: 20px;
+}
+
+.close__btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 114px;
+  height: 32px;
+  padding: 10px;
+  color: var(--black17);
+  font-size: 14px;
+  text-align: center;
+  background: var(--greyAA);
+  cursor: pointer;
+}

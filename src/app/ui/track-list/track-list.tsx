@@ -2,7 +2,7 @@ import Icon from "../icon";
 import { colors } from "../colors";
 import styles from "./track-list.module.css";
 import Track from "./track/track";
-import { ITrack } from "@/app/lib/data";
+import { ITrack } from "@/app/lib/definitions";
 
 export default function TrackList() {
   const tracksInfo: ITrack[] = [
@@ -10,9 +10,9 @@ export default function TrackList() {
       id: 1,
       name: "In Bloom",
       path: "@/app/icon.png",
-      image: "/covers/cover1",
+      image: "/track_covers/cover1.jpg",
       duration: 2000000,
-      createdAt: new Date(),
+      createdAt: new Date("December 1, 1995 03:24:00"),
       album: "Nirvana",
       artist: "Nirvana",
       liked: true,
