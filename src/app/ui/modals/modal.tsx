@@ -5,9 +5,11 @@ import Register from "./register/register";
 import Confirm from "./confirm/confirm";
 import AddToPlaylist from "./add-to-playlist/add-to-playlist";
 
+export type TModals = "login" | "register" | "confirm" | "addToPlaylist";
+
 interface IModalProps {
   onClose: () => void;
-  type: "login" | "register" | "confirm" | "addToPlaylist";
+  type: TModals;
   data?: any;
 }
 
@@ -27,13 +29,11 @@ export default function Modal({ onClose, type, data }: IModalProps) {
       ? { onClose: onClose }
       : { ...data, onClose: onClose };
 
-  return (
+  return ReactDOM.createPortal(
     <>
       <div className={styles.overlay} onClick={onClose}></div>
-      {ReactDOM.createPortal(
-        <div className={styles.modal}>{typesToModals[type](modalProps)}</div>,
-        modalRoot
-      )}
-    </>
+      <div className={styles.modal}>{typesToModals[type](modalProps)}</div>
+    </>,
+    modalRoot
   );
 }

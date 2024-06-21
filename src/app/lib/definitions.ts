@@ -8,5 +8,12 @@ export interface ITrack {
   album?: string;
   artist: string;
   liked: boolean;
-  playlists: string[];
+  playlists: number[];
+}
+
+export interface IPlaylist {
+  id: number;
+  name: string;
+  createdAt: Date;
+  tracks: ITrack[];
 }

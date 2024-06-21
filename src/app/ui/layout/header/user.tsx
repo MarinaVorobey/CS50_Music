@@ -1,9 +1,15 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import { colors } from "../../colors";
 import Icon from "../../icon";
 import styles from "./header.module.css";
+import Modal, { TModals } from "../../modals/modal";
 
 export default function User() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<TModals>("login");
+
   return (
     <div className={styles.user}>
       <Icon
@@ -12,13 +18,23 @@ export default function User() {
         defaultColor={colors.greyAA}
       />
       <span className={styles.user__text}>Anonymous</span>
-      <Link className={styles.user__auth} href="/login">
+      <button onClick={() => setModalOpen(true)} className={styles.user__auth}>
         <Icon
           type="door"
           className={styles.user__auth__icon}
           defaultColor={colors.greyAA}
         />
-      </Link>
+      </button>
+      {modalOpen ? (
+        <Modal
+          type={modalType}
+          onClose={() => setModalOpen(false)}
+          data={{
+            switchType: () =>
+              setModalType((prev) => (prev === "login" ? "register" : "login")),
+          }}
+        />
+      ) : null}
     </div>
   );
 }

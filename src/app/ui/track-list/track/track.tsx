@@ -59,7 +59,7 @@ export default function Track({ trackData }: { trackData: ITrack }) {
 
       {modalOpen ? (
         id === 1 ? (
-          <Modal onClose={() => setModalOpen(false)} type="register" />
+          <Modal onClose={() => setModalOpen(false)} type="addToPlaylist" />
         ) : (
           <Modal
             onClose={() => setModalOpen(false)}
