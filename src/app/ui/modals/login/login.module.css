@@ -1,0 +1,66 @@
+.content {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 15px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--black11);
+}
+
+.email,
+.password {
+  padding: 15px;
+  border: 1px solid var(--orange);
+  font-size: 20px;
+  border-radius: 15px;
+}
+
+.email__label,
+.password__label {
+  margin: 0;
+  font-size: 18px;
+}
+
+.submit__block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.submit__btn {
+  padding: 20px 50px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--black11);
+  background-color: var(--greyE8);
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.submit__btn:focus {
+  background-color: var(--orange);
+}
+
+.submit__btn:hover {
+  background-color: var(--orange);
+}
+
+.close__btn {
+  padding: 20px 50px;
+  color: var(--black17);
+  font-size: 16px;
+  text-align: center;
+  background: var(--greyAA);
+  cursor: pointer;
+}

@@ -47,3 +47,17 @@
 .playlist:hover .playlist__title {
   color: var(--orange);
 }
+
+.close__btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 114px;
+  height: 32px;
+  padding: 10px;
+  color: var(--black17);
+  font-size: 14px;
+  text-align: center;
+  background: var(--greyAA);
+  cursor: pointer;
+}

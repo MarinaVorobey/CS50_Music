@@ -54,17 +54,6 @@ body {
   margin: 0;
 }
 
-:root {
-  --color-blacktxt: #11253D;
-  --color-greytxt: #A4A4A4;
-  --color-lightgreytxt: #C4C4C4;
-  --color-greybg: #F5F5F5;
-  --color-greyDarkerbg: #E8E8E8;
-  --color-greyBgBtn: #AAAAAA;
-  --color-promo: #FC6D3E;
-  --transition-duration: .3s;
-}
-
 .visually-hidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);

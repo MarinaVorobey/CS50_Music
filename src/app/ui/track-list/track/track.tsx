@@ -1,13 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import { colors } from "../../colors";
 import Icon from "../../icon";
 import { ITrack } from "@/app/lib/definitions";
 import styles from "./track.module.css";
 import { formatDuration, formatTimePassed } from "@/app/lib/utils";
+import { useState } from "react";
+import Modal from "../../modals/modal";
 
 export default function Track({ trackData }: { trackData: ITrack }) {
   const { id, name, path, image, duration, createdAt, album, artist, liked } =
     trackData;
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -41,13 +46,32 @@ export default function Track({ trackData }: { trackData: ITrack }) {
       </div>
       <time className={styles.item__time}>{formatDuration(duration)}</time>
       <div className={styles.item__drop}>
-        <button className={id !== 1 ? styles.btn__add : styles.btn__remove}>
+        <button
+          onClick={() => setModalOpen(true)}
+          className={id !== 1 ? styles.btn__add : styles.btn__remove}
+        >
           <Icon
             type={id !== 1 ? "plus" : "minus"}
             defaultColor={colors.greyC4}
           />
         </button>
       </div>
+
+      {modalOpen ? (
+        id === 1 ? (
+          <Modal onClose={() => setModalOpen(false)} type="register" />
+        ) : (
+          <Modal
+            onClose={() => setModalOpen(false)}
+            type="confirm"
+            data={{
+              title: "Remove song from the playlist?",
+              confirmText: "Remove",
+              onConfirm: () => setModalOpen(false),
+            }}
+          />
+        )
+      ) : null}
     </>
   );
 }
