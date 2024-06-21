@@ -47,6 +47,16 @@
   background-color: var(--whiteFF);
 }
 
+.link__active:focus {
+  color: var(--whiteFF);
+  background-color: var(--orange);
+}
+
+.link__active:hover {
+  color: var(--whiteFF);
+  background-color: var(--orange);
+}
+
 .link svg,
 .link__active svg {
   margin-right: 12px;
@@ -60,6 +70,7 @@
 
   .link__active:hover {
     background-color: var(--orange);
+    color: var(--whiteFF);
   }
 }
 

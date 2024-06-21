@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Icon, { TIconNames } from "../../icon";
 import { colors } from "../../colors";
 import styles from "./side-navbar.module.css";
+import { usePathname } from "next/navigation";
 
 interface ILinkInfo {
   iconType?: TIconNames;
@@ -12,6 +15,7 @@ interface ILinkInfo {
 }
 
 export default function SideNavbar() {
+  const pathname = usePathname();
   const specialLinks: ILinkInfo[] = [
     {
       iconType: "play2",
@@ -22,28 +26,28 @@ export default function SideNavbar() {
     {
       iconType: "note",
       className: styles.link,
-      path: "playlists",
+      path: "/playlists",
       text: "Playlists",
     },
     {
       iconType: "heart2",
-      className: `${styles.special} ${styles.link__active}`,
-      path: "favorites",
+      className: `${styles.special} ${styles.link}`,
+      path: "/favorites",
       text: "Favorites",
     },
   ];
 
   const playlists: ILinkInfo[] = [
     {
-      path: "playlist#1",
+      path: "/playlist/1",
       text: "Playlist #1",
     },
     {
-      path: "playlist#2",
+      path: "/playlist/2",
       text: "Playlist #2",
     },
     {
-      path: "playlist#3",
+      path: "/playlist/3",
       text: "Playlist #3",
     },
   ];
@@ -56,15 +60,20 @@ export default function SideNavbar() {
         <ul className={styles.list}>
           {specialLinks.map(({ text, path, className, iconType }) => (
             <li key={path} className={styles.item}>
-              <Link href={path} className={className}>
+              <Link
+                href={path}
+                className={
+                  pathname === path
+                    ? `${className} ${styles.link__active}`
+                    : className
+                }
+              >
                 {iconType ? (
                   <Icon
                     type={iconType}
                     className={styles.icon}
                     defaultColor={
-                      className?.includes("link__active")
-                        ? colors.whiteFF
-                        : colors.orange
+                      pathname === path ? colors.whiteFF : colors.orange
                     }
                   />
                 ) : null}
@@ -78,7 +87,14 @@ export default function SideNavbar() {
         <ul className={styles.list}>
           {playlists.map(({ text, path }) => (
             <li key={path} className={styles.item}>
-              <Link href={path} className={styles.link}>
+              <Link
+                href={path}
+                className={
+                  pathname === path
+                    ? `${styles.link} ${styles.link__active}`
+                    : styles.link
+                }
+              >
                 <span className={styles.link__text}>{text}</span>
               </Link>
             </li>

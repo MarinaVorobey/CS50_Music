@@ -4,7 +4,39 @@ import styles from "./track-list.module.css";
 import Track from "./track/track";
 import { ITrack } from "@/app/lib/definitions";
 
-export default function TrackList() {
+type TTracklists = "all" | "favorite" | "playlist";
+type TTrackListsStatic = Exclude<TTracklists, "playlist">;
+interface ITrackListProps {
+  type: TTracklists;
+  playlistId?: number;
+}
+
+interface ITracklistTypeData {
+  title: string;
+  path: string;
+}
+
+type TTypesToPlalylist = {
+  [N in TTrackListsStatic]: ITracklistTypeData;
+};
+
+const typesToPlaylistData: TTypesToPlalylist = {
+  all: {
+    title: "All tracks",
+    path: "/all",
+  },
+  favorite: {
+    title: "Favorite tracks",
+    path: "/favorite",
+  },
+};
+
+export default function TrackList({ type, playlistId }: ITrackListProps) {
+  const defaultPlaylist = {
+    name: "Playlist#1",
+    tracks: [],
+  };
+
   const tracksInfo: ITrack[] = [
     {
       id: 1,
@@ -22,7 +54,11 @@ export default function TrackList() {
 
   return (
     <section className="tracks section" data-target="tracks">
-      <h2 className={styles.title__h2}>Tracks</h2>
+      <h2 className={styles.title__h2}>
+        {type === "playlist"
+          ? defaultPlaylist.name
+          : typesToPlaylistData[type].title}
+      </h2>
       <div className={styles.content}>
         <div className={`${styles.header} flex`}>
           <div className={styles.header__number}>№</div>

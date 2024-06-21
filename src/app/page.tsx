@@ -1,5 +1,5 @@
 import TrackList from "./ui/track-list/track-list";
 
 export default function Home() {
-  return <TrackList />;
+  return <TrackList type="all" />;
 }

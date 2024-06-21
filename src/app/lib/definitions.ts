@@ -14,6 +14,7 @@ export interface ITrack {
 export interface IPlaylist {
   id: number;
   name: string;
+  coverNumber: number;
   createdAt: Date;
   tracks: ITrack[];
 }
