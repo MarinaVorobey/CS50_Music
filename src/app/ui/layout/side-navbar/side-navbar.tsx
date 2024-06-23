@@ -81,25 +81,36 @@ export default function SideNavbar() {
               </Link>
             </li>
           ))}
+          <li key="search" className={styles.item}>
+            <button className={`${styles.search__btn} ${styles.link}`}>
+              <Icon
+                type="search"
+                className={styles.search__icon}
+                defaultColor={colors.orange}
+              />
+            </button>
+          </li>
         </ul>
 
-        <h3 className={styles.list__title}>Playlists:</h3>
-        <ul className={styles.list}>
-          {playlists.map(({ text, path }) => (
-            <li key={path} className={styles.item}>
-              <Link
-                href={path}
-                className={
-                  pathname === path
-                    ? `${styles.link} ${styles.link__active}`
-                    : styles.link
-                }
-              >
-                <span className={styles.link__text}>{text}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.playlists}>
+          <h3 className={styles.list__title}>Playlists:</h3>
+          <ul className={styles.list}>
+            {playlists.map(({ text, path }) => (
+              <li key={path} className={styles.item}>
+                <Link
+                  href={path}
+                  className={
+                    pathname === path
+                      ? `${styles.link} ${styles.link__active}`
+                      : styles.link
+                  }
+                >
+                  <span className={styles.link__text}>{text}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </aside>
   );

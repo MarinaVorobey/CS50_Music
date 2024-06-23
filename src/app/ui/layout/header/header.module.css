@@ -163,7 +163,13 @@
 
   .logo {
     padding: 0;
-    margin-right: auto;
+    margin-right: 12px;
+    font-size: 20px;
+  }
+
+  .logo__img {
+    max-width: 40px;
+    max-height: 40px;
   }
 
   .search {
@@ -174,10 +180,15 @@
   }
 
   .user {
-    padding: 0;
+    padding: 5px 12px;
     max-width: max-content;
-    font-size: 12px;
-    background-color: transparent;
+    gap: 15px;
+    font-size: 14px;
+    background-color: var(--greyE8);
+  }
+
+  .user__icon {
+    display: none;
   }
 
   .user__text {

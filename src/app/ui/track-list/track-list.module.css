@@ -48,3 +48,50 @@
   padding-bottom: 14px;
   align-items: center;
 }
+
+@media (max-width: 1440px) {
+  .header__album {
+    max-width: 262px;
+  }
+
+  .header__data {
+    max-width: 239px;
+  }
+
+  .header__time {
+    max-width: 99px;
+  }
+
+}
+
+@media (max-width: 992px) {
+
+  .header__data svg path,
+  .header__time svg path {
+    stroke: none;
+  }
+
+  .header__name,
+  .header__album {
+    max-width: none;
+  }
+
+  .header__name {
+    flex: 8 1;
+  }
+
+  .header__album,
+  .header__data {
+    flex: 4 1;
+  }
+
+  .header__time {
+    max-width: 63px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__album {
+    display: none;
+  }
+}

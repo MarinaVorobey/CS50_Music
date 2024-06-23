@@ -7,9 +7,20 @@
   flex: 1;
 }
 
+@media (max-width: 1300px) {
+  .main {
+    padding: 110px 53px 145px 53px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-bottom: 200px;
+  }
+}
+
 @media (max-width: 576px) {
   .main {
-    padding: 0px 16px 145px 16px;
-    background-color: var(--color-greybg);
+    padding: 100px 18px 160px 16px;
   }
 }

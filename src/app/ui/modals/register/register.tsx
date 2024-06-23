@@ -8,7 +8,7 @@ interface IRegisterProps {
 export default function Register({ onClose, switchType }: IRegisterProps) {
   return (
     <form method="POST" className={styles.content}>
-      <h2 className={styles.h2}>Register</h2>
+      <h2 className={styles.title}>Register</h2>
       <label className={styles.email__label} htmlFor="register-email">
         Email:
       </label>

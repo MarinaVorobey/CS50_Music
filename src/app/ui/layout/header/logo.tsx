@@ -5,13 +5,13 @@ import styles from "./header.module.css";
 
 export default function Logo() {
   return (
-    <Link href="#" className={`${styles.logo} ${lobster.className}`}>
+    <Link href="/" className={`${styles.logo} ${lobster.className}`}>
       <Image
         src="/logo.png"
         alt="Solar_Music logo as a link to main page"
         width={50}
         height={50}
-        className="logo__img"
+        className={styles.logo__img}
       />
       <span className={styles.logo__text}>Solar_Music</span>
     </Link>

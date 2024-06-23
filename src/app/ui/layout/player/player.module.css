@@ -140,6 +140,16 @@
   .player {
     flex-direction: column;
   }
+
+  .track__name {
+    max-width: 334px;
+  }
+
+  .controls__header {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -158,19 +168,8 @@
     padding: 14px 16px;
   }
 
-  .play__btn {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-  }
-
-  .controls__header button:not(:last-child) {
-    margin: 0;
-  }
-
-  .track-name {
-    max-width: 100%;
-    padding-right: 50px;
+  .track__name {
+    max-width: 220px;
   }
 
   .track__h3 {

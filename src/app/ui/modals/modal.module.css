@@ -37,6 +37,7 @@
   top: 50%;
   left: 50%;
   z-index: 200;
+  min-width: 280px;
   max-width: 500px;
   max-height: 800px;
   padding: 20px;
@@ -51,4 +52,12 @@
   width: 114px;
   height: 32px;
   padding: 20px;
+}
+
+@media (max-width: 992px) {
+  .modal {
+    max-width: 400px;
+    max-height: 500px;
+    padding: 20px;
+  }
 }

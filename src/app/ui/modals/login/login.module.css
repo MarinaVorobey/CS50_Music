@@ -34,6 +34,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 15px;
 }
@@ -70,4 +71,47 @@
   color: var(--orange);
   font-size: 16px;
   text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .title {
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .email,
+  .password {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .submit__btn,
+  .close__btn {
+    padding: 15px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .email__label,
+  .password__label {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .content {
+    gap: 10px;
+  }
+
+  .email,
+  .password {
+    font-size: 14px;
+  }
+
+  .submit__btn,
+  .close__btn {
+    padding: 15px 35px;
+    font-size: 14px;
+  }
 }
