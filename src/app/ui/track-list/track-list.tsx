@@ -59,26 +59,30 @@ export default function TrackList({ type, playlistId }: ITrackListProps) {
           ? defaultPlaylist.name
           : typesToPlaylistData[type].title}
       </h2>
-      <div className={styles.content}>
-        <div className={`${styles.header} flex`}>
-          <div className={styles.header__number}>№</div>
-          <div className={styles.header__name}>NAME</div>
-          <div className={styles.header__album}>ALBUM</div>
-          <div className={styles.header__data}>
-            <Icon type="calendar" defaultColor={colors.greyA4} />
+      {tracksInfo.length === 0 ? (
+        <p className={styles.no__tracks}>No tracks here yet.</p>
+      ) : (
+        <div className={styles.content}>
+          <div className={`${styles.header} flex`}>
+            <div className={styles.header__number}>№</div>
+            <div className={styles.header__name}>NAME</div>
+            <div className={styles.header__album}>ALBUM</div>
+            <div className={styles.header__data}>
+              <Icon type="calendar" defaultColor={colors.greyA4} />
+            </div>
+            <div className={styles.header__time}>
+              <Icon type="clock" defaultColor={colors.greyA4} />
+            </div>
           </div>
-          <div className={styles.header__time}>
-            <Icon type="clock" defaultColor={colors.greyA4} />
-          </div>
+          <ul className={styles.list}>
+            {tracksInfo.map((t) => (
+              <li className={`${styles.item} flex`} key={t.id}>
+                <Track trackData={t} />
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className={styles.list}>
-          {tracksInfo.map((t) => (
-            <li className={`${styles.item} flex`} key={t.id}>
-              <Track trackData={t} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      )}
     </section>
   );
 }

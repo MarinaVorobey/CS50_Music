@@ -1,4 +1,5 @@
 import styles from "./register.module.css";
+import generalStyles from "../modal.module.css";
 
 interface IRegisterProps {
   onClose: () => void;
@@ -8,44 +9,45 @@ interface IRegisterProps {
 export default function Register({ onClose, switchType }: IRegisterProps) {
   return (
     <form method="POST" className={styles.content}>
-      <h2 className={styles.title}>Register</h2>
-      <label className={styles.email__label} htmlFor="register-email">
+      <h2 className={generalStyles.title}>Register</h2>
+      <label className={generalStyles.label} htmlFor="register-email">
         Email:
       </label>
       <input
         name="email"
         id="register-email"
-        className={styles.email}
+        className={generalStyles.input}
         type="email"
       />
 
-      <label className={styles.password__label} htmlFor="register-password">
+      <label className={generalStyles.label} htmlFor="register-password">
         Password:
       </label>
       <input
         name="password"
         id="register-password"
-        className={styles.password}
+        className={generalStyles.input}
         type="text"
       />
 
-      <label
-        className={styles.repeat__password__label}
-        htmlFor="register-repeat"
-      >
+      <label className={generalStyles.label} htmlFor="register-repeat">
         Repeat password:
       </label>
       <input
-        className={styles.repeat__password}
+        className={generalStyles.input}
         id="register-repeat"
         type="text"
         name="repeat-password"
       />
-      <div className={styles.submit__block}>
-        <button className={styles.submit__btn} type="submit">
+      <div className={generalStyles.submit__block}>
+        <button className={generalStyles.submit__btn} type="submit">
           Register
         </button>
-        <button onClick={onClose} type="button" className={styles.close__btn}>
+        <button
+          onClick={onClose}
+          type="button"
+          className={generalStyles.close__btn}
+        >
           Cancel
         </button>
       </div>

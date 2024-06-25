@@ -1,3 +1,4 @@
+export * from "./bin";
 export * from "./calendar";
 export * from "./clock";
 export * from "./door";

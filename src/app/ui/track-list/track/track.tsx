@@ -8,11 +8,13 @@ import styles from "./track.module.css";
 import { formatDuration, formatTimePassed } from "@/app/lib/utils";
 import { useState } from "react";
 import Modal from "../../modals/modal";
+import { usePathname } from "next/navigation";
 
 export default function Track({ trackData }: { trackData: ITrack }) {
   const { id, name, path, image, duration, createdAt, album, artist, liked } =
     trackData;
   const [modalOpen, setModalOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -48,17 +50,21 @@ export default function Track({ trackData }: { trackData: ITrack }) {
       <div className={styles.item__drop}>
         <button
           onClick={() => setModalOpen(true)}
-          className={id !== 1 ? styles.btn__add : styles.btn__remove}
+          className={
+            !pathname.includes("playlist")
+              ? styles.btn__add
+              : styles.btn__remove
+          }
         >
           <Icon
-            type={id !== 1 ? "plus" : "minus"}
+            type={!pathname.includes("playlist") ? "plus" : "minus"}
             defaultColor={colors.greyC4}
           />
         </button>
       </div>
 
       {modalOpen ? (
-        id === 1 ? (
+        !pathname.includes("playlist") ? (
           <Modal onClose={() => setModalOpen(false)} type="addToPlaylist" />
         ) : (
           <Modal

@@ -1,13 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { IPlaylist } from "../lib/definitions";
+import Icon from "../ui/icon";
+import { colors } from "../ui/colors";
+import { useState } from "react";
+import Modal from "../ui/modals/modal";
 
 export default function Page() {
   const playlists: IPlaylist[] = [
     {
       id: 1,
-      name: "Favorite songs",
+      name: "For studying English",
       coverNumber: 1,
       createdAt: new Date(),
       tracks: [],
@@ -20,11 +26,54 @@ export default function Page() {
       tracks: [],
     },
   ];
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteModalPlaylist, setDeleteModalPlaylist] =
+    useState<IPlaylist | null>(null);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
 
   return (
     <section>
       <h2 className={`${styles.h2} visually-hidden`}>Playlists</h2>
       <ul className={styles.list}>
+        <li
+          onClick={() => setCreateModalOpen(true)}
+          key="add"
+          className={`${styles.item} ${styles.add__btn}`}
+        >
+          <div className={styles.add__bg}>
+            <Image
+              src="/playlist_covers/default__add.jpg"
+              width={360}
+              height={360}
+              className={styles.img__desktop}
+              alt="Add new playlist"
+            />
+            <Image
+              src="/playlist_covers/default__add.jpg"
+              width={240}
+              height={240}
+              className={styles.img__tablet}
+              alt="Add new playlist"
+            />
+            <Image
+              src="/playlist_covers/default__add.jpg"
+              width={99}
+              height={99}
+              className={styles.img__mobile}
+              alt="Add new playlist"
+            />
+          </div>
+          <div className={styles.content}>
+            <h3 className={`${styles.h3} ${styles.h3__link}`}>
+              <Icon
+                type="plus"
+                className={styles.add__icon}
+                defaultColor={colors.black11}
+              />
+              Create new playlist
+            </h3>
+          </div>
+        </li>
         {playlists.map((p) => (
           <li key={p.id} className={styles.item}>
             <Image
@@ -51,7 +100,7 @@ export default function Page() {
             <div className={styles.content}>
               <h3 className={styles.h3}>
                 <Link className={styles.h3__link} href={`/playlist/${p.id}`}>
-                  {p.name}
+                  <span className={styles.name}>{p.name}</span>
                 </Link>
               </h3>
               <span className={styles.count}>
@@ -59,10 +108,38 @@ export default function Page() {
                   ? `${p.tracks.length} tracks`
                   : "No tracks"}
               </span>
+              <button
+                className={styles.delete__btn}
+                onClick={() => {
+                  setDeleteModalOpen(true);
+                  setDeleteModalPlaylist(p);
+                }}
+              >
+                <Icon type="bin" defaultColor={colors.greyA4} />
+              </button>
             </div>
           </li>
         ))}
       </ul>
+
+      {deleteModalOpen ? (
+        <Modal
+          onClose={() => setDeleteModalOpen(false)}
+          type="confirm"
+          data={{
+            title: `Delete playlist "${deleteModalPlaylist?.name}"?`,
+            confirmText: "Delete",
+            onConfirm: () => setDeleteModalOpen(false),
+            onClose: () => setDeleteModalOpen(false),
+          }}
+        />
+      ) : null}
+      {createModalOpen ? (
+        <Modal
+          onClose={() => setCreateModalOpen(false)}
+          type="createPlaylist"
+        />
+      ) : null}
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import styles from "./login.module.css";
+import generalStyles from "../modal.module.css";
 
 interface ILoginProps {
   onClose: () => void;
@@ -8,31 +9,35 @@ interface ILoginProps {
 export default function Login({ onClose, switchType }: ILoginProps) {
   return (
     <form className={styles.content} method="POST">
-      <h2 className={styles.title}>Log in</h2>
-      <label className={styles.email__label} htmlFor="login-email">
+      <h2 className={generalStyles.title}>Log in</h2>
+      <label className={generalStyles.label} htmlFor="login-email">
         Email:
       </label>
       <input
         name="email"
         id="login-email"
-        className={styles.email}
+        className={generalStyles.input}
         type="email"
       />
 
-      <label className={styles.password__label} htmlFor="login-password">
+      <label className={generalStyles.label} htmlFor="login-password">
         Password:
       </label>
       <input
         name="password"
         id="login-password"
-        className={styles.password}
+        className={generalStyles.input}
         type="text"
       />
-      <div className={styles.submit__block}>
-        <button className={styles.submit__btn} type="submit">
+      <div className={generalStyles.submit__block}>
+        <button className={generalStyles.submit__btn} type="submit">
           Log in
         </button>
-        <button onClick={onClose} type="button" className={styles.close__btn}>
+        <button
+          onClick={onClose}
+          type="button"
+          className={generalStyles.close__btn}
+        >
           Cancel
         </button>
       </div>

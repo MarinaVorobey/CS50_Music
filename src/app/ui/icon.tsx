@@ -1,6 +1,7 @@
 import * as icons from "./icons";
 
 export type TIconNames =
+  | "bin"
   | "calendar"
   | "clock"
   | "door"
@@ -25,6 +26,7 @@ type TIcons = {
 };
 
 const iconNamesToIcons: TIcons = {
+  bin: icons.Bin,
   calendar: icons.Calendar,
   clock: icons.Clock,
   door: icons.Door,

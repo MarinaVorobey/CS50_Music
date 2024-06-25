@@ -4,8 +4,14 @@ import ReactDOM from "react-dom";
 import Register from "./register/register";
 import Confirm from "./confirm/confirm";
 import AddToPlaylist from "./add-to-playlist/add-to-playlist";
+import CreatePlaylist from "./create-playlist/create-playlist";
 
-export type TModals = "login" | "register" | "confirm" | "addToPlaylist";
+export type TModals =
+  | "login"
+  | "register"
+  | "confirm"
+  | "addToPlaylist"
+  | "createPlaylist";
 
 interface IModalProps {
   onClose: () => void;
@@ -18,6 +24,7 @@ const typesToModals = {
   register: Register,
   confirm: Confirm,
   addToPlaylist: AddToPlaylist,
+  createPlaylist: CreatePlaylist,
 };
 
 export default function Modal({ onClose, type, data }: IModalProps) {

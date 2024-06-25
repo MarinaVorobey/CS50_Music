@@ -13,10 +13,17 @@
   margin-right: 30px;
 }
 
+.add__btn {
+  cursor: pointer;
+}
+
 .h3 {
+  max-width: calc(100% - 32px);
   margin-bottom: 10px;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .h3__link {
@@ -62,9 +69,50 @@
   font-weight: bold;
 }
 
+.delete__btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.delete__btn svg path {
+  transition: fill 0.3s ease-in-out;
+}
+
+.delete__btn:focus svg path,
+.delete__btn:hover svg path,
+.delete__btn:active svg path {
+  fill: var(--orange);
+}
+
+.add__bg {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.add__icon {
+  position: absolute;
+  top: calc(45% - 60px);
+  left: calc(50% - 40px);
+}
+
+.add__icon svg circle {
+  transition: fill 0.3s ease-in-out;
+}
+
+.add__icon svg {
+  width: 80px;
+  height: 80px;
+}
+
 @media (min-width: 1200px) {
   .h3__link:hover:not(:focus-visible) {
     color: var(--orange);
+  }
+
+  .h3__link:hover:not(:focus-visible) .add__icon svg circle {
+    fill: var(--orange);
   }
 }
 
@@ -158,5 +206,24 @@
 
   .count {
     font-size: 12px;
+  }
+
+  .delete__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .add__icon {
+    top: 30px;
+    left: 30px;
+  }
+
+  .add__icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .add__bg {
+    width: fit-content;
   }
 }

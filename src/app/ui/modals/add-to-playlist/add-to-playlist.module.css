@@ -1,12 +1,25 @@
+.form {
+  padding-bottom: 50px;
+}
+
 .title {
   font-size: 20px;
   color: var(--black11);
+}
+
+.checkbox:checked+.label {
+  outline: 2px solid var(--orange);
+}
+
+.label {
+  cursor: pointer;
 }
 
 .playlist {
   width: 288px;
   height: 40px;
   margin-top: 20px;
+  padding: 10px 0;
   cursor: pointer;
 }
 
@@ -48,16 +61,36 @@
   color: var(--orange);
 }
 
-.close__btn {
+.close__btn,
+.submit__btn {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
   width: 114px;
   height: 32px;
   padding: 10px;
   color: var(--black17);
   font-size: 14px;
   text-align: center;
-  background: var(--greyAA);
   cursor: pointer;
+}
+
+.close__btn {
+  bottom: 20px;
+  right: 20px;
+  background: var(--greyAA);
+}
+
+.submit__btn {
+  bottom: 20px;
+  left: 20px;
+  background: var(--greyE8);
+  transition: background-color 0.3s ease-in-out;
+}
+
+@media (min-width: 1200px) {
+
+  .submit__btn:focus,
+  .submit__btn:hover,
+  .submit__btn:active {
+    background: var(--orange);
+  }
 }

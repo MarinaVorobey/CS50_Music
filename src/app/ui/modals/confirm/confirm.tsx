@@ -1,4 +1,4 @@
-import styles from "./confirm.module.css";
+import generalStyles from "../modal.module.css";
 
 interface IConfirmProps {
   title: string;
@@ -15,12 +15,12 @@ export default function Confirm({
 }: IConfirmProps) {
   return (
     <>
-      <h2 className={styles.title}>{title}</h2>
-      <div className={styles.submit__block}>
-        <button onClick={onConfirm} className={styles.confirm__btn}>
+      <h2 className={generalStyles.title}>{title}</h2>
+      <div className={generalStyles.submit__block}>
+        <button onClick={onConfirm} className={generalStyles.submit__btn}>
           {confirmText}
         </button>
-        <button onClick={onClose} className={styles.close__btn}>
+        <button onClick={onClose} className={generalStyles.close__btn}>
           Cancel
         </button>
       </div>
