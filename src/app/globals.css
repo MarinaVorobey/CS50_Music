@@ -76,3 +76,9 @@ body {
 .search__btn-open {
   display: none;
 }
+
+@media (max-width: 992px) {
+  .search--active {
+    transform: translateX(0);
+  }
+}

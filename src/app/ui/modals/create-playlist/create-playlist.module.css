@@ -3,3 +3,24 @@
   flex-flow: column wrap;
   gap: 12px;
 }
+
+.cover__choice {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+}
+
+.choice__item {
+  width: calc((100% - 36px)/4);
+}
+
+.chioce__img {
+  width: 100%;
+  height: auto;
+  border: 3px transparent solid;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.choice__input:checked+.chioce__img {
+  border-color: var(--orange);
+}

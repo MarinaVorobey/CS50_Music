@@ -27,3 +27,8 @@ export function formatDuration(time: number): string {
   const seconds = `${Math.floor(time / 1000)}`;
   return `${minutes}:${seconds.length > 1 ? seconds : "0" + seconds}`;
 }
+
+export function moveSearchbar(): void {
+  const search = document.getElementById("search");
+  search?.classList.toggle("search--active");
+}

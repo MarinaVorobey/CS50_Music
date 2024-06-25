@@ -14,7 +14,8 @@ export default function Login({ onClose, switchType }: ILoginProps) {
         Email:
       </label>
       <input
-        name="email"
+        key="login-email"
+        name="login-email"
         id="login-email"
         className={generalStyles.input}
         type="email"
@@ -24,7 +25,8 @@ export default function Login({ onClose, switchType }: ILoginProps) {
         Password:
       </label>
       <input
-        name="password"
+        key="login-password"
+        name="login-password"
         id="login-password"
         className={generalStyles.input}
         type="text"

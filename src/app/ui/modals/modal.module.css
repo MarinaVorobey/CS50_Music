@@ -46,7 +46,7 @@
   align-items: center;
   flex-flow: column wrap;
   background: var(--whiteFF);
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -50%);
   animation: animatetop 0.4s ease-in-out;
   overflow-y: auto;
 }

@@ -125,15 +125,12 @@
 
   .search {
     position: absolute;
-    top: 0;
-    width: 100%;
+    top: 5px;
+    left: 1%;
+    width: 98%;
     padding: 0 50px;
     transform: translateX(-102%);
     transition: transform .3s ease-in-out;
-  }
-
-  .search.search--active {
-    transform: translateX(0%);
   }
 
   .search__field {
@@ -173,8 +170,8 @@
   }
 
   .search {
-    left: 0;
-    width: 100%;
+    left: 1%;
+    width: 98%;
     padding-left: 0;
     padding-right: 0;
   }

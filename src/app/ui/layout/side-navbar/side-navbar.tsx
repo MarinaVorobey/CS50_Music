@@ -5,6 +5,8 @@ import Icon, { TIconNames } from "../../icon";
 import { colors } from "../../colors";
 import styles from "./side-navbar.module.css";
 import { usePathname } from "next/navigation";
+import { moveSearchbar } from "@/app/lib/utils";
+import { useState } from "react";
 
 interface ILinkInfo {
   iconType?: TIconNames;
@@ -16,6 +18,8 @@ interface ILinkInfo {
 
 export default function SideNavbar() {
   const pathname = usePathname();
+  const [searchActive, setSearchActive] = useState(false);
+
   const specialLinks: ILinkInfo[] = [
     {
       iconType: "play2",
@@ -82,11 +86,19 @@ export default function SideNavbar() {
             </li>
           ))}
           <li key="search" className={styles.item}>
-            <button className={`${styles.search__btn} ${styles.link}`}>
+            <button
+              onClick={() => {
+                setSearchActive((prev) => !prev);
+                moveSearchbar();
+              }}
+              className={`${styles.search__btn} ${styles.link}${
+                searchActive ? " " + styles.link__active : ""
+              }`}
+            >
               <Icon
                 type="search"
                 className={styles.search__icon}
-                defaultColor={colors.orange}
+                defaultColor={searchActive ? colors.whiteFF : colors.orange}
               />
             </button>
           </li>

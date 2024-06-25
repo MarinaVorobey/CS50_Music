@@ -14,7 +14,8 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
         Email:
       </label>
       <input
-        name="email"
+        key="register-email"
+        name="register-email"
         id="register-email"
         className={generalStyles.input}
         type="email"
@@ -24,7 +25,8 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
         Password:
       </label>
       <input
-        name="password"
+        key="register-password"
+        name="register-password"
         id="register-password"
         className={generalStyles.input}
         type="text"
@@ -35,6 +37,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
       </label>
       <input
         className={generalStyles.input}
+        key="register-repeat"
         id="register-repeat"
         type="text"
         name="repeat-password"

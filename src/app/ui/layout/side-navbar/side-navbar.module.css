@@ -72,14 +72,10 @@
   transition: stroke 0.3s ease-in-out;
 }
 
-.search__btn:focus,
-.search__btn:hover,
 .search__btn:active {
   background-color: var(--orange);
 }
 
-.search__btn:focus svg path,
-.search__btn:hover svg path,
 .search__btn:active svg path {
   stroke: var(--whiteFF);
 }
@@ -87,9 +83,15 @@
 @media (min-width: 1200px) {
   .link:hover {
     color: var(--orange);
+    background-color: var(--whiteFF);
   }
 
   .link__active:hover {
+    background-color: var(--orange);
+    color: var(--whiteFF);
+  }
+
+  .search__btn:hover {
     background-color: var(--orange);
     color: var(--whiteFF);
   }

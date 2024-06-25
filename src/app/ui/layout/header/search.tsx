@@ -2,7 +2,7 @@ import styles from "./header.module.css";
 
 export default function Search() {
   return (
-    <div className={styles.search}>
+    <div id="search" className={styles.search}>
       <input
         className={styles.search__field}
         type="search"

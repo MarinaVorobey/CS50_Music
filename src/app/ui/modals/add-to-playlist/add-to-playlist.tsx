@@ -23,7 +23,7 @@ export default function AddToPlaylist({ onClose }: { onClose: () => void }) {
   return (
     <>
       <div className={styles.title}>Add to playlist</div>
-      <form action="POST" className={styles.form}>
+      <form method="POST" className={styles.form}>
         <ul className={styles.playlist__content}>
           {playlists.map((p) => (
             <li key={p.id} className={styles.playlist}>
