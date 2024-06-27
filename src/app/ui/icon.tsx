@@ -7,6 +7,7 @@ export type TIconNames =
   | "door"
   | "heart"
   | "heart2"
+  | "loading"
   | "minus"
   | "note"
   | "play-next"
@@ -32,6 +33,7 @@ const iconNamesToIcons: TIcons = {
   door: icons.Door,
   heart: icons.Heart,
   heart2: icons.Heart2,
+  loading: icons.Loader,
   minus: icons.Minus,
   note: icons.Note,
   "play-next": icons.PlayNext,

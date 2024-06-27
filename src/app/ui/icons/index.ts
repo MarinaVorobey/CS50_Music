@@ -4,6 +4,7 @@ export * from "./clock";
 export * from "./door";
 export * from "./heart";
 export * from "./heart2";
+export * from "./loader";
 export * from "./minus";
 export * from "./note";
 export * from "./play-next";
