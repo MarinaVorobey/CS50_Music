@@ -86,11 +86,20 @@
   transition: background-color 0.3s ease-in-out;
 }
 
+.submit__btn:disabled {
+  background-color: var(--greyAA);
+  cursor: not-allowed;
+}
+
 @media (min-width: 1200px) {
 
   .submit__btn:focus,
   .submit__btn:hover,
   .submit__btn:active {
     background: var(--orange);
+  }
+
+  .submit__btn:disabled {
+    background-color: var(--greyAA);
   }
 }

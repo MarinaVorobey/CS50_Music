@@ -101,12 +101,13 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.submit__btn:focus {
+.submit__btn:focus,
+.submit__btn:hover {
   background-color: var(--orange);
 }
 
-.submit__btn:hover {
-  background-color: var(--orange);
+.submit__btn:disabled {
+  background-color: var(--greyAA);
 }
 
 .close__btn {
@@ -116,6 +117,12 @@
   text-align: center;
   background: var(--greyAA);
   cursor: pointer;
+}
+
+.error__block {
+  font-size: 14px;
+  color: rgb(189, 39, 39);
+  text-align: center;
 }
 
 @media (max-width: 992px) {

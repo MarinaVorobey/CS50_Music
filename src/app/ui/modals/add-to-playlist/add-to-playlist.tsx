@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./add-to-playlist.module.css";
 import { IPlaylist } from "@/app/lib/definitions";
+import { useState } from "react";
 
 export default function AddToPlaylist({ onClose }: { onClose: () => void }) {
   const playlists: IPlaylist[] = [
@@ -20,14 +23,28 @@ export default function AddToPlaylist({ onClose }: { onClose: () => void }) {
     },
   ];
 
+  const [playlistChosen, setPlaylistChosen] = useState(false);
+  function validateChoice() {
+    for (const playlist of playlists) {
+      const input = document.getElementById(
+        `${playlist.id}`
+      ) as HTMLInputElement;
+      if (input.checked) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   return (
     <>
       <div className={styles.title}>Add to playlist</div>
-      <form method="POST" className={styles.form}>
+      <form id="add-to-playlist-form" method="POST" className={styles.form}>
         <ul className={styles.playlist__content}>
           {playlists.map((p) => (
             <li key={p.id} className={styles.playlist}>
               <input
+                onChange={() => setPlaylistChosen(validateChoice())}
                 id={`${p.id}`}
                 className={`${styles.checkbox} visually-hidden`}
                 type="checkbox"
@@ -53,6 +70,7 @@ export default function AddToPlaylist({ onClose }: { onClose: () => void }) {
             type="submit"
             onClick={onClose}
             className={styles.submit__btn}
+            disabled={!playlistChosen}
           >
             Done
           </button>
