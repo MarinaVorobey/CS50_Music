@@ -21,28 +21,27 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
       className={styles.content}
     >
       <h2 className={generalStyles.title}>Register</h2>
-      <label className={generalStyles.label} htmlFor="registerEmail">
-        Email:
+      <label className={generalStyles.label} htmlFor="registerUsername">
+        Username:
       </label>
       <input
-        {...register("registerEmail", {
+        {...register("registerUsername", {
           required: true,
           minLength: 5,
           maxLength: 150,
         })}
-        key="register-email"
-        name="registerEmail"
-        id="registerEmail"
+        key="register-username"
+        name="registerUsername"
+        id="registerUsername"
         className={generalStyles.input}
-        type="email"
       />
-      {errors.registerEmail && (
+      {errors.registerUsername && (
         <p className={generalStyles.error__block}>
-          {errors.registerEmail.type === "minLength"
-            ? "Email must be at least 5 characters in length"
-            : errors.registerEmail.type === "maxLength"
-            ? "Email must be at max 150 characters in length"
-            : "Email is required"}
+          {errors.registerUsername.type === "minLength"
+            ? "Username must be at least 5 characters in length"
+            : errors.registerUsername.type === "maxLength"
+            ? "Username must be at max 150 characters in length"
+            : "Username is required"}
         </p>
       )}
 

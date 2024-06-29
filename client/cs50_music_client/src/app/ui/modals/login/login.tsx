@@ -21,28 +21,27 @@ export default function Login({ onClose, switchType }: ILoginProps) {
       method="POST"
     >
       <h2 className={generalStyles.title}>Log in</h2>
-      <label className={generalStyles.label} htmlFor="loginEmail">
-        Email:
+      <label className={generalStyles.label} htmlFor="loginUsername">
+        Username:
       </label>
       <input
-        {...register("loginEmail", {
+        {...register("loginUsername", {
           required: true,
           minLength: 5,
           maxLength: 150,
         })}
-        key="login-email"
-        id="loginEmail"
-        name="loginEmail"
+        key="login-username"
+        id="loginUsername"
+        name="loginUsername"
         className={generalStyles.input}
-        type="email"
       />
-      {errors.loginEmail && (
+      {errors.loginUsername && (
         <p className={generalStyles.error__block}>
-          {errors.loginEmail.type === "minLength"
-            ? "Email must be at least 5 characters in length"
-            : errors.loginEmail.type === "maxLength"
-            ? "Email must be at max 150 characters in length"
-            : "Email is required"}
+          {errors.loginUsername.type === "minLength"
+            ? "Username must be at least 5 characters in length"
+            : errors.loginUsername.type === "maxLength"
+            ? "Username must be at max 150 characters in length"
+            : "Username is required"}
         </p>
       )}
 
