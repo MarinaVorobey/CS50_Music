@@ -18,3 +18,8 @@ export interface IPlaylist {
   createdAt: Date;
   tracks: ITrack[];
 }
+
+export interface IUser {
+  username: string;
+  password: string;
+}

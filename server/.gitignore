@@ -1,0 +1,5 @@
+# server cache
+__pycache__/
+
+# db
+*.sqlite3
