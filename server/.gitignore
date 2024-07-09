@@ -1,5 +1,9 @@
+# media_files
+/media
+
 # server cache
 __pycache__/
 
 # db
 *.sqlite3
+/fixtures

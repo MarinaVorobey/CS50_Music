@@ -1,6 +1,5 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -11,15 +10,15 @@ from rest_framework.decorators import (
     permission_classes,
     authentication_classes,
 )
-from django.db.models import Q
 
 from .serializers import (
     CustomTokenObtainPairSerializer,
     RegisterSerializer,
     PlaylistSerializer,
     TrackSerializer,
+    ArtistSerializer,
 )
-from .models import CustomUser, Track, Playlist
+from .models import CustomUser, Track, Playlist, Artist
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -36,12 +35,13 @@ class RegisterView(CreateAPIView):
 def get_tracklist(request):
     q = request.GET
     if "query" in request.GET:
-        tracks = Track.objects.filter(
-            Q(name__icontains=q["query"]) | Q(artist__icontains=q["query"])
-        )
+        tracks_query = Track.objects.filter(name__icontains=q["query"])
+        artists = Artist.objects.filter(name__icontains=q["query"])
+        artists_query = Track.objects.filter(artist__in=artists.values("id"))
+        tracks = tracks_query | artists_query
     else:
         tracks = Track.objects.all()
-    serializer = TrackSerializer(tracks, many=True)
+    serializer = TrackSerializer(tracks, many=True, context={"request": request})
     return Response(serializer.data)
 
 
@@ -50,7 +50,7 @@ def get_tracklist(request):
 @authentication_classes([JWTAuthentication])
 def get_playlists(request):
     playlists = request.user.playlists.all().order_by("-created_at")
-    serializer = PlaylistSerializer(playlists, many=True)
+    serializer = PlaylistSerializer(playlists, many=True, context={"request": request})
     return Response(serializer.data)
 
 
@@ -67,7 +67,8 @@ def playlist(request, playlist_id):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     if request.method == "GET":
-        serializer = PlaylistSerializer(playlist)
+        tracks = playlist.tracks.all()
+        serializer = TrackSerializer(tracks, many=True, context={"request": request})
         return Response(serializer.data)
 
     elif request.method == "PATCH":
@@ -90,7 +91,8 @@ def playlist(request, playlist_id):
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def create_playlist(request):
-    serializer = PlaylistSerializer(user=request.user, data=request.data)
+    request.data["user"] = request.user.id
+    serializer = PlaylistSerializer(data=request.data, context={"request": request})
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
@@ -106,7 +108,7 @@ def toggle_like(request, track_id):
     except Track.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if track in request.user.likes:
+    if track in request.user.likes.all():
         request.user.likes.remove(track)
         track.likes.remove(request.user)
     else:
@@ -121,9 +123,9 @@ def toggle_like(request, track_id):
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
-def add_to_playlist(request, pk):
+def add_to_playlist(request, track_id):
     try:
-        track = Track.objects.get(pk=pk)
+        track = Track.objects.get(pk=track_id)
     except Track.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -144,3 +146,23 @@ def add_to_playlist(request, pk):
         playlist.save()
 
     return Response(status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def get_artist(request, artist_id):
+    try:
+        artist = Artist.objects.get(pk=artist_id)
+    except Artist.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    tracks = Track.objects.filter(artist=artist)
+    track_serializer = TrackSerializer(tracks, many=True, context={"request": request})
+    artist_serializer = ArtistSerializer(artist, context={"tracks": track_serializer})
+    return Response(artist_serializer.data)
+
+
+# def your_view_function(request):
+#     # your other codes ...
+#     file = open("/path/to/your/song.mp3", "rb").read()
+#     response["Content-Disposition"] = "attachment; filename=filename.mp3"
+#     return HttpResponse(file, mimetype="audio/mpeg")

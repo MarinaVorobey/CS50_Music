@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from .models import Track, CustomUser, Playlist
+from .models import Track, CustomUser, Playlist, Artist
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,19 +13,36 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TrackSerializer(serializers.ModelSerializer):
+    liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Track
-        fields = "__all__"
+        exclude = ["likes", "path"]
         read_only_fields = ["id", "created_at"]
+
+    def get_liked(self, validated_data):
+        request = self.context["request"]
+        return request.user and request.user in validated_data.likes.all()
 
 
 class PlaylistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Playlist
+        exclude = ["created_at"]
+        read_only_fields = ["id"]
+
+
+class ArtistSerializer(serializers.ModelSerializer):
+    tracks = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Artist
         fields = "__all__"
-        read_only_fields = ["id", "created_at"]
+        read_only_fields = ["id"]
+
+    def get_tracks(self, _):
+        return self.context["tracks"].data
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
