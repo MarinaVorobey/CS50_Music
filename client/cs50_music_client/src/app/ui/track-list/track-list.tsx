@@ -4,36 +4,20 @@ import styles from "./track-list.module.css";
 import Track from "./track/track";
 import { ITrack } from "@/app/lib/definitions";
 
-type TTracklists = "all" | "favorite" | "playlist";
-type TTrackListsStatic = Exclude<TTracklists, "playlist">;
+type TTracklists = "all" | "favorite" | "playlist" | "artist";
 interface ITrackListProps {
   type: TTracklists;
-  playlistId?: number;
+  id?: number;
 }
 
-interface ITracklistTypeData {
-  title: string;
-  path: string;
-}
-
-type TTypesToPlalylist = {
-  [N in TTrackListsStatic]: ITracklistTypeData;
-};
-
-const typesToPlaylistData: TTypesToPlalylist = {
-  all: {
-    title: "All tracks",
-    path: "/all",
-  },
-  favorite: {
-    title: "Favorite tracks",
-    path: "/favorite",
-  },
-};
-
-export default function TrackList({ type, playlistId }: ITrackListProps) {
+export default function TrackList({ type, id }: ITrackListProps) {
   const defaultPlaylist = {
     name: "Playlist#1",
+    tracks: [],
+  };
+
+  const defaultArtist = {
+    name: "Artist",
     tracks: [],
   };
 
@@ -41,23 +25,27 @@ export default function TrackList({ type, playlistId }: ITrackListProps) {
     {
       id: 1,
       name: "In Bloom",
-      path: "@/app/icon.png",
-      image: "/track_covers/cover1.jpg",
       duration: 2000000,
-      createdAt: new Date("December 1, 1995 03:24:00"),
       album: "Nirvana",
-      artist: "Nirvana",
+      artist: {
+        id: 1,
+        name: "Test",
+        image: "Test",
+      },
       liked: true,
-      playlists: [],
     },
   ];
 
   return (
-    <section className="tracks section" data-target="tracks">
+    <section className="tracks section">
       <h2 className={styles.title__h2}>
         {type === "playlist"
           ? defaultPlaylist.name
-          : typesToPlaylistData[type].title}
+          : type === "all"
+          ? "All tracks"
+          : type === "artist"
+          ? defaultArtist.name
+          : "Favorite tracks"}
       </h2>
       {tracksInfo.length === 0 ? (
         <p className={styles.no__tracks}>No tracks here yet.</p>

@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ["id", "username"]
         read_only_fields = ["id"]
+        depth = 1
 
 
 class TrackSerializer(serializers.ModelSerializer):
@@ -19,17 +20,46 @@ class TrackSerializer(serializers.ModelSerializer):
         model = Track
         exclude = ["likes", "path"]
         read_only_fields = ["id", "created_at"]
+        depth = 1
 
     def get_liked(self, validated_data):
         request = self.context["request"]
         return request.user and request.user in validated_data.likes.all()
 
 
-class PlaylistSerializer(serializers.ModelSerializer):
+class PlaylistsSerializer(serializers.ModelSerializer):
+    track_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Playlist
-        exclude = ["created_at"]
+        exclude = ["created_at", "tracks", "user"]
+        read_only_fields = ["id"]
+
+    def get_track_count(self, validated_data):
+        return validated_data.tracks.all().count()
+
+
+class PlaylistSerializer(serializers.ModelSerializer):
+    tracks_data = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Playlist
+        exclude = ["created_at", "user", "tracks", "cover"]
+        read_only_fields = ["id"]
+        depth = 1
+
+    def get_tracks_data(self, validated_data):
+        return TrackSerializer(
+            validated_data.tracks.all(),
+            many=True,
+            context={"request": self.context["request"]},
+        ).data
+
+
+class CreatePlaylistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Playlist
+        exclude = ["created_at", "tracks"]
         read_only_fields = ["id"]
 
 

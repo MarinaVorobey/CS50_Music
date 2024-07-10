@@ -17,6 +17,8 @@ from .serializers import (
     PlaylistSerializer,
     TrackSerializer,
     ArtistSerializer,
+    PlaylistsSerializer,
+    CreatePlaylistSerializer,
 )
 from .models import CustomUser, Track, Playlist, Artist
 
@@ -32,6 +34,7 @@ class RegisterView(CreateAPIView):
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def get_tracklist(request):
     q = request.GET
     if "query" in request.GET:
@@ -49,8 +52,8 @@ def get_tracklist(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def get_playlists(request):
-    playlists = request.user.playlists.all().order_by("-created_at")
-    serializer = PlaylistSerializer(playlists, many=True, context={"request": request})
+    playlists = request.user.playlists.all().order_by("-id")
+    serializer = PlaylistsSerializer(playlists, many=True)
     return Response(serializer.data)
 
 
@@ -64,11 +67,10 @@ def playlist(request, playlist_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if playlist.user != request.user:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
     if request.method == "GET":
-        tracks = playlist.tracks.all()
-        serializer = TrackSerializer(tracks, many=True, context={"request": request})
+        serializer = PlaylistSerializer(playlist, context={"request": request})
         return Response(serializer.data)
 
     elif request.method == "PATCH":
@@ -80,22 +82,23 @@ def playlist(request, playlist_id):
             playlist.save()
         except Track.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_205_RESET_CONTENT)
 
     elif request.method == "DELETE":
         playlist.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_205_RESET_CONTENT)
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def create_playlist(request):
-    request.data["user"] = request.user.id
-    serializer = PlaylistSerializer(data=request.data, context={"request": request})
+    data = request.data
+    data["user"] = request.user.id
+    serializer = CreatePlaylistSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -117,7 +120,7 @@ def toggle_like(request, track_id):
 
     request.user.save()
     track.save()
-    return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(["PATCH"])
@@ -140,7 +143,7 @@ def add_to_playlist(request, track_id):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         if playlist.user != request.user:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
         playlist.tracks.add(track)
         playlist.save()
@@ -149,6 +152,7 @@ def add_to_playlist(request, track_id):
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def get_artist(request, artist_id):
     try:
         artist = Artist.objects.get(pk=artist_id)
@@ -161,8 +165,13 @@ def get_artist(request, artist_id):
     return Response(artist_serializer.data)
 
 
-# def your_view_function(request):
-#     # your other codes ...
-#     file = open("/path/to/your/song.mp3", "rb").read()
-#     response["Content-Disposition"] = "attachment; filename=filename.mp3"
-#     return HttpResponse(file, mimetype="audio/mpeg")
+# Music files
+# from django.http import FileResponse
+
+
+# class getSongData(APIView):
+#     serializer_class=serializers.SongSerializer
+
+#     def get(self, request, id, *args, **kwargs):
+#         song = models.Song.objects.get(id=id)
+#         return FileResponse(song.audio_file.open())

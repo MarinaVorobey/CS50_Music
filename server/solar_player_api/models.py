@@ -16,7 +16,7 @@ def tracks_path():
 class CustomUser(AbstractUser):
     first_name = None
     last_name = None
-    likes = models.ManyToManyField("Track", related_name="user_likes")
+    likes = models.ManyToManyField("Track", blank=True, related_name="user_likes")
     last_listened = models.ForeignKey("Track", null=True, on_delete=models.SET_NULL)
 
 
