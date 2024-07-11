@@ -44,7 +44,7 @@ class PlaylistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Playlist
-        exclude = ["created_at", "user", "tracks", "cover"]
+        exclude = ["created_at", "user", "tracks"]
         read_only_fields = ["id"]
         depth = 1
 

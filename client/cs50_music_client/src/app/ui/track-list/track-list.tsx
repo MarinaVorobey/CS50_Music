@@ -3,6 +3,7 @@ import { colors } from "../colors";
 import styles from "./track-list.module.css";
 import Track from "./track/track";
 import { ITrack } from "@/app/lib/definitions";
+import Image from "next/image";
 
 type TTracklists = "all" | "favorite" | "playlist" | "artist";
 interface ITrackListProps {
@@ -26,11 +27,12 @@ export default function TrackList({ type, id }: ITrackListProps) {
       id: 1,
       name: "In Bloom",
       duration: 2000000,
+      createdAt: new Date(),
       album: "Nirvana",
       artist: {
         id: 1,
         name: "Test",
-        image: "Test",
+        image: "/playlist_covers/default__add.jpg",
       },
       liked: true,
     },
@@ -38,15 +40,31 @@ export default function TrackList({ type, id }: ITrackListProps) {
 
   return (
     <section className="tracks section">
-      <h2 className={styles.title__h2}>
-        {type === "playlist"
-          ? defaultPlaylist.name
-          : type === "all"
-          ? "All tracks"
-          : type === "artist"
-          ? defaultArtist.name
-          : "Favorite tracks"}
-      </h2>
+      <div className={styles.meta}>
+        <Image
+          width={70}
+          height={70}
+          className={styles.img}
+          src="/playlist_covers/playlists%20(3).jpg"
+          alt="Text"
+        />
+        <div className={styles.meta__text}>
+          <h2 className={styles.title__h2}>
+            {type === "playlist"
+              ? defaultPlaylist.name
+              : type === "all"
+              ? "All tracks"
+              : type === "artist"
+              ? defaultArtist.name
+              : "Favorite tracks"}
+          </h2>
+          <p className={styles.track__count}>
+            {tracksInfo.length
+              ? `${tracksInfo.length} track${tracksInfo.length > 1 ? "s" : ""}`
+              : "No tracks."}
+          </p>
+        </div>
+      </div>
       {tracksInfo.length === 0 ? (
         <p className={styles.no__tracks}>No tracks here yet.</p>
       ) : (

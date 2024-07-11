@@ -2,24 +2,22 @@
 
 import Image from "next/image";
 import styles from "./add-to-playlist.module.css";
-import { IPlaylist } from "@/app/lib/definitions";
+import { IPlaylistMany } from "@/app/lib/definitions";
 import { useState } from "react";
 
 export default function AddToPlaylist({ onClose }: { onClose: () => void }) {
-  const playlists: IPlaylist[] = [
+  const playlists: IPlaylistMany[] = [
     {
       id: 1,
       name: "For studying English",
       coverNumber: 1,
-      createdAt: new Date(),
-      tracks: [],
+      track_count: 5,
     },
     {
       id: 2,
       name: "Playlist#1",
       coverNumber: 2,
-      createdAt: new Date(),
-      tracks: [],
+      track_count: 4,
     },
   ];
 
@@ -53,13 +51,13 @@ export default function AddToPlaylist({ onClose }: { onClose: () => void }) {
                 <Image
                   width={60}
                   height={60}
-                  src={`/track_covers/cover${p.coverNumber}.jpg`}
+                  src="/playlist_covers/playlists%20(3).jpg"
                   alt={`${p.name} track cover`}
                   className={styles.playlist__image}
                 />
                 <div className={styles.playlist__title}>{p.name}</div>
                 <div className={styles.playlist__info}>
-                  {p.tracks.length > 0 ? `${p.tracks} tracks` : "No tracks"}
+                  {p.track_count > 0 ? `${p.track_count} tracks` : "No tracks"}
                 </div>
               </label>
             </li>

@@ -11,8 +11,7 @@ import Modal from "../../modals/modal";
 import { usePathname } from "next/navigation";
 
 export default function Track({ trackData }: { trackData: ITrack }) {
-  const { id, name, path, image, duration, createdAt, album, artist, liked } =
-    trackData;
+  const { id, name, createdAt, duration, album, artist, liked } = trackData;
   const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
 
@@ -24,7 +23,7 @@ export default function Track({ trackData }: { trackData: ITrack }) {
           width={60}
           height={60}
           className={styles.img}
-          src={image}
+          src={artist.image}
           alt={name}
         />
         <div className={styles.content}>
@@ -33,7 +32,7 @@ export default function Track({ trackData }: { trackData: ITrack }) {
               {name}
             </a>
           </h3>
-          <span className={styles.author}>{artist}</span>
+          <span className={styles.author}>{artist.name}</span>
         </div>
       </div>
       <div className={styles.item__album}>{album}</div>

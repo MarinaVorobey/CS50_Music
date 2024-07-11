@@ -21,10 +21,9 @@ export default function Search() {
   }, 300);
 
   return (
-    <form method="POST" className={styles.search}>
+    <form id="search" method="POST" className={styles.search}>
       <input
         onChange={(e) => handleSearch(e.target.value)}
-        id="search"
         className={styles.search__field}
         type="search"
         placeholder="WHAT WOULD YOU LIKE TO FIND?"

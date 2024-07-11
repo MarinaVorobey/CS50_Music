@@ -12,7 +12,7 @@ export default function Login({ onClose, switchType }: ILoginProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+  } = useForm({ mode: "onSubmit" });
 
   return (
     <form

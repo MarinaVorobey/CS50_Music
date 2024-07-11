@@ -3,32 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { IPlaylist } from "../lib/definitions";
+import { IPlaylistMany } from "../lib/definitions";
 import Icon from "../ui/icon";
 import { colors } from "../ui/colors";
 import { useState } from "react";
 import Modal from "../ui/modals/modal";
 
 export default function Page() {
-  const playlists: IPlaylist[] = [
+  const playlists: IPlaylistMany[] = [
     {
       id: 1,
       name: "For studying English",
       coverNumber: 1,
-      createdAt: new Date(),
-      tracks: [],
+      track_count: 4,
     },
     {
       id: 2,
       name: "Playlist#1",
       coverNumber: 2,
-      createdAt: new Date(),
-      tracks: [],
+      track_count: 3,
     },
   ];
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteModalPlaylist, setDeleteModalPlaylist] =
-    useState<IPlaylist | null>(null);
+    useState<IPlaylistMany | null>(null);
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
   return (
@@ -104,9 +102,7 @@ export default function Page() {
                 </Link>
               </h3>
               <span className={styles.count}>
-                {p.tracks.length > 0
-                  ? `${p.tracks.length} tracks`
-                  : "No tracks"}
+                {p.track_count > 0 ? `${p.track_count} tracks` : "No tracks"}
               </span>
               <button
                 className={styles.delete__btn}

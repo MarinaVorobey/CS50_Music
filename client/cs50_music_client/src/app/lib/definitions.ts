@@ -26,14 +26,21 @@ export interface ITrack {
   id: number;
   name: string;
   duration: number;
+  createdAt: Date;
   album?: string;
   artist: IArtist;
   liked: boolean;
 }
 
-export interface IPlaylist {
+export interface IPlaylistMany {
   id: number;
   name: string;
   coverNumber: number;
-  tracks: number[];
+  track_count: number;
+}
+
+export interface IPlaylistSingle {
+  id: number;
+  name: string;
+  tracks_data: ITrack;
 }

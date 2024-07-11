@@ -105,7 +105,7 @@ body {
 }
 
 .loading__block {
-  padding-top: 10px;
+  padding-top: 20%;
   display: flex;
   flex-flow: column wrap;
   align-items: center;

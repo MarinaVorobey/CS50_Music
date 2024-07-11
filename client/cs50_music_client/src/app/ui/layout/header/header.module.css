@@ -74,6 +74,10 @@
   font-size: 12px;
 }
 
+.search--active {
+  transform: translateX(0%);
+}
+
 .user {
   padding: 5px 13px;
   max-width: 246px;
@@ -102,7 +106,7 @@
 
 @media (min-width: 1200px) {
   .search__field:hover {
-    opacity: .6;
+    opacity: 0.6;
   }
 
   .user__auth:hover .user__auth__icon path {
@@ -130,7 +134,7 @@
     width: 98%;
     padding: 0 50px;
     transform: translateX(-102%);
-    transition: transform .3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
   }
 
   .search__field {

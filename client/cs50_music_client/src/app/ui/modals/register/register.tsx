@@ -12,7 +12,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+  } = useForm({ mode: "onSubmit" });
 
   return (
     <form
