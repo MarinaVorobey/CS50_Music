@@ -25,11 +25,15 @@ export interface IArtist {
 export interface ITrack {
   id: number;
   name: string;
-  duration: number;
-  createdAt: Date;
+  duration: string;
+  created_at: string;
   album?: string;
   artist: IArtist;
   liked: boolean;
+}
+
+export interface IArtistData extends IArtist {
+  tracks: ITrack[];
 }
 
 export interface IPlaylistMany {
@@ -42,5 +46,8 @@ export interface IPlaylistMany {
 export interface IPlaylistSingle {
   id: number;
   name: string;
-  tracks_data: ITrack;
+  image: string;
+  tracks_data: ITrack[];
 }
+
+export type TTracklists = "all" | "favorite" | "playlist" | "artist";

@@ -9,7 +9,7 @@ import { colors } from "../ui/colors";
 import { useState } from "react";
 import Modal from "../ui/modals/modal";
 
-export default function Page() {
+export default function Playlists() {
   const playlists: IPlaylistMany[] = [
     {
       id: 1,

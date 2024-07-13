@@ -49,7 +49,7 @@ class Playlist(models.Model):
 
 class Artist(models.Model):
     name = models.CharField(max_length=150)
-    image = models.FilePathField(blank=True, path=artists_path())
+    image = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.name

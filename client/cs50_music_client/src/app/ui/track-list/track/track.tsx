@@ -9,21 +9,29 @@ import { formatDuration, formatTimePassed } from "@/app/lib/utils";
 import { useState } from "react";
 import Modal from "../../modals/modal";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-export default function Track({ trackData }: { trackData: ITrack }) {
-  const { id, name, createdAt, duration, album, artist, liked } = trackData;
+export default function Track({
+  number,
+  trackData,
+}: {
+  number: number;
+  trackData: ITrack;
+}) {
+  const { id, name, created_at, duration, album, artist, liked } = trackData;
   const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
+  const userAuth = false;
 
   return (
     <>
-      <div className={styles.item__number}>1</div>
+      <div className={styles.item__number}>{number}</div>
       <div className={styles.item__name}>
         <Image
           width={60}
           height={60}
           className={styles.img}
-          src={artist.image}
+          src={`/artist_covers/${artist.image}`}
           alt={name}
         />
         <div className={styles.content}>
@@ -32,13 +40,19 @@ export default function Track({ trackData }: { trackData: ITrack }) {
               {name}
             </a>
           </h3>
-          <span className={styles.author}>{artist.name}</span>
+          <div className={styles.artist__wrapper}>
+            <Link href={`artist/${artist.id}`} className={styles.artist}>
+              {artist.name}
+            </Link>
+          </div>
         </div>
       </div>
       <div className={styles.item__album}>{album}</div>
       <div className={`${styles.item__data} flex`}>
-        <span className={styles.data__text}>{formatTimePassed(createdAt)}</span>
-        <button className={styles.like__btn}>
+        <span className={styles.data__text}>
+          {formatTimePassed(created_at)}
+        </span>
+        <button disabled={!userAuth} className={styles.like__btn}>
           <Icon
             type="heart"
             defaultColor={liked ? colors.orange : colors.greyA4}
@@ -48,6 +62,7 @@ export default function Track({ trackData }: { trackData: ITrack }) {
       <time className={styles.item__time}>{formatDuration(duration)}</time>
       <div className={styles.item__drop}>
         <button
+          disabled={!userAuth}
           onClick={() => setModalOpen(true)}
           className={
             !pathname.includes("playlist")

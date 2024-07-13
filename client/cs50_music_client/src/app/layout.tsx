@@ -1,3 +1,4 @@
+import ReactQueryProvider from "./query-client-provider";
 import type { Metadata } from "next";
 import SideNavbar from "./ui/layout/side-navbar/side-navbar";
 import Header from "./ui/layout/header/header";
@@ -19,13 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
-        <div id="modal-root" />
-        <Header />
-        <div className={`${styles.content_wrap} flex`}>
-          <SideNavbar />
-          <main className={styles.main}>{children}</main>
-        </div>
-        <Player />
+        <ReactQueryProvider>
+          <div id="modal-root" />
+          <Header />
+          <div className={`${styles.content_wrap} flex`}>
+            <SideNavbar />
+            <main className={styles.main}>{children}</main>
+          </div>
+          <Player />
+        </ReactQueryProvider>
       </body>
     </html>
   );

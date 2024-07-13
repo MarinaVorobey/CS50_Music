@@ -4,7 +4,6 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import (
     api_view,
     permission_classes,
@@ -34,6 +33,7 @@ class RegisterView(CreateAPIView):
 
 
 @api_view(["GET"])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def get_tracklist(request):
     q = request.GET
@@ -152,6 +152,7 @@ def add_to_playlist(request, track_id):
 
 
 @api_view(["GET"])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def get_artist(request, artist_id):
     try:

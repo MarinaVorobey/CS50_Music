@@ -37,9 +37,8 @@
   top: 50%;
   left: 50%;
   z-index: 200;
-  min-width: 280px;
-  max-width: 500px;
-  max-height: 800px;
+  max-width: 60vw;
+  max-height: 75vh;
   padding: 20px;
   border: 1px solid var(--greyAA);
   display: flex;
@@ -49,6 +48,7 @@
   transform: translate(-50%, -50%);
   animation: animatetop 0.4s ease-in-out;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .footer {

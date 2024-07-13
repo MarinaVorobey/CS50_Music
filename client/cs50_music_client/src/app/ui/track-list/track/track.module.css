@@ -123,10 +123,27 @@
   border-bottom: 1px solid var(--greyE8);
 }
 
-.author {
+.artist__wrapper {
+  position: relative;
+}
+
+.artist {
   color: var(--greyA4);
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+.artist:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  max-width: 20px;
+  max-height: 20px;
 }
 
 .like__btn {
@@ -166,6 +183,24 @@
 
   .btn__remove:hover svg {
     fill: var(--orange);
+  }
+
+  .btn__add:disabled,
+  .like__btn:disabled {
+    cursor: not-allowed;
+  }
+
+  .like__btn:disabled path {
+    fill: var(--greyA4);
+  }
+
+  .btn__add:disabled circle {
+    fill: var(--greyC4);
+  }
+
+  .artist:hover {
+    text-decoration: underline;
+    color: var(--orange);
   }
 }
 

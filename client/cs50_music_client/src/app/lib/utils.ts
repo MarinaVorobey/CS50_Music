@@ -1,5 +1,5 @@
-export function formatTimePassed(time: Date): string {
-  const passed: number = Date.now() - time.getTime();
+export function formatTimePassed(time: string): string {
+  const passed: number = Date.now() - new Date(time).getTime();
   if (passed / 31556952000 >= 1) {
     const d = new Date(time);
     const day = `${d.getDate()}`;
@@ -21,11 +21,14 @@ export function formatTimePassed(time: Date): string {
     : "less than a minute ago";
 }
 
-export function formatDuration(time: number): string {
-  const minutes = Math.floor(time / 60000);
-  time = time % 60000;
-  const seconds = `${Math.floor(time / 1000)}`;
-  return `${minutes}:${seconds.length > 1 ? seconds : "0" + seconds}`;
+export function formatDuration(time: string): string {
+  const timeSplit = time.split(":");
+  const timeArr = timeSplit.slice(0, 2).map((n) => +n);
+  const seconds = +timeSplit[2].slice(0, 2);
+  if (timeArr[0] > 0) {
+    timeArr[1] += timeArr[0] * 60;
+  }
+  return `${timeArr[1]}:${seconds < 9 ? `0${seconds}` : `${seconds}`}`;
 }
 
 export function moveSearchbar(): void {
