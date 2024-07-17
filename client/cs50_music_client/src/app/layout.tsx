@@ -1,4 +1,5 @@
 import ReactQueryProvider from "./query-client-provider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { Metadata } from "next";
 import SideNavbar from "./ui/layout/side-navbar/side-navbar";
 import Header from "./ui/layout/header/header";
@@ -28,6 +29,7 @@ export default function RootLayout({
             <main className={styles.main}>{children}</main>
           </div>
           <Player />
+          <ReactQueryDevtools initialIsOpen={false} />
         </ReactQueryProvider>
       </body>
     </html>

@@ -3,25 +3,33 @@
 import { fetchArtist } from "@/app/lib/data";
 import { IArtistData } from "@/app/lib/definitions";
 import Loading from "@/app/loading";
+import ErrorBlock from "@/app/ui/network/error-block";
 import TrackList from "@/app/ui/track-list/track-list";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useParams } from "next/navigation";
 
 export default function Artist() {
-  const id = useParams().id[0];
-  const { data, isError, isLoading }: UseQueryResult<IArtistData, Error> =
-    useQuery({
-      queryKey: ["artist", { id }],
-      queryFn: async () => await fetchArtist({ id }),
-    });
+  const id = useParams().id as string;
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+  }: UseQueryResult<IArtistData, AxiosError> = useQuery({
+    queryKey: ["artist", { id }],
+    queryFn: async () => await fetchArtist({ id }),
+    retry: 1,
+  });
 
   if (isLoading) return <Loading />;
-  if (isError) return <div>Something went wrong</div>;
+  if (isError) {
+    return <ErrorBlock status={error.response?.status ?? 500} message="" />;
+  }
 
   return (
     <TrackList
       type="artist"
-      id={id}
       tracks={data ? data.tracks : []}
       image={data ? data.image : ""}
       title={data ? data.name : ""}

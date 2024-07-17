@@ -11,7 +11,6 @@ interface ITrackListProps {
   type: TTracklists;
   title: string;
   tracks: ITrack[];
-  id?: string;
   image?: string;
 }
 
@@ -19,7 +18,6 @@ export default function TrackList({
   type,
   title,
   tracks,
-  id,
   image,
 }: ITrackListProps) {
   return (
@@ -40,13 +38,17 @@ export default function TrackList({
             <p className={styles.track__count}>
               {tracks.length
                 ? `${tracks.length} track${tracks.length > 1 ? "s" : ""}`
-                : "No tracks."}
+                : "No tracks"}
             </p>
           ) : null}
         </div>
       </div>
       {tracks.length === 0 ? (
-        <p className={styles.no__tracks}>No tracks here yet.</p>
+        <p className={styles.no__tracks}>{`No tracks here.${
+          type === "playlist"
+            ? 'To add track to playlist, search for it and press the "plus" button.'
+            : ""
+        }`}</p>
       ) : (
         <div className={styles.content}>
           <div className={`${styles.header} flex`}>

@@ -1,26 +1,62 @@
 import styles from "./login.module.css";
 import generalStyles from "../modal.module.css";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { login } from "@/app/lib/data";
+import {
+  useMutation,
+  UseMutationResult,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { ILoginResponse } from "@/app/lib/definitions";
+import Icon from "../../icon";
+import { colors } from "../../colors";
 
 interface ILoginProps {
   onClose: () => void;
-  switchType: () => void;
+  switchType: (r: boolean) => void;
+  redirected: boolean;
 }
 
-export default function Login({ onClose, switchType }: ILoginProps) {
+export default function Login({
+  onClose,
+  switchType,
+  redirected,
+}: ILoginProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onSubmit" });
+  } = useForm({ mode: "onSubmit", shouldUnregister: true });
+
+  const queryClient = useQueryClient();
+  const mutation: UseMutationResult<ILoginResponse, AxiosError, FieldValues> =
+    useMutation({
+      mutationFn: login,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["user"] });
+        onClose();
+      },
+    });
 
   return (
     <form
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => mutation.mutate(data))}
       className={styles.content}
       method="POST"
     >
       <h2 className={generalStyles.title}>Log in</h2>
+      {redirected ? <p>Registered successfully. Now you can log in.</p> : null}
+      {mutation.isError ? (
+        <p
+          key="login-error"
+          className={`${generalStyles.error__block} ${generalStyles.mutation__error}`}
+        >
+          {mutation.error.response?.status === 401
+            ? "Wrong username or password"
+            : mutation.error.message}
+        </p>
+      ) : null}
       <label className={generalStyles.label} htmlFor="loginUsername">
         Username:
       </label>
@@ -70,7 +106,20 @@ export default function Login({ onClose, switchType }: ILoginProps) {
         </p>
       )}
       <div className={generalStyles.submit__block}>
-        <button className={generalStyles.submit__btn} type="submit">
+        <button
+          className={`${generalStyles.submit__btn}${
+            mutation.isPending ? " " + generalStyles.submit__pending : ""
+          }`}
+          disabled={mutation.isPending}
+          type="submit"
+        >
+          {mutation.isPending ? (
+            <Icon
+              type="loading"
+              className={`loading__icon ${generalStyles.modal__loading}`}
+              defaultColor={colors.purple}
+            />
+          ) : null}
           Log in
         </button>
         <button
@@ -84,7 +133,10 @@ export default function Login({ onClose, switchType }: ILoginProps) {
       <div>
         Don&apos;t have an account?{" "}
         <button
-          onClick={switchType}
+          onClick={() => {
+            mutation.reset();
+            switchType(false);
+          }}
           type="button"
           className={styles.switch__btn}
         >

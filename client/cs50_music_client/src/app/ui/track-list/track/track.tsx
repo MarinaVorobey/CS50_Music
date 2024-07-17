@@ -10,6 +10,8 @@ import { useState } from "react";
 import Modal from "../../modals/modal";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { getUserToken } from "@/app/lib/data";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Track({
   number,
@@ -21,7 +23,7 @@ export default function Track({
   const { id, name, created_at, duration, album, artist, liked } = trackData;
   const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
-  const userAuth = false;
+  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
 
   return (
     <>
@@ -52,7 +54,7 @@ export default function Track({
         <span className={styles.data__text}>
           {formatTimePassed(created_at)}
         </span>
-        <button disabled={!userAuth} className={styles.like__btn}>
+        <button disabled={!userToken} className={styles.like__btn}>
           <Icon
             type="heart"
             defaultColor={liked ? colors.orange : colors.greyA4}
@@ -62,7 +64,7 @@ export default function Track({
       <time className={styles.item__time}>{formatDuration(duration)}</time>
       <div className={styles.item__drop}>
         <button
-          disabled={!userAuth}
+          disabled={!userToken}
           onClick={() => setModalOpen(true)}
           className={
             !pathname.includes("playlist")

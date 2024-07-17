@@ -166,6 +166,15 @@ def get_artist(request, artist_id):
     return Response(artist_serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+def get_favorites(request):
+    tracks = request.user.likes.all()
+    track_serializer = TrackSerializer(tracks, many=True, context={"request": request})
+    return Response(track_serializer.data)
+
+
 # Music files
 # from django.http import FileResponse
 

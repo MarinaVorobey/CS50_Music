@@ -9,4 +9,5 @@ export enum colors {
   black17 = "#171717",
   orange = "#FC6D3E",
   purple = "#ECDCF7",
+  transparent = "transparent",
 }

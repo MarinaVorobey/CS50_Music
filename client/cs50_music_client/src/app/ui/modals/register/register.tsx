@@ -1,10 +1,15 @@
 import styles from "./register.module.css";
 import generalStyles from "../modal.module.css";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
+import { colors } from "../../colors";
+import { registerUser } from "@/app/lib/data";
+import Icon from "../../icon";
 
 interface IRegisterProps {
   onClose: () => void;
-  switchType: () => void;
+  switchType: (r: boolean) => void;
 }
 
 export default function Register({ onClose, switchType }: IRegisterProps) {
@@ -12,15 +17,30 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onSubmit" });
+  } = useForm({ mode: "onSubmit", shouldUnregister: true });
+
+  const mutation: UseMutationResult<AxiosResponse, AxiosError, FieldValues> =
+    useMutation({
+      mutationFn: registerUser,
+      onSuccess: () => switchType(true),
+    });
 
   return (
     <form
       method="POST"
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => mutation.mutate(data))}
       className={styles.content}
     >
       <h2 className={generalStyles.title}>Register</h2>
+      {mutation.isError ? (
+        <p
+          className={`${generalStyles.error__block} ${generalStyles.mutation__error}`}
+        >
+          {mutation.error.response?.status === 400
+            ? "User with such username already exists"
+            : mutation.error.message}
+        </p>
+      ) : null}
       <label className={generalStyles.label} htmlFor="registerUsername">
         Username:
       </label>
@@ -93,7 +113,20 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
         </p>
       )}
       <div className={generalStyles.submit__block}>
-        <button className={generalStyles.submit__btn} type="submit">
+        <button
+          className={`${generalStyles.submit__btn}${
+            mutation.isPending ? " " + generalStyles.submit__pending : ""
+          }`}
+          disabled={mutation.isPending}
+          type="submit"
+        >
+          {mutation.isPending ? (
+            <Icon
+              type="loading"
+              className={`loading__icon ${generalStyles.modal__loading}`}
+              defaultColor={colors.purple}
+            />
+          ) : null}
           Register
         </button>
         <button
@@ -107,7 +140,10 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
       <div>
         Already have an account?{" "}
         <button
-          onClick={switchType}
+          onClick={() => {
+            mutation.reset();
+            switchType(false);
+          }}
           type="button"
           className={styles.switch__btn}
         >

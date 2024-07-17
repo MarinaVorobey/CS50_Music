@@ -86,9 +86,12 @@ body {
 
 .not_found__text {
   font-size: 24px;
+  margin-bottom: 8px;
 }
 
 .not_found__link {
+  display: block;
+  width: fit-content;
   padding: 20px 50px;
   font-weight: 500;
   font-size: 16px;

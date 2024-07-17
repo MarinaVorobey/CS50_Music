@@ -14,6 +14,7 @@ export interface IUserData {
   lastListened: number;
   accessToken: string;
   refreshToken: string;
+  tokenExpires: string;
 }
 
 export interface IArtist {
@@ -48,6 +49,11 @@ export interface IPlaylistSingle {
   name: string;
   image: string;
   tracks_data: ITrack[];
+}
+
+export interface ILoginResponse {
+  access: string;
+  refresh: string;
 }
 
 export type TTracklists = "all" | "favorite" | "playlist" | "artist";

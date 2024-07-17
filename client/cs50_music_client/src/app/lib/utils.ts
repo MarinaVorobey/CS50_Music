@@ -1,3 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import { getUserToken } from "./data";
+import { useEffect, useState } from "react";
+import { IUserData } from "./definitions";
+
 export function formatTimePassed(time: string): string {
   const passed: number = Date.now() - new Date(time).getTime();
   if (passed / 31556952000 >= 1) {
@@ -34,4 +39,16 @@ export function formatDuration(time: string): string {
 export function moveSearchbar(): void {
   const search = document.getElementById("search");
   search?.classList.toggle("search--active");
+}
+
+export function useUserData(): IUserData | null {
+  const [userData, setUserData] = useState<IUserData | null>(null);
+  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
+  useEffect(() => {
+    const userObject = window.localStorage.getItem("user");
+    if (userObject) {
+      setUserData(JSON.parse(userObject));
+    }
+  }, [userToken]);
+  return userData;
 }

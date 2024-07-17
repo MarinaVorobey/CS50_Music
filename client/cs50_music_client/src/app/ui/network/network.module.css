@@ -1,0 +1,36 @@
+.title {
+  padding-top: 10px;
+  font-size: 24px;
+}
+
+.message {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.suggest {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.modal__btn {
+  color: var(--orange);
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.error__title {
+  padding-top: 10px;
+  font-size: 24px;
+}
+
+.error__block {
+  margin-bottom: 10px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  font-size: 16px;
+  color: rgb(189, 39, 39);
+}
