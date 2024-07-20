@@ -33,7 +33,7 @@ class RegisterView(CreateAPIView):
 
 
 @api_view(["GET"])
-@authentication_classes([])
+@authentication_classes([JWTAuthentication])
 @permission_classes([AllowAny])
 def get_tracklist(request):
     q = request.GET
@@ -152,7 +152,7 @@ def add_to_playlist(request, track_id):
 
 
 @api_view(["GET"])
-@authentication_classes([])
+@authentication_classes([JWTAuthentication])
 @permission_classes([AllowAny])
 def get_artist(request, artist_id):
     try:
@@ -161,8 +161,9 @@ def get_artist(request, artist_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     tracks = Track.objects.filter(artist=artist)
-    track_serializer = TrackSerializer(tracks, many=True, context={"request": request})
-    artist_serializer = ArtistSerializer(artist, context={"tracks": track_serializer})
+    artist_serializer = ArtistSerializer(
+        artist, context={"tracks": tracks, "request": request}
+    )
     return Response(artist_serializer.data)
 
 

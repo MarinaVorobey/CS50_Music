@@ -44,7 +44,7 @@ export default function TrackList({
         </div>
       </div>
       {tracks.length === 0 ? (
-        <p className={styles.no__tracks}>{`No tracks here.${
+        <p className={styles.no__tracks}>{`No tracks here. ${
           type === "playlist"
             ? 'To add track to playlist, search for it and press the "plus" button.'
             : ""

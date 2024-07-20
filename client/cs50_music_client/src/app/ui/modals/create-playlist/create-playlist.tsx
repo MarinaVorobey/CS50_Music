@@ -1,7 +1,18 @@
 import generalStyles from "../modal.module.css";
 import styles from "./create-playlist.module.css";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import Image from "next/image";
+import { IPlaylistSingle } from "@/app/lib/definitions";
+import {
+  useQueryClient,
+  UseMutationResult,
+  useMutation,
+} from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { createPlaylist } from "@/app/lib/data";
+import { useRouter } from "next/navigation";
+import { colors } from "../../colors";
+import Icon from "../../icon";
 
 export default function CreatePlaylist({ onClose }: { onClose: () => void }) {
   const coverNums = Array.from(Array(8).keys());
@@ -11,9 +22,21 @@ export default function CreatePlaylist({ onClose }: { onClose: () => void }) {
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const mutation: UseMutationResult<IPlaylistSingle, AxiosError, FieldValues> =
+    useMutation({
+      mutationFn: createPlaylist,
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["playlists"] });
+        onClose();
+        router.push(`/playlist/${data.id}`);
+      },
+    });
+
   return (
     <form
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => mutation.mutate(data))}
       method="POST"
       className={styles.form}
     >
@@ -35,21 +58,22 @@ export default function CreatePlaylist({ onClose }: { onClose: () => void }) {
           The playlist name must be no less than 5 symbols and no more than 150
         </p>
       )}
+      {mutation.error && (
+        <p className={generalStyles.error__block}>{mutation.error.message}</p>
+      )}
       <p className={generalStyles.label}>Cover:</p>
       <ul className={styles.cover__choice}>
         {coverNums.map((i) => (
           <li key={i + 1} className={styles.choice__item}>
-            <label className={styles.choice__label}>
+            <label htmlFor={`${i + 1}`} className={styles.choice__label}>
               <input
                 type="radio"
                 className={`${styles.choice__input} visually-hidden`}
                 value={i + 1}
                 id={`${i + 1}`}
-                {...(register("coverNumber"),
-                {
+                {...register("coverNumber", {
                   required: true,
                 })}
-                name="cover-number"
               />
               <Image
                 priority={true}
@@ -64,7 +88,18 @@ export default function CreatePlaylist({ onClose }: { onClose: () => void }) {
         ))}
       </ul>
       <div className={generalStyles.submit__block}>
-        <button className={generalStyles.submit__btn} type="submit">
+        <button
+          disabled={mutation.isPending}
+          className={generalStyles.submit__btn}
+          type="submit"
+        >
+          {mutation.isPending ? (
+            <Icon
+              type="loading"
+              className={`loading__icon ${generalStyles.modal__loading}`}
+              defaultColor={colors.purple}
+            />
+          ) : null}
           Create
         </button>
         <button

@@ -40,14 +40,14 @@ export interface IArtistData extends IArtist {
 export interface IPlaylistMany {
   id: number;
   name: string;
-  coverNumber: number;
+  cover: number;
   track_count: number;
 }
 
 export interface IPlaylistSingle {
   id: number;
   name: string;
-  image: string;
+  cover: string;
   tracks_data: ITrack[];
 }
 

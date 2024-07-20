@@ -17,8 +17,8 @@ export default function Artist() {
     isError,
     isLoading,
   }: UseQueryResult<IArtistData, AxiosError> = useQuery({
-    queryKey: ["artist", { id }],
-    queryFn: async () => await fetchArtist({ id }),
+    queryKey: ["artist", id],
+    queryFn: async ({ queryKey }) => await fetchArtist(queryKey[1]),
     retry: 1,
   });
 

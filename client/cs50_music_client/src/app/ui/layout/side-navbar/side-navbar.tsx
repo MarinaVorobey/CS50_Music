@@ -7,6 +7,10 @@ import styles from "./side-navbar.module.css";
 import { usePathname } from "next/navigation";
 import { moveSearchbar } from "@/app/lib/utils";
 import { useState } from "react";
+import { fetchPlaylists } from "@/app/lib/data";
+import { IPlaylistMany } from "@/app/lib/definitions";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 interface ILinkInfo {
   iconType?: TIconNames;
@@ -41,20 +45,13 @@ export default function SideNavbar() {
     },
   ];
 
-  const playlists: ILinkInfo[] = [
-    {
-      path: "/playlist/1",
-      text: "Playlist #1",
-    },
-    {
-      path: "/playlist/2",
-      text: "Playlist #2",
-    },
-    {
-      path: "/playlist/3",
-      text: "Playlist #3",
-    },
-  ];
+  const { data, isSuccess }: UseQueryResult<IPlaylistMany[], AxiosError> =
+    useQuery({
+      queryKey: ["playlists"],
+      queryFn: async () => await fetchPlaylists(),
+      retry: (failureCount: number, error: AxiosError) =>
+        error.response?.status !== 401 && failureCount < 1,
+    });
 
   return (
     <aside className={styles.aside}>
@@ -104,25 +101,27 @@ export default function SideNavbar() {
           </li>
         </ul>
 
-        <div className={styles.playlists}>
-          <h3 className={styles.list__title}>Playlists:</h3>
-          <ul className={styles.list}>
-            {playlists.map(({ text, path }) => (
-              <li key={path} className={styles.item}>
-                <Link
-                  href={path}
-                  className={
-                    pathname === path
-                      ? `${styles.link} ${styles.link__active}`
-                      : styles.link
-                  }
-                >
-                  <span className={styles.link__text}>{text}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {isSuccess && data.length ? (
+          <div className={styles.playlists}>
+            <h3 className={styles.list__title}>Playlists:</h3>
+            <ul className={styles.list}>
+              {data.map(({ name, id }) => (
+                <li key={id} className={styles.item}>
+                  <Link
+                    href={`/playlist/${id}`}
+                    className={
+                      pathname === `/playlist/${id}`
+                        ? `${styles.link} ${styles.link__active}`
+                        : styles.link
+                    }
+                  >
+                    <span className={styles.link__text}>{name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </nav>
     </aside>
   );

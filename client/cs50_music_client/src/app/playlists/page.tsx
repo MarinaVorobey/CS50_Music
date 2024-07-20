@@ -3,14 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { IPlaylistMany } from "../lib/definitions";
+import { ILoginResponse, IPlaylistMany } from "../lib/definitions";
 import Icon from "../ui/icon";
 import { colors } from "../ui/colors";
 import { useState } from "react";
 import Modal from "../ui/modals/modal";
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { fetchFavorites } from "../lib/data";
+import {
+  UseMutationResult,
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
+import { deletePlaylist, fetchPlaylists } from "../lib/data";
 import Loading from "../loading";
 import ErrorBlock from "../ui/network/error-block";
 
@@ -21,8 +27,8 @@ export default function Playlists() {
     error,
     isLoading,
   }: UseQueryResult<IPlaylistMany[], AxiosError> = useQuery({
-    queryKey: ["favorite"],
-    queryFn: async () => await fetchFavorites(),
+    queryKey: ["playlists"],
+    queryFn: async () => await fetchPlaylists(),
     retry: (failureCount: number, error: AxiosError) =>
       error.response?.status !== 401 && failureCount < 1,
   });
@@ -32,11 +38,26 @@ export default function Playlists() {
     useState<IPlaylistMany | null>(null);
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
+  const queryClient = useQueryClient();
+  const mutation: UseMutationResult<AxiosResponse, AxiosError> = useMutation({
+    mutationFn: () => deletePlaylist(`${deleteModalPlaylist?.id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["playlists"] });
+      setDeleteModalOpen(false);
+    },
+  });
+
   if (isLoading) return <Loading />;
-  if (isError) {
+  if (isError || mutation.isError) {
+    const status =
+      error && error.response
+        ? error.response.status
+        : mutation.error && mutation.error.response
+        ? mutation.error.response.status
+        : 500;
     return (
       <ErrorBlock
-        status={error.response?.status ?? 500}
+        status={status}
         message="Authenticate to create your own playlists"
       />
     );
@@ -89,21 +110,21 @@ export default function Playlists() {
           ? data.map((p) => (
               <li key={p.id} className={styles.item}>
                 <Image
-                  src={`/playlist_covers/playlists%20(${p.coverNumber}).jpg`}
+                  src={`/playlist_covers/playlists%20(${p.cover}).jpg`}
                   width={360}
                   height={360}
                   className={styles.img__desktop}
                   alt={`${p.name} cover`}
                 />
                 <Image
-                  src={`/playlist_covers/playlists__1440%20(${p.coverNumber}).jpg`}
+                  src={`/playlist_covers/playlists__1440%20(${p.cover}).jpg`}
                   width={240}
                   height={240}
                   className={styles.img__tablet}
                   alt={`${p.name} cover`}
                 />
                 <Image
-                  src={`/playlist_covers/playlists__360%20(${p.coverNumber}).jpg`}
+                  src={`/playlist_covers/playlists__360%20(${p.cover}).jpg`}
                   width={99}
                   height={99}
                   className={styles.img__mobile}
@@ -126,8 +147,8 @@ export default function Playlists() {
                   <button
                     className={styles.delete__btn}
                     onClick={() => {
-                      setDeleteModalOpen(true);
                       setDeleteModalPlaylist(p);
+                      setDeleteModalOpen(true);
                     }}
                   >
                     <Icon type="bin" defaultColor={colors.greyA4} />
@@ -145,7 +166,7 @@ export default function Playlists() {
           data={{
             title: `Delete playlist "${deleteModalPlaylist?.name}"?`,
             confirmText: "Delete",
-            onConfirm: () => setDeleteModalOpen(false),
+            onConfirm: mutation.mutate,
             onClose: () => setDeleteModalOpen(false),
           }}
         />

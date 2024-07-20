@@ -1,25 +1,37 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { IArtistData, ILoginResponse, ITrack, IUserData } from "./definitions";
+import {
+  IArtistData,
+  ILoginResponse,
+  IPlaylistMany,
+  IPlaylistSingle,
+  ITrack,
+  IUserData,
+} from "./definitions";
 import { FieldValues } from "react-hook-form";
 
 export async function getUserToken(): Promise<string | null> {
   if (typeof window === "undefined" || !window.localStorage.getItem("user")) {
     return null;
   }
-  console.log("works");
 
   const user = window.localStorage.getItem("user");
   if (!user) {
     return null;
   }
-  let userData: IUserData = JSON.parse(user);
+  const userData: IUserData = JSON.parse(user);
   const expires = new Date(userData.tokenExpires);
 
   if (expires.getTime() < Date.now()) {
     try {
-      await axios.post("http://127.0.0.1:8000/login/refresh", {
-        refresh: userData.refreshToken,
-      });
+      const response: ILoginResponse = await axios.post(
+        "http://127.0.0.1:8000/login/refresh",
+        {
+          refresh: userData.refreshToken,
+        }
+      );
+      userData.accessToken = response.access;
+      userData.refreshToken = response.refresh;
+      window.localStorage.setItem("user", JSON.stringify(userData));
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 401) {
         window.localStorage.removeItem("user");
@@ -29,7 +41,10 @@ export async function getUserToken(): Promise<string | null> {
   return userData.accessToken ?? null;
 }
 
-export async function fetchTracks(): Promise<ITrack[]> {
+async function makeHeaders(): Promise<{
+  accept: string;
+  Authorization?: string;
+}> {
   const headers: { accept: string; Authorization?: string } = {
     accept: "application/json",
   };
@@ -38,7 +53,11 @@ export async function fetchTracks(): Promise<ITrack[]> {
   if (userToken) {
     headers.Authorization = `Bearer ${userToken}`;
   }
+  return headers;
+}
 
+export async function fetchTracks(): Promise<ITrack[]> {
+  const headers = await makeHeaders();
   const response = await axios
     .get("http://127.0.0.1:8000/tracks", { headers })
     .then((r) => r.data)
@@ -50,21 +69,8 @@ export async function fetchTracks(): Promise<ITrack[]> {
   return response;
 }
 
-export async function fetchArtist({
-  id,
-}: {
-  id: string;
-  userToken?: string;
-}): Promise<IArtistData[]> {
-  const headers: { accept: string; Authorization?: string } = {
-    accept: "application/json",
-  };
-
-  const userToken = await getUserToken();
-  if (userToken) {
-    headers.Authorization = `Bearer ${userToken}`;
-  }
-
+export async function fetchArtist(id: string): Promise<IArtistData[]> {
+  const headers = await makeHeaders();
   const response = await axios
     .get(`http://127.0.0.1:8000/artist/${id}`, { headers })
     .then((r) => r.data)
@@ -77,15 +83,7 @@ export async function fetchArtist({
 }
 
 export async function fetchFavorites(): Promise<ITrack[]> {
-  const headers: { accept: string; Authorization?: string } = {
-    accept: "application/json",
-  };
-
-  const userToken = await getUserToken();
-  if (userToken) {
-    headers.Authorization = `Bearer ${userToken}`;
-  }
-
+  const headers = await makeHeaders();
   const response = await axios
     .get("http://127.0.0.1:8000/favorites", { headers })
     .then((r) => r.data)
@@ -147,7 +145,6 @@ export async function logout() {
   if (typeof window === "undefined" || !window.localStorage.getItem("user")) {
     return null;
   }
-  console.log("works");
 
   const user = window.localStorage.getItem("user");
   if (!user) {
@@ -167,5 +164,76 @@ export async function logout() {
       console.log(error);
       throw error;
     });
+  return response;
+}
+
+export async function likeTrack(id: string): Promise<AxiosResponse> {
+  const headers = await makeHeaders();
+  const response = await axios
+    .patch(`http://127.0.0.1:8000/like/${id}`, {}, { headers })
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}
+
+export async function fetchPlaylists(): Promise<IPlaylistMany> {
+  const headers = await makeHeaders();
+  const response = await axios
+    .get("http://127.0.0.1:8000/playlists", { headers })
+    .then((r) => r.data)
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}
+
+export async function fetchPlaylist(id: string): Promise<IPlaylistSingle> {
+  const headers = await makeHeaders();
+  const response = await axios
+    .get(`http://127.0.0.1:8000/playlist/${id}`, { headers })
+    .then((r) => r.data)
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}
+
+export async function createPlaylist(
+  data: FieldValues
+): Promise<IPlaylistSingle> {
+  console.log(data);
+  const formattedData = {
+    name: data.playlistName,
+    cover: data.coverNumber,
+  };
+
+  const headers = await makeHeaders();
+  const response = axios
+    .post("http://127.0.0.1:8000/create/playlist", formattedData, { headers })
+    .then((r) => r.data)
+    .catch((error: AxiosError) => {
+      console.log(error);
+      throw error;
+    });
+
+  return response;
+}
+
+export async function deletePlaylist(id: string): Promise<AxiosResponse> {
+  const headers = await makeHeaders();
+  const response = await axios
+    .delete(`http://127.0.0.1:8000/playlist/${id}`, { headers })
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
   return response;
 }

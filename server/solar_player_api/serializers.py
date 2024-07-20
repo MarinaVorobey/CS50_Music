@@ -72,7 +72,11 @@ class ArtistSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
 
     def get_tracks(self, _):
-        return self.context["tracks"].data
+        return TrackSerializer(
+            self.context["tracks"],
+            many=True,
+            context={"request": self.context["request"]},
+        ).data
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

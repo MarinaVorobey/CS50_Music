@@ -34,7 +34,7 @@ export default function Login({
     useMutation({
       mutationFn: login,
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["user"] });
+        queryClient.invalidateQueries();
         onClose();
       },
     });

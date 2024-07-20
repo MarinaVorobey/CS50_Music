@@ -14,6 +14,7 @@ import {
 import { getUserToken, logout } from "@/app/lib/data";
 import { AxiosError, AxiosResponse } from "axios";
 import { FieldValues } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 export default function User() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,16 +23,15 @@ export default function User() {
 
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const [username, setUsername] = useState("Anonymous");
-  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const userObject = window.localStorage.getItem("user");
     if (userObject) {
       setUsername(JSON.parse(userObject).username);
-      setLoggedIn(true);
     }
   }, [userToken]);
 
+  const router = useRouter();
   const queryClient = useQueryClient();
   const logoutFn: UseMutationResult<
     AxiosResponse | null,
@@ -40,12 +40,10 @@ export default function User() {
   > = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
-      setUsername("Anonymous");
-      setLoggedIn(false);
       setModalOpen(false);
+      router.push("/");
+      queryClient.invalidateQueries();
+      setUsername("Anonymous");
     },
   });
 
@@ -54,7 +52,7 @@ export default function User() {
       <Icon
         type="user"
         className={styles.user__icon}
-        defaultColor={!loggedIn ? colors.greyAA : colors.orange}
+        defaultColor={!userToken.data ? colors.greyAA : colors.orange}
       />
       <span className={styles.user__text}>{username}</span>
       <button onClick={() => setModalOpen(true)} className={styles.user__auth}>
@@ -65,7 +63,7 @@ export default function User() {
         />
       </button>
       {modalOpen ? (
-        loggedIn ? (
+        userToken.data ? (
           <Modal
             onClose={() => setModalOpen(false)}
             type="confirm"
