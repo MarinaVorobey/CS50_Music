@@ -91,6 +91,18 @@
   cursor: not-allowed;
 }
 
+.no__data__message {
+  padding: 15px 0;
+  font-size: 16px;
+}
+
+.success__message {
+  padding-top: 10px;
+  font-size: 16px;
+  text-align: center;
+  color: darkgreen;
+}
+
 @media (min-width: 1200px) {
 
   .submit__btn:focus,

@@ -31,10 +31,7 @@ export default function Modal({ onClose, type, data }: IModalProps) {
   const modalRoot = document.getElementById("modal-root");
   if (!modalRoot) return null;
 
-  const modalProps =
-    type === "addToPlaylist"
-      ? { onClose: onClose }
-      : { ...data, onClose: onClose };
+  const modalProps = { ...data, onClose: onClose };
 
   return ReactDOM.createPortal(
     <>

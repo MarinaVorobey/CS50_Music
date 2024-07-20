@@ -123,7 +123,7 @@ def toggle_like(request, track_id):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(["PATCH"])
+@api_view(["GET", "PATCH"])
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def add_to_playlist(request, track_id):
@@ -132,7 +132,13 @@ def add_to_playlist(request, track_id):
     except Track.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if not "playlist_ids" in request.data:
+    if request.method == "GET":
+        playlists = request.user.playlists.all()
+        playlists = [p for p in playlists if not track in p.tracks.all()]
+        data = PlaylistsSerializer(playlists, many=True)
+        return Response(data.data)
+
+    if not "playlist_ids" in request.data or not len(request.data["playlist_ids"]):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     ids = request.data["playlist_ids"]

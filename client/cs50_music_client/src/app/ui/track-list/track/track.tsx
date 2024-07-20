@@ -8,10 +8,10 @@ import styles from "./track.module.css";
 import { formatDuration, formatTimePassed } from "@/app/lib/utils";
 import { useEffect, useState } from "react";
 import Modal from "../../modals/modal";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import { getUserToken, likeTrack } from "@/app/lib/data";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { getUserToken, likeTrack, removeFromPlaylist } from "@/app/lib/data";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function Track({
   number,
@@ -26,16 +26,26 @@ export default function Track({
 
   const pathname = usePathname();
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
+
   const likeAction = useMutation({
     mutationFn: () => likeTrack(`${id}`),
     onSuccess: () => {
       setLikedTrack((prev) => !prev);
     },
   });
-
   useEffect(() => {
     setLikedTrack(liked);
   }, [liked]);
+
+  const queryClient = useQueryClient();
+  const playlist = useParams().id as string;
+  const removeTrackAction = useMutation({
+    mutationFn: () => removeFromPlaylist(playlist, `${id}`),
+    onSuccess: () => {
+      setModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["playlist"] });
+    },
+  });
 
   return (
     <>
@@ -55,7 +65,7 @@ export default function Track({
             </a>
           </h3>
           <div className={styles.artist__wrapper}>
-            <Link href={`artist/${artist.id}`} className={styles.artist}>
+            <Link href={`/artist/${artist.id}`} className={styles.artist}>
               {artist.name}
             </Link>
           </div>
@@ -97,7 +107,13 @@ export default function Track({
 
       {modalOpen ? (
         !pathname.includes("playlist") ? (
-          <Modal onClose={() => setModalOpen(false)} type="addToPlaylist" />
+          <Modal
+            data={{
+              id: id,
+            }}
+            onClose={() => setModalOpen(false)}
+            type="addToPlaylist"
+          />
         ) : (
           <Modal
             onClose={() => setModalOpen(false)}
@@ -105,7 +121,7 @@ export default function Track({
             data={{
               title: "Remove song from the playlist?",
               confirmText: "Remove",
-              onConfirm: () => setModalOpen(false),
+              onConfirm: removeTrackAction.mutate,
             }}
           />
         )

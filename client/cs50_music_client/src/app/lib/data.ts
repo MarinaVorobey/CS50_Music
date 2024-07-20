@@ -208,7 +208,6 @@ export async function fetchPlaylist(id: string): Promise<IPlaylistSingle> {
 export async function createPlaylist(
   data: FieldValues
 ): Promise<IPlaylistSingle> {
-  console.log(data);
   const formattedData = {
     name: data.playlistName,
     cover: data.coverNumber,
@@ -230,6 +229,72 @@ export async function deletePlaylist(id: string): Promise<AxiosResponse> {
   const headers = await makeHeaders();
   const response = await axios
     .delete(`http://127.0.0.1:8000/playlist/${id}`, { headers })
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}
+
+export async function fetchPlaylistsForAdding(
+  id: string
+): Promise<IPlaylistMany> {
+  const headers = await makeHeaders();
+  const response = await axios
+    .get(`http://127.0.0.1:8000/playlists/add/${id}`, { headers })
+    .then((r) => r.data)
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}
+
+export async function addToPlaylist(
+  id: string,
+  data: FieldValues
+): Promise<AxiosResponse> {
+  const headers = await makeHeaders();
+  const playlistIds: string[] = [];
+  for (const i in data) {
+    if (data[i]) {
+      playlistIds.push(i);
+    }
+  }
+  const formattedData = {
+    playlist_ids: playlistIds,
+  };
+
+  const response = await axios
+    .patch(`http://127.0.0.1:8000/playlists/add/${id}`, formattedData, {
+      headers,
+    })
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}
+
+export async function removeFromPlaylist(
+  playlistId: string,
+  trackId: string
+): Promise<AxiosResponse> {
+  const headers = await makeHeaders();
+
+  const response = await axios
+    .patch(
+      `http://127.0.0.1:8000/playlist/${playlistId}`,
+      {
+        track_id: trackId,
+      },
+      {
+        headers,
+      }
+    )
     .catch((err: AxiosError) => {
       console.error(err);
       throw err;

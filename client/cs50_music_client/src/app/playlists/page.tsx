@@ -28,7 +28,7 @@ export default function Playlists() {
     isLoading,
   }: UseQueryResult<IPlaylistMany[], AxiosError> = useQuery({
     queryKey: ["playlists"],
-    queryFn: async () => await fetchPlaylists(),
+    queryFn: fetchPlaylists,
     retry: (failureCount: number, error: AxiosError) =>
       error.response?.status !== 401 && failureCount < 1,
   });
