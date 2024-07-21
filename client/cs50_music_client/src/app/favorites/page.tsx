@@ -7,8 +7,11 @@ import Loading from "../loading";
 import TrackList from "../ui/track-list/track-list";
 import { AxiosError } from "axios";
 import ErrorBlock from "../ui/network/error-block";
+import SearchResult from "../ui/network/search-result";
+import { useSearchTracks } from "../lib/utils";
 
 export default function Favorites() {
+  const searched = useSearchTracks();
   const {
     data,
     isError,
@@ -29,6 +32,10 @@ export default function Favorites() {
         message="Log in to like tracks and view your favorites"
       />
     );
+  }
+
+  if (searched) {
+    return <SearchResult />;
   }
 
   return (

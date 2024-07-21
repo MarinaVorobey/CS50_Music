@@ -23,14 +23,14 @@ export async function getUserToken(): Promise<string | null> {
 
   if (expires.getTime() < Date.now()) {
     try {
-      const response: ILoginResponse = await axios.post(
+      const response: AxiosResponse<ILoginResponse> = await axios.post(
         "http://127.0.0.1:8000/login/refresh",
         {
           refresh: userData.refreshToken,
         }
       );
-      userData.accessToken = response.access;
-      userData.refreshToken = response.refresh;
+      userData.accessToken = response.data.access;
+      userData.refreshToken = response.data.refresh;
       window.localStorage.setItem("user", JSON.stringify(userData));
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 401) {
@@ -56,10 +56,13 @@ async function makeHeaders(): Promise<{
   return headers;
 }
 
-export async function fetchTracks(): Promise<ITrack[]> {
+export async function fetchTracks(query?: string | null): Promise<ITrack[]> {
   const headers = await makeHeaders();
+  const url = new URL("http://127.0.0.1:8000/tracks");
+  if (query) url.searchParams.set("query", query);
+
   const response = await axios
-    .get("http://127.0.0.1:8000/tracks", { headers })
+    .get(url.toString(), { headers })
     .then((r) => r.data)
     .catch((err: AxiosError) => {
       console.error(err);

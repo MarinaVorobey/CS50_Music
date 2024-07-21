@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserToken } from "./data";
 import { useEffect, useState } from "react";
 import { IUserData } from "./definitions";
+import { useSearchParams } from "next/navigation";
 
 export function formatTimePassed(time: string): string {
   const passed: number = Date.now() - new Date(time).getTime();
@@ -41,14 +42,16 @@ export function moveSearchbar(): void {
   search?.classList.toggle("search--active");
 }
 
-export function useUserData(): IUserData | null {
-  const [userData, setUserData] = useState<IUserData | null>(null);
-  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
+export function useSearchTracks(): boolean {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  const [searched, setSearched] = useState(false);
+  const client = useQueryClient();
+
   useEffect(() => {
-    const userObject = window.localStorage.getItem("user");
-    if (userObject) {
-      setUserData(JSON.parse(userObject));
-    }
-  }, [userToken]);
-  return userData;
+    setSearched(query !== null);
+    client.invalidateQueries({ queryKey: ["search"] });
+  }, [query, client]);
+
+  return searched;
 }

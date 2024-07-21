@@ -56,4 +56,4 @@ export interface ILoginResponse {
   refresh: string;
 }
 
-export type TTracklists = "all" | "favorite" | "playlist" | "artist";
+export type TTracklists = "all" | "favorite" | "playlist" | "artist" | "search";

@@ -138,7 +138,7 @@ export default function AddToPlaylist({
             <button
               type="submit"
               className={styles.submit__btn}
-              disabled={!playlistChosen}
+              disabled={!playlistChosen || mutation.isPending}
             >
               Done
             </button>

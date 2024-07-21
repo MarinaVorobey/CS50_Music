@@ -7,8 +7,12 @@ import { fetchTracks } from "./lib/data";
 import { ITrack } from "./lib/definitions";
 import { AxiosError } from "axios";
 import ErrorBlock from "./ui/network/error-block";
+import SearchResult from "./ui/network/search-result";
+import { useSearchTracks } from "./lib/utils";
 
 export default function Home() {
+  const searched = useSearchTracks();
+
   const {
     data,
     error,
@@ -23,6 +27,10 @@ export default function Home() {
   if (isLoading) return <Loading />;
   if (isError) {
     return <ErrorBlock status={error.response?.status ?? 500} message="" />;
+  }
+
+  if (searched) {
+    return <SearchResult />;
   }
 
   return <TrackList tracks={data ? data : []} title="All tracks" type="all" />;

@@ -1,7 +1,11 @@
 import styles from "./register.module.css";
 import generalStyles from "../modal.module.css";
 import { FieldValues, useForm } from "react-hook-form";
-import { UseMutationResult, useMutation } from "@tanstack/react-query";
+import {
+  UseMutationResult,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { colors } from "../../colors";
 import { registerUser } from "@/app/lib/data";
@@ -19,6 +23,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
     formState: { errors },
   } = useForm({ mode: "onSubmit", shouldUnregister: true });
 
+  useQueryClient();
   const mutation: UseMutationResult<AxiosResponse, AxiosError, FieldValues> =
     useMutation({
       mutationFn: registerUser,

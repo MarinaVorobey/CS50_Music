@@ -21,7 +21,7 @@ export default function TrackList({
   image,
 }: ITrackListProps) {
   return (
-    <section className="tracks section">
+    <section key={type} className="tracks section">
       <div className={styles.meta}>
         {image && (
           <Image

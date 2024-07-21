@@ -18,7 +18,7 @@ export default function Search() {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  }, 300);
+  }, 400);
 
   return (
     <form id="search" method="POST" className={styles.search}>
@@ -26,8 +26,8 @@ export default function Search() {
         onChange={(e) => handleSearch(e.target.value)}
         className={styles.search__field}
         type="search"
+        name="search"
         placeholder="WHAT WOULD YOU LIKE TO FIND?"
-        defaultValue={searchParams.get("query")?.toString()}
       />
     </form>
   );

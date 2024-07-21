@@ -2,14 +2,17 @@
 
 import { fetchArtist } from "@/app/lib/data";
 import { IArtistData } from "@/app/lib/definitions";
+import { useSearchTracks } from "@/app/lib/utils";
 import Loading from "@/app/loading";
 import ErrorBlock from "@/app/ui/network/error-block";
+import SearchResult from "@/app/ui/network/search-result";
 import TrackList from "@/app/ui/track-list/track-list";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useParams } from "next/navigation";
 
 export default function Artist() {
+  const searched = useSearchTracks();
   const id = useParams().id as string;
   const {
     data,
@@ -25,6 +28,10 @@ export default function Artist() {
   if (isLoading) return <Loading />;
   if (isError) {
     return <ErrorBlock status={error.response?.status ?? 500} message="" />;
+  }
+
+  if (searched) {
+    return <SearchResult />;
   }
 
   return (

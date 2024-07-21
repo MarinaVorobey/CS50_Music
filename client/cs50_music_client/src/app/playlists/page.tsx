@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import { ILoginResponse, IPlaylistMany } from "../lib/definitions";
 import Icon from "../ui/icon";
 import { colors } from "../ui/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../ui/modals/modal";
 import {
   UseMutationResult,
@@ -19,6 +19,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { deletePlaylist, fetchPlaylists } from "../lib/data";
 import Loading from "../loading";
 import ErrorBlock from "../ui/network/error-block";
+import { useSearchParams } from "next/navigation";
 
 export default function Playlists() {
   const {
@@ -46,6 +47,21 @@ export default function Playlists() {
       setDeleteModalOpen(false);
     },
   });
+
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  const [dataFiltered, setDataFiltered] = useState(data);
+  useEffect(() => {
+    if (data) {
+      if (query) {
+        setDataFiltered(
+          data.filter((p) => p.name.match(new RegExp(query, "gi")))
+        );
+      } else {
+        setDataFiltered(data);
+      }
+    }
+  }, [data, query]);
 
   if (isLoading) return <Loading />;
   if (isError || mutation.isError) {
@@ -106,8 +122,8 @@ export default function Playlists() {
             </h3>
           </div>
         </li>
-        {data
-          ? data.map((p) => (
+        {dataFiltered
+          ? dataFiltered.map((p) => (
               <li key={p.id} className={styles.item}>
                 <Image
                   src={`/playlist_covers/playlists%20(${p.cover}).jpg`}
