@@ -39,7 +39,7 @@ export function formatDuration(time: string): string {
 
 export function moveSearchbar(): void {
   const search = document.getElementById("search");
-  search?.classList.toggle("search--active");
+  search?.classList.toggle("search__inactive");
 }
 
 export function useSearchTracks(): boolean {

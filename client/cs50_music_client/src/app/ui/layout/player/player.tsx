@@ -1,7 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Icon, { TIconNames } from "../../icon";
 import { colors } from "../../colors";
 import styles from "./player.module.css";
+import { ITrack } from "@/app/lib/definitions";
+import { fetchCurrentTrack, getUserToken, likeTrack } from "@/app/lib/data";
+import {
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { formatDuration } from "@/app/lib/utils";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 interface IControlButtonInfo {
   iconType: TIconNames;
@@ -38,31 +52,62 @@ export default function Player() {
     },
   ];
 
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+  }: UseQueryResult<ITrack, AxiosError> = useQuery({
+    queryKey: ["curr_track"],
+    queryFn: fetchCurrentTrack,
+  });
+
+  const liked = data?.liked;
+  const [likedTrack, setLikedTrack] = useState(liked);
+  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
+  const likeAction = useMutation({
+    mutationFn: () => likeTrack(`${data?.id ?? 0}`),
+    onSuccess: () => {
+      setLikedTrack((prev) => !prev);
+    },
+  });
+  useEffect(() => {
+    setLikedTrack(liked);
+  }, [liked]);
+
+  if (isLoading || isError || !data) {
+    return "None";
+  }
+
   return (
     <footer className={styles.footer}>
       <div className={`${styles.player} flex`}>
         <div className={`${styles.track__name} flex`}>
           <Image
             className={styles.track__img}
-            src="/playlist_covers/playlists%20(3).jpg"
+            src={`/artist_covers/${data.artist.image}`}
             width={60}
             height={60}
-            alt="Histoire Sans Nom - Ludovico Einaudi, Czech National Symphony Orchestra"
+            alt={`${data.artist.name} - ${data.name}`}
           />
           <div className={styles.track__name__content}>
             <div className={`${styles.name__header} flex`}>
-              <h3 className={styles.track__h3}>Histoire Sans Nom</h3>
-              <button className={styles.track__like}>
+              <h3 className={styles.track__h3}>{data.name}</h3>
+              <button
+                onClick={() => likeAction.mutate()}
+                disabled={!userToken.data || likeAction.isPending}
+                className={styles.track__like}
+              >
                 <Icon
                   type="heart"
                   className={styles.track__like__icon}
-                  defaultColor={colors.orange}
+                  defaultColor={likedTrack ? colors.orange : colors.greyA4}
                 />
               </button>
             </div>
-            <p className={styles.track__author}>
-              Ludovico Einaudi, Czech National Symphony Orchestra
-            </p>
+            <Link href={`/artist/${data.artist.id}`} className={styles.artist}>
+              {data.artist.name}
+            </Link>
           </div>
         </div>
 
@@ -81,7 +126,9 @@ export default function Player() {
           <div className={styles.controls__footer}>
             <span className={styles.time__start}>0:26</span>
             <div className={styles.range__play} id="range-play"></div>
-            <span className={styles.time__end}>0:26</span>
+            <span className={styles.time__end}>
+              {formatDuration(data.duration)}
+            </span>
           </div>
         </div>
         <div className={styles.volume}>

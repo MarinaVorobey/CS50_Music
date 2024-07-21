@@ -305,3 +305,16 @@ export async function removeFromPlaylist(
 
   return response;
 }
+
+export async function fetchCurrentTrack(): Promise<ITrack> {
+  const headers = await makeHeaders();
+  const response = await axios
+    .get("http://127.0.0.1:8000/current_track", { headers })
+    .then((r) => r.data)
+    .catch((err: AxiosError) => {
+      console.error(err);
+      throw err;
+    });
+
+  return response;
+}

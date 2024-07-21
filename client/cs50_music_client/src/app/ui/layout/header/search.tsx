@@ -21,7 +21,11 @@ export default function Search() {
   }, 400);
 
   return (
-    <form id="search" method="POST" className={styles.search}>
+    <form
+      id="search"
+      method="POST"
+      className={`${styles.search} search__inactive`}
+    >
       <input
         onChange={(e) => handleSearch(e.target.value)}
         className={styles.search__field}

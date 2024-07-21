@@ -182,6 +182,23 @@ def get_favorites(request):
     return Response(track_serializer.data)
 
 
+@api_view(["GET"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([AllowAny])
+def curr_track(request):
+    track = None
+    if not request.user.is_anonymous:
+        track = request.user.last_listened
+
+    if not track:
+        track = Track.objects.first()
+    if not request.user.is_anonymous:
+        request.user.last_listened = track
+        request.user.save()
+    track_data = TrackSerializer(track, context={"request": request})
+    return Response(track_data.data)
+
+
 # Music files
 # from django.http import FileResponse
 

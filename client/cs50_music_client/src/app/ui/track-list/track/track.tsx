@@ -24,6 +24,7 @@ export default function Track({
   const [modalOpen, setModalOpen] = useState(false);
   const [likedTrack, setLikedTrack] = useState(liked);
 
+  const queryClient = useQueryClient();
   const pathname = usePathname();
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
 
@@ -31,13 +32,18 @@ export default function Track({
     mutationFn: () => likeTrack(`${id}`),
     onSuccess: () => {
       setLikedTrack((prev) => !prev);
+      const currTrack: ITrack | undefined = queryClient.getQueryData([
+        "curr_track",
+      ]);
+      if (currTrack && currTrack.id === id) {
+        queryClient.invalidateQueries({ queryKey: ["curr_track"] });
+      }
     },
   });
   useEffect(() => {
     setLikedTrack(liked);
   }, [liked]);
 
-  const queryClient = useQueryClient();
   const playlist = useParams().id as string;
   const removeTrackAction = useMutation({
     mutationFn: () => removeFromPlaylist(playlist, `${id}`),

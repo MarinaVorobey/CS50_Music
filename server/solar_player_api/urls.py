@@ -10,6 +10,7 @@ urlpatterns = [
     path("logout", TokenBlacklistView.as_view(), name="auth_logout"),
     path("tracks", views.get_tracklist, name="tracklist"),
     path("like/<int:track_id>", views.toggle_like, name="like_track"),
+    path("current_track", views.curr_track, name="curr_track"),
     path("playlists", views.get_playlists, name="playlists"),
     path("playlist/<int:playlist_id>", views.playlist, name="playlist"),
     path("playlists/add/<int:track_id>", views.add_to_playlist, name="add_to_playlist"),

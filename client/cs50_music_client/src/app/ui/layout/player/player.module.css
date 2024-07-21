@@ -25,10 +25,23 @@
   margin-right: 12px;
 }
 
-.track__author {
-  margin: 0;
+.artist {
   color: var(--greyA4);
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+.artist:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  max-width: 20px;
+  max-height: 20px;
 }
 
 .track__img {
@@ -128,6 +141,33 @@
 .volume__range {
   width: 72px;
   height: 4px;
+}
+
+.track__like path {
+  transition: fill 0.3s ease-in-out;
+}
+
+.track__like:disabled {
+  cursor: not-allowed;
+}
+
+.track__like:disabled path {
+  fill: var(--greyA4);
+}
+
+@media (min-width: 1200px) {
+  .artist:hover {
+    text-decoration: underline;
+    color: var(--orange);
+  }
+
+  .track__like:hover path {
+    fill: var(--orange);
+  }
+
+  .track__like:disabled path {
+    fill: var(--greyA4);
+  }
 }
 
 @media (max-width: 992px) {
