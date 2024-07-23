@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { ILoginResponse, IPlaylistMany } from "../lib/definitions";
+import { IPlaylistMany } from "../lib/definitions";
 import Icon from "../ui/icon";
 import { colors } from "../ui/colors";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../ui/modals/modal";
 import {
   UseMutationResult,
@@ -16,12 +16,13 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { deletePlaylist, fetchPlaylists } from "../lib/data";
+import { deletePlaylist, fetchPlaylists, getUserToken } from "../lib/data";
 import Loading from "../loading";
 import ErrorBlock from "../ui/network/error-block";
-import { useSearchParams } from "next/navigation";
+import { useSearchPlaylists } from "../lib/utils";
 
 export default function Playlists() {
+  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const {
     data,
     isError,
@@ -32,6 +33,7 @@ export default function Playlists() {
     queryFn: fetchPlaylists,
     retry: (failureCount: number, error: AxiosError) =>
       error.response?.status !== 401 && failureCount < 1,
+    enabled: !!userToken.data,
   });
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -48,28 +50,16 @@ export default function Playlists() {
     },
   });
 
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
-  const [dataFiltered, setDataFiltered] = useState(data);
-  useEffect(() => {
-    if (data) {
-      if (query) {
-        setDataFiltered(
-          data.filter((p) => p.name.match(new RegExp(query, "gi")))
-        );
-      } else {
-        setDataFiltered(data);
-      }
-    }
-  }, [data, query]);
-
+  const dataFiltered = useSearchPlaylists(data);
   if (isLoading) return <Loading />;
-  if (isError || mutation.isError) {
+  if (isError || mutation.isError || !userToken.data) {
     const status =
       error && error.response
         ? error.response.status
         : mutation.error && mutation.error.response
         ? mutation.error.response.status
+        : !userToken.data
+        ? 401
         : 500;
     return (
       <ErrorBlock

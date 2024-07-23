@@ -26,7 +26,7 @@ export default function SearchResult() {
 
   if (isLoading) return <Loading />;
   if (isError) {
-    return <ErrorBlock status={error.response?.status ?? 500} message="" />;
+    return <ErrorBlock status={error.response?.status ?? 500} />;
   }
 
   return (

@@ -93,7 +93,7 @@ def playlist(request, playlist_id):
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def create_playlist(request):
-    data = request.data
+    data = request.data.copy()
     data["user"] = request.user.id
     serializer = CreatePlaylistSerializer(data=data)
     if serializer.is_valid():
@@ -185,16 +185,12 @@ def get_favorites(request):
 @api_view(["GET"])
 @authentication_classes([JWTAuthentication])
 @permission_classes([AllowAny])
-def curr_track(request):
-    track = None
-    if not request.user.is_anonymous:
-        track = request.user.last_listened
+def track(request, track_id):
+    try:
+        track = Track.objects.get(pk=track_id)
+    except Track.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if not track:
-        track = Track.objects.first()
-    if not request.user.is_anonymous:
-        request.user.last_listened = track
-        request.user.save()
     track_data = TrackSerializer(track, context={"request": request})
     return Response(track_data.data)
 

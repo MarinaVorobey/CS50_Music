@@ -10,11 +10,11 @@ export default function ErrorBlock({
   message,
 }: {
   status: number;
-  message: string;
+  message?: string;
 }) {
   const pathname = usePathname();
   if (status === 401) {
-    return <SuggestAuth message={message} />;
+    return <SuggestAuth message={message ?? ""} />;
   }
 
   message =

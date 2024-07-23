@@ -7,7 +7,7 @@ import styles from "./side-navbar.module.css";
 import { usePathname } from "next/navigation";
 import { moveSearchbar } from "@/app/lib/utils";
 import { useState } from "react";
-import { fetchPlaylists } from "@/app/lib/data";
+import { fetchPlaylists, getUserToken } from "@/app/lib/data";
 import { IPlaylistMany } from "@/app/lib/definitions";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -45,12 +45,14 @@ export default function SideNavbar() {
     },
   ];
 
+  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const { data, isSuccess }: UseQueryResult<IPlaylistMany[], AxiosError> =
     useQuery({
       queryKey: ["playlists"],
       queryFn: async () => await fetchPlaylists(),
       retry: (failureCount: number, error: AxiosError) =>
         error.response?.status !== 401 && failureCount < 1,
+      enabled: !!userToken.data,
     });
 
   return (

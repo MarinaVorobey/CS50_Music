@@ -1,7 +1,7 @@
 "use client";
 
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { fetchFavorites } from "../lib/data";
+import { fetchFavorites, getUserToken } from "../lib/data";
 import { ITrack } from "../lib/definitions";
 import Loading from "../loading";
 import TrackList from "../ui/track-list/track-list";
@@ -12,6 +12,7 @@ import { useSearchTracks } from "../lib/utils";
 
 export default function Favorites() {
   const searched = useSearchTracks();
+  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const {
     data,
     isError,
@@ -22,13 +23,20 @@ export default function Favorites() {
     queryFn: async () => await fetchFavorites(),
     retry: (failureCount: number, error: AxiosError) =>
       error.response?.status !== 401 && failureCount < 3,
+    enabled: !!userToken.data,
   });
 
   if (isLoading) return <Loading />;
-  if (isError) {
+  if (isError || !userToken.data) {
+    const status =
+      error && error.response
+        ? error.response.status
+        : !userToken.data
+        ? 401
+        : 500;
     return (
       <ErrorBlock
-        status={error.response?.status ?? 500}
+        status={status}
         message="Log in to like tracks and view your favorites"
       />
     );

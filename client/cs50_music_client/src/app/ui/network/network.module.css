@@ -34,3 +34,18 @@
   font-size: 16px;
   color: rgb(189, 39, 39);
 }
+
+.like__btn {
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 1200px) {
+  .like__btn:disabled {
+    cursor: not-allowed;
+  }
+
+  .like__btn:disabled path {
+    fill: var(--greyA4);
+  }
+}

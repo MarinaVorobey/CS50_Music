@@ -5,17 +5,12 @@ import Icon, { TIconNames } from "../../icon";
 import { colors } from "../../colors";
 import styles from "./player.module.css";
 import { ITrack } from "@/app/lib/definitions";
-import { fetchCurrentTrack, getUserToken, likeTrack } from "@/app/lib/data";
-import {
-  UseQueryResult,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { fetchCurrentTrack } from "@/app/lib/data";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { formatDuration } from "@/app/lib/utils";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import LikeBtn from "../../network/like-btn";
 
 interface IControlButtonInfo {
   iconType: TIconNames;
@@ -62,19 +57,6 @@ export default function Player() {
     queryFn: fetchCurrentTrack,
   });
 
-  const liked = data?.liked;
-  const [likedTrack, setLikedTrack] = useState(liked);
-  const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
-  const likeAction = useMutation({
-    mutationFn: () => likeTrack(`${data?.id ?? 0}`),
-    onSuccess: () => {
-      setLikedTrack((prev) => !prev);
-    },
-  });
-  useEffect(() => {
-    setLikedTrack(liked);
-  }, [liked]);
-
   if (isLoading || isError || !data) {
     return "None";
   }
@@ -93,17 +75,7 @@ export default function Player() {
           <div className={styles.track__name__content}>
             <div className={`${styles.name__header} flex`}>
               <h3 className={styles.track__h3}>{data.name}</h3>
-              <button
-                onClick={() => likeAction.mutate()}
-                disabled={!userToken.data || likeAction.isPending}
-                className={styles.track__like}
-              >
-                <Icon
-                  type="heart"
-                  className={styles.track__like__icon}
-                  defaultColor={likedTrack ? colors.orange : colors.greyA4}
-                />
-              </button>
+              <LikeBtn id={data?.id ?? 1} liked={data?.liked ?? false} />
             </div>
             <Link href={`/artist/${data.artist.id}`} className={styles.artist}>
               {data.artist.name}

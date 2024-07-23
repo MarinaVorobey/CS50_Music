@@ -1,8 +1,7 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserToken } from "./data";
 import { useEffect, useState } from "react";
-import { IUserData } from "./definitions";
 import { useSearchParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { IPlaylistMany } from "./definitions";
 
 export function formatTimePassed(time: string): string {
   const passed: number = Date.now() - new Date(time).getTime();
@@ -54,4 +53,23 @@ export function useSearchTracks(): boolean {
   }, [query, client]);
 
   return searched;
+}
+
+export function useSearchPlaylists(data?: IPlaylistMany[]) {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  const [dataFiltered, setDataFiltered] = useState(data);
+  useEffect(() => {
+    if (data) {
+      if (query) {
+        setDataFiltered(
+          data.filter((p) => p.name.match(new RegExp(query, "gi")))
+        );
+      } else {
+        setDataFiltered(data);
+      }
+    }
+  }, [data, query]);
+
+  return dataFiltered;
 }

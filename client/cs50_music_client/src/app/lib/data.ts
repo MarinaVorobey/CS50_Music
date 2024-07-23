@@ -31,6 +31,9 @@ export async function getUserToken(): Promise<string | null> {
       );
       userData.accessToken = response.data.access;
       userData.refreshToken = response.data.refresh;
+      userData.tokenExpires = new Date(
+        Date.now() + 60 * 60 * 1000 * 2
+      ).toString();
       window.localStorage.setItem("user", JSON.stringify(userData));
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 401) {
@@ -113,7 +116,6 @@ export async function login(data: FieldValues): Promise<ILoginResponse> {
         accessToken: data.access,
         refreshToken: data.refresh,
         tokenExpires: new Date(Date.now() + 60 * 60 * 1000 * 2).toString(),
-        lastListened: 1,
       };
       window.localStorage.setItem("user", JSON.stringify(userData));
       return response.data;
@@ -173,7 +175,7 @@ export async function logout() {
 export async function likeTrack(id: string): Promise<AxiosResponse> {
   const headers = await makeHeaders();
   const response = await axios
-    .patch(`http://127.0.0.1:8000/like/${id}`, {}, { headers })
+    .patch(`http://127.0.0.1:8000/track/${id}/like`, {}, { headers })
     .catch((err: AxiosError) => {
       console.error(err);
       throw err;
@@ -218,7 +220,7 @@ export async function createPlaylist(
 
   const headers = await makeHeaders();
   const response = axios
-    .post("http://127.0.0.1:8000/create/playlist", formattedData, { headers })
+    .post("http://127.0.0.1:8000/playlists/create", formattedData, { headers })
     .then((r) => r.data)
     .catch((error: AxiosError) => {
       console.log(error);
@@ -306,15 +308,30 @@ export async function removeFromPlaylist(
   return response;
 }
 
+export async function setLastListened(id: string): Promise<boolean> {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  window.localStorage.setItem("curr_track", id);
+  return true;
+}
+
 export async function fetchCurrentTrack(): Promise<ITrack> {
   const headers = await makeHeaders();
-  const response = await axios
-    .get("http://127.0.0.1:8000/current_track", { headers })
+  let trackId = "1";
+  if (
+    typeof window !== "undefined" &&
+    window.localStorage.getItem("curr_track")
+  ) {
+    trackId = window.localStorage.getItem("curr_track") ?? "1";
+  }
+
+  return axios
+    .get(`http://127.0.0.1:8000/track/${trackId}`, { headers })
     .then((r) => r.data)
     .catch((err: AxiosError) => {
       console.error(err);
       throw err;
     });
-
-  return response;
 }

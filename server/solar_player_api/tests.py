@@ -8,10 +8,6 @@ import os
 from datetime import timedelta
 
 
-def artists_path():
-    return os.path.join(settings.MEDIA_ROOT, "artists")
-
-
 def tracks_path():
     return os.path.join(settings.MEDIA_ROOT, "tracks")
 
@@ -27,11 +23,9 @@ class SolarPlayerApiTestCase(TestCase):
         )
         self.token = AccessToken.for_user(user1)
 
-        artist1 = Artist.objects.create(
-            name="Ed Sheeran", image=f"{artists_path()}/artists/Ed Sheeran.jpeg"
-        )
+        artist1 = Artist.objects.create(name="Ed Sheeran", image=f"Ed Sheeran.jpeg")
         artist2 = Artist.objects.create(
-            name="Declan McKenna", image=f"{artists_path()}/artists/Declan McKenna.webp"
+            name="Declan McKenna", image=f"Declan McKenna.webp"
         )
 
         track1 = Track.objects.create(
@@ -71,16 +65,20 @@ class SolarPlayerApiTestCase(TestCase):
 
     def test_likes(self):
         c = Client()
-        response = c.patch("/like/1")
+        response = c.patch("/track/1/like")
         self.assertEqual(response.status_code, 401)
 
-        response = c.patch("/like/1", headers={"Authorization": f"Bearer {self.token}"})
+        response = c.patch(
+            "/track/1/like", headers={"Authorization": f"Bearer {self.token}"}
+        )
         self.assertEqual(response.status_code, 204)
 
         t1 = Track.objects.get(pk=1)
         self.assertEqual(t1.likes.all().count(), 1)
 
-        response = c.patch("/like/1", headers={"Authorization": f"Bearer {self.token}"})
+        response = c.patch(
+            "/track/1/like", headers={"Authorization": f"Bearer {self.token}"}
+        )
         t1 = Track.objects.get(pk=1)
         self.assertEqual(t1.likes.all().count(), 0)
 
@@ -137,11 +135,11 @@ class SolarPlayerApiTestCase(TestCase):
     def test_create_playlist(self):
         u1 = CustomUser.objects.get(pk=1)
         c = Client()
-        response = c.get("/create/playlist")
+        response = c.get("/playlists/create")
         self.assertEqual(response.status_code, 401)
 
         response = c.post(
-            "/create/playlist",
+            "/playlists/create",
             {"name": "Test3", "cover": 1, "user": u1},
             headers={"Authorization": f"Bearer {self.token}"},
         )

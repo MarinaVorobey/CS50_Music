@@ -11,7 +11,6 @@ export interface IRegister {
 
 export interface IUserData {
   username: string;
-  lastListened: number;
   accessToken: string;
   refreshToken: string;
   tokenExpires: string;

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import styles from "./add-to-playlist.module.css";
-import generalStyles from "../modal.module.css";
 import { IPlaylistMany } from "@/app/lib/definitions";
 import { useState } from "react";
 import { addToPlaylist, fetchPlaylistsForAdding } from "@/app/lib/data";
@@ -17,6 +16,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import ErrorBlock from "../../network/error-block";
 import Loading from "@/app/loading";
 import { FieldValues, useForm } from "react-hook-form";
+import AllAdded from "./all-added";
 
 export default function AddToPlaylist({
   onClose,
@@ -86,18 +86,7 @@ export default function AddToPlaylist({
         <p className={styles.success__message}>Added successfuly</p>
       ) : null}
       {!data.length ? (
-        <>
-          <p className={styles.no__data__message}>
-            All of your playlists contatin this track
-          </p>
-          <button
-            type="button"
-            onClick={onClose}
-            className={generalStyles.submit__btn}
-          >
-            OK
-          </button>
-        </>
+        <AllAdded onClose={onClose} />
       ) : (
         <form
           onSubmit={handleSubmit((data: FieldValues) => mutation.mutate(data))}

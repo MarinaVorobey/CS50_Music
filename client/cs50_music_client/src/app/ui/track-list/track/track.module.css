@@ -121,6 +121,7 @@
   bottom: 0;
   border-top: 1px solid var(--greyE8);
   border-bottom: 1px solid var(--greyE8);
+  cursor: pointer;
 }
 
 .artist__wrapper {
@@ -185,13 +186,8 @@
     fill: var(--orange);
   }
 
-  .btn__add:disabled,
-  .like__btn:disabled {
+  .btn__add:disabled {
     cursor: not-allowed;
-  }
-
-  .like__btn:disabled path {
-    fill: var(--greyA4);
   }
 
   .btn__add:disabled circle {
