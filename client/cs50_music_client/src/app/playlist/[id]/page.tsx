@@ -24,7 +24,7 @@ export default function Playlist() {
     queryFn: async ({ queryKey }) => await fetchPlaylist(queryKey[1]),
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || typeof window === "undefined") return <Loading />;
   if (isError) {
     return (
       <ErrorBlock

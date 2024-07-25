@@ -8,15 +8,12 @@ import styles from "./track.module.css";
 import { formatDuration, formatTimePassed } from "@/app/lib/utils";
 import { useState } from "react";
 import Modal from "../../modals/modal";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import {
-  getUserToken,
-  removeFromPlaylist,
-  setLastListened,
-} from "@/app/lib/data";
+import { getUserToken, removeFromPlaylist } from "@/app/lib/data";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LikeBtn from "../../network/like-btn";
+import { changeTrack } from "@/app/lib/player-control";
 
 export default function Track({
   number,
@@ -29,6 +26,7 @@ export default function Track({
   const pathname = usePathname();
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const queryClient = useQueryClient();
+  const searchParams = useSearchParams();
 
   const [modalOpen, setModalOpen] = useState(false);
   const playlist = useParams().id as string;
@@ -40,10 +38,23 @@ export default function Track({
     },
   });
 
+  const queueType = pathname.includes("playlist")
+    ? "playlist"
+    : pathname.includes("favorite")
+    ? "favorite"
+    : pathname.includes("artist")
+    ? "artist"
+    : "all";
+  const queueId = pathname.includes("artist")
+    ? `${artist.id}`
+    : pathname.includes("playlist")
+    ? playlist
+    : null;
   const changeTrackAction = useMutation({
-    mutationFn: () => setLastListened(`${id}`),
+    mutationFn: () => changeTrack(`${id}`, queueType, queryClient, queueId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["curr_track"] });
+      queryClient.invalidateQueries({ queryKey: ["player_data"] });
     },
   });
 
@@ -87,20 +98,24 @@ export default function Track({
           disabled={!userToken.data}
           onClick={() => setModalOpen(true)}
           className={
-            !pathname.includes("playlist")
+            !pathname.includes("playlist") || searchParams.get("query")
               ? styles.btn__add
               : styles.btn__remove
           }
         >
           <Icon
-            type={!pathname.includes("playlist") ? "plus" : "minus"}
+            type={
+              !pathname.includes("playlist") || searchParams.get("query")
+                ? "plus"
+                : "minus"
+            }
             defaultColor={colors.greyC4}
           />
         </button>
       </div>
 
       {modalOpen ? (
-        !pathname.includes("playlist") ? (
+        !pathname.includes("playlist") || searchParams.get("query") ? (
           <Modal
             data={{
               id: id,

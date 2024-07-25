@@ -26,6 +26,7 @@ export default function Artist() {
   });
 
   if (isLoading) return <Loading />;
+
   if (isError) {
     return <ErrorBlock status={error.response?.status ?? 500} />;
   }

@@ -77,7 +77,6 @@
   transition: color 0.3s ease-in-out;
 }
 
-.like__btn path,
 .btn__add circle,
 .btn__remove svg {
   transition: fill 0.3s ease-in-out;
@@ -91,12 +90,7 @@
   border-color: var(--orange);
 }
 
-.like__btn:focus-visible path {
-  fill: var(--orange);
-}
-
-.name__link:focus-visible,
-.like__btn:focus-visible {
+.name__link:focus-visible {
   outline: none;
 }
 

@@ -17,6 +17,7 @@ import ErrorBlock from "../../network/error-block";
 import Loading from "@/app/loading";
 import { FieldValues, useForm } from "react-hook-form";
 import AllAdded from "./all-added";
+import { checkAddedQueueIntegrity } from "@/app/lib/player-control";
 
 export default function AddToPlaylist({
   onClose,
@@ -59,9 +60,15 @@ export default function AddToPlaylist({
   const mutation: UseMutationResult<AxiosResponse, AxiosError, FieldValues> =
     useMutation({
       mutationFn: (data: FieldValues) => addToPlaylist(id, data),
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["playlists_add"] });
+      onSuccess: (_, vars) => {
+        queryClient.invalidateQueries({
+          queryKey: ["playlists_add"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["playlist"],
+        });
         setPlaylistChosen(false);
+        checkAddedQueueIntegrity("playlist", queryClient, id, vars);
       },
     });
 

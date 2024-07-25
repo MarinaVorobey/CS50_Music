@@ -56,3 +56,14 @@ export interface ILoginResponse {
 }
 
 export type TTracklists = "all" | "favorite" | "playlist" | "artist" | "search";
+
+export type TTrackQueues = "all" | "favorite" | "playlist" | "artist";
+
+export interface IPlayerData {
+  curr_track: string;
+  previous: number[];
+  next: number[];
+  queue_type: TTrackQueues;
+  on_repeat: boolean;
+  playlist?: string;
+}

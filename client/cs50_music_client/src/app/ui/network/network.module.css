@@ -40,7 +40,19 @@
   z-index: 2;
 }
 
+.like__btn path {
+  transition: fill 0.3s ease-in-out;
+}
+
+.like__btn:focus-visible path {
+  fill: var(--orange);
+}
+
 @media (min-width: 1200px) {
+  .like__btn:hover path {
+    fill: var(--orange)
+  }
+
   .like__btn:disabled {
     cursor: not-allowed;
   }

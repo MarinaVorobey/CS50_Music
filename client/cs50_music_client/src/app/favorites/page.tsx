@@ -26,7 +26,7 @@ export default function Favorites() {
     enabled: !!userToken.data,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || typeof window === "undefined") return <Loading />;
   if (isError || !userToken.data) {
     const status =
       error && error.response

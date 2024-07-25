@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Icon, { TIconNames } from "../../icon";
+import Icon from "../../icon";
 import { colors } from "../../colors";
 import styles from "./player.module.css";
 import { ITrack } from "@/app/lib/definitions";
@@ -11,54 +11,22 @@ import { AxiosError } from "axios";
 import { formatDuration } from "@/app/lib/utils";
 import Link from "next/link";
 import LikeBtn from "../../network/like-btn";
-
-interface IControlButtonInfo {
-  iconType: TIconNames;
-  className: string;
-  iconClassName: string;
-}
+import PlayerSkeleton from "./player-skeleton";
+import Skipback from "./controls/skipback";
+import Skipnext from "./controls/skipnext";
+import Shuffle from "./controls/shuffle";
+import Play from "./controls/play";
+import Repeat from "./controls/repeat";
 
 export default function Player() {
-  const controls: IControlButtonInfo[] = [
-    {
-      iconType: "shuffle",
-      className: `${styles.controls__btn} ${styles.shuffle__btn}`,
-      iconClassName: styles.shuffle__btn__icon,
-    },
-    {
-      iconType: "play-prev",
-      className: `${styles.controls__btn} ${styles.skipback__btn}`,
-      iconClassName: styles.skipback__btn__icon,
-    },
-    {
-      iconType: "play",
-      className: styles.play__btn,
-      iconClassName: styles.play__btn__icon,
-    },
-    {
-      iconType: "play-next",
-      className: `${styles.controls__btn} ${styles.skipnext__btn}`,
-      iconClassName: styles.skipnext__btn__icon,
-    },
-    {
-      iconType: "repeat",
-      className: `${styles.controls__btn} ${styles.repeat__btn}`,
-      iconClassName: styles.repeat__btn__icon,
-    },
-  ];
-
-  const {
-    data,
-    error,
-    isError,
-    isLoading,
-  }: UseQueryResult<ITrack, AxiosError> = useQuery({
-    queryKey: ["curr_track"],
-    queryFn: fetchCurrentTrack,
-  });
+  const { data, isError, isLoading }: UseQueryResult<ITrack, AxiosError> =
+    useQuery({
+      queryKey: ["curr_track"],
+      queryFn: fetchCurrentTrack,
+    });
 
   if (isLoading || isError || !data) {
-    return "None";
+    return <PlayerSkeleton />;
   }
 
   return (
@@ -85,16 +53,13 @@ export default function Player() {
 
         <div className={styles.controls}>
           <div className={styles.controls__header}>
-            {controls.map((c) => (
-              <button key={c.iconType} className={c.className}>
-                <Icon
-                  type={c.iconType}
-                  className={c.iconClassName}
-                  defaultColor={colors.greyAA}
-                />
-              </button>
-            ))}
+            <Shuffle />
+            <Skipback />
+            <Play />
+            <Skipnext />
+            <Repeat />
           </div>
+
           <div className={styles.controls__footer}>
             <span className={styles.time__start}>0:26</span>
             <div className={styles.range__play} id="range-play"></div>

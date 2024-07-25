@@ -14,7 +14,13 @@
   gap: 20px;
 }
 
-.track__name {
+.skeleton__player {
+  justify-content: flex-end;
+  gap: 90px;
+}
+
+.track__name,
+.artist__placeholder {
   max-width: 388px;
   width: 100%;
   align-items: center;
@@ -87,6 +93,14 @@
   fill: var(--orange);
 }
 
+.controls__btn:disabled {
+  cursor: not-allowed;
+}
+
+.controls__btn:disabled svg path {
+  fill: var(--greyAA);
+}
+
 .play__btn {
   padding: 15px 13px 10px 15px;
   background-color: var(--greyAA);
@@ -100,6 +114,10 @@
 
 .play__btn:hover {
   background-color: var(--orange);
+}
+
+.play__btn:disabled {
+  background-color: var(--greyAA);
 }
 
 .controls__footer {
@@ -179,6 +197,11 @@
 @media (max-width: 768px) {
   .player {
     flex-direction: column;
+    gap: 15px;
+  }
+
+  .skeleton__player {
+    gap: 70px;
   }
 
   .track__name {

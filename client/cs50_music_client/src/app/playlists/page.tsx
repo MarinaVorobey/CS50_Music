@@ -51,7 +51,7 @@ export default function Playlists() {
   });
 
   const dataFiltered = useSearchPlaylists(data);
-  if (isLoading) return <Loading />;
+  if (isLoading || typeof window === "undefined") return <Loading />;
   if (isError || mutation.isError || !userToken.data) {
     const status =
       error && error.response

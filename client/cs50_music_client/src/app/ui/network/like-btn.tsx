@@ -3,6 +3,7 @@ import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { colors } from "../colors";
 import Icon from "../icon";
 import styles from "./network.module.css";
+import { checkAddedQueueIntegrity } from "@/app/lib/player-control";
 
 export default function LikeBtn({ liked, id }: { liked: boolean; id: number }) {
   const queryClient = useQueryClient();
@@ -11,6 +12,7 @@ export default function LikeBtn({ liked, id }: { liked: boolean; id: number }) {
     mutationFn: () => likeTrack(`${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries();
+      // checkAddedQueueIntegrity("favorite", queryClient, `${id}`);
     },
   });
 

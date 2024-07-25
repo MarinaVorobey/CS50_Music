@@ -87,6 +87,9 @@ export default function CreatePlaylist({ onClose }: { onClose: () => void }) {
           </li>
         ))}
       </ul>
+      {errors.coverNumber && (
+        <p className={generalStyles.error__block}>Choose a playlist cover</p>
+      )}
       <div className={generalStyles.submit__block}>
         <button
           disabled={mutation.isPending}

@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import {
   IArtistData,
   ILoginResponse,
+  IPlayerData,
   IPlaylistMany,
   IPlaylistSingle,
   ITrack,
@@ -308,27 +309,20 @@ export async function removeFromPlaylist(
   return response;
 }
 
-export async function setLastListened(id: string): Promise<boolean> {
+export async function fetchCurrentTrack(): Promise<ITrack | null> {
   if (typeof window === "undefined") {
-    return false;
+    return null;
   }
 
-  window.localStorage.setItem("curr_track", id);
-  return true;
-}
+  const data = window.localStorage.getItem("player_data");
+  if (!data) {
+    return null;
+  }
 
-export async function fetchCurrentTrack(): Promise<ITrack> {
   const headers = await makeHeaders();
-  let trackId = "1";
-  if (
-    typeof window !== "undefined" &&
-    window.localStorage.getItem("curr_track")
-  ) {
-    trackId = window.localStorage.getItem("curr_track") ?? "1";
-  }
-
+  const playerData: IPlayerData = JSON.parse(data);
   return axios
-    .get(`http://127.0.0.1:8000/track/${trackId}`, { headers })
+    .get(`http://127.0.0.1:8000/track/${playerData.curr_track}`, { headers })
     .then((r) => r.data)
     .catch((err: AxiosError) => {
       console.error(err);

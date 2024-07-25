@@ -43,7 +43,18 @@ class Playlist(models.Model):
     cover = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(8)], default=1
     )
-    tracks = models.ManyToManyField(Track, blank=True, related_name="playlist_tracks")
+    tracks = models.ManyToManyField(Track, blank=True, through="PlaylistTracks")
+
+
+class PlaylistTracks(models.Model):
+    track = models.ForeignKey(Track, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+    added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = [
+            "added",
+        ]
 
 
 class Artist(models.Model):
