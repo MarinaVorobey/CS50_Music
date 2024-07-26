@@ -10,6 +10,7 @@ export type TIconNames =
   | "loading"
   | "minus"
   | "note"
+  | "pause"
   | "play-next"
   | "play-prev"
   | "play"
@@ -36,6 +37,7 @@ const iconNamesToIcons: TIcons = {
   loading: icons.Loader,
   minus: icons.Minus,
   note: icons.Note,
+  pause: icons.Pause,
   "play-next": icons.PlayNext,
   "play-prev": icons.PlayPrev,
   play: icons.Play,

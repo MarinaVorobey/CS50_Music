@@ -166,3 +166,51 @@ export async function checkAddedQueueIntegrity(
   window.localStorage.setItem("player_data", JSON.stringify(data));
   queryClient.invalidateQueries({ queryKey: ["player_data"] });
 }
+
+export async function checkRemovedQueueIntegrity(
+  queue: TTrackQueues,
+  queryClient: QueryClient,
+  trackId: string,
+  playlist?: string
+): Promise<void> {
+  const data = await getPlayerData();
+  if (!data) return;
+
+  const currQueue = data.queue_type;
+  if (currQueue !== queue) return;
+  if (queue === "playlist" && playlist && data.playlist !== playlist) return;
+
+  if (data.curr_track === trackId) {
+    if (!data.next.length && !data.previous.length) {
+      window.localStorage.removeItem("player_data");
+    } else {
+      data.curr_track = data.next.length
+        ? `${data.next.shift()}`
+        : `${data.previous.pop()}`;
+      window.localStorage.setItem("player_data", JSON.stringify(data));
+    }
+    queryClient.invalidateQueries({ queryKey: ["curr_track"] });
+  } else {
+    const prev = data.previous.findIndex((t) => t === +trackId);
+    if (prev !== -1) {
+      data.previous.splice(prev, 1);
+    } else {
+      const next = data.next.findIndex((t) => t === +trackId);
+      data.next.splice(next, 1);
+    }
+    window.localStorage.setItem("player_data", JSON.stringify(data));
+  }
+
+  queryClient.invalidateQueries({ queryKey: ["player_data"] });
+}
+
+export async function onTrackEnd() {
+  const data = await getPlayerData();
+  if (!data) {
+    throw new Error();
+  }
+
+  if (!data.on_repeat) {
+    skipNext(data);
+  }
+}

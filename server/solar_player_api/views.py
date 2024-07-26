@@ -111,16 +111,18 @@ def toggle_like(request, track_id):
     except Track.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    liked = False
     if track in request.user.likes.all():
         request.user.likes.remove(track)
         track.likes.remove(request.user)
     else:
+        liked = True
         request.user.likes.add(track)
         track.likes.add(request.user)
 
     request.user.save()
     track.save()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response({"liked": liked}, status=status.HTTP_200_OK)
 
 
 @api_view(["GET", "PATCH"])

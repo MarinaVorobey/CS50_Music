@@ -1,11 +1,7 @@
 import { colors } from "@/app/ui/colors";
 import Icon from "@/app/ui/icon";
 import styles from "../player.module.css";
-import {
-  getPlayerData,
-  skipNext,
-  toggleRepeat,
-} from "@/app/lib/player-control";
+import { getPlayerData, toggleRepeat } from "@/app/lib/player-control";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
 export default function Repeat() {

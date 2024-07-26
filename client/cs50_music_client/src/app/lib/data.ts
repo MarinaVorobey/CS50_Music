@@ -173,10 +173,11 @@ export async function logout() {
   return response;
 }
 
-export async function likeTrack(id: string): Promise<AxiosResponse> {
+export async function likeTrack(id: string): Promise<boolean> {
   const headers = await makeHeaders();
   const response = await axios
     .patch(`http://127.0.0.1:8000/track/${id}/like`, {}, { headers })
+    .then((r) => r.data["liked"])
     .catch((err: AxiosError) => {
       console.error(err);
       throw err;

@@ -1,5 +1,3 @@
-"use client";
-
 import { colors } from "@/app/ui/colors";
 import Icon from "@/app/ui/icon";
 import styles from "../player.module.css";

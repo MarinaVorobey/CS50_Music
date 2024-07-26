@@ -13,7 +13,10 @@ import Link from "next/link";
 import { getUserToken, removeFromPlaylist } from "@/app/lib/data";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LikeBtn from "../../network/like-btn";
-import { changeTrack } from "@/app/lib/player-control";
+import {
+  changeTrack,
+  checkRemovedQueueIntegrity,
+} from "@/app/lib/player-control";
 
 export default function Track({
   number,
@@ -35,6 +38,7 @@ export default function Track({
     onSuccess: () => {
       setModalOpen(false);
       queryClient.invalidateQueries({ queryKey: ["playlist"] });
+      checkRemovedQueueIntegrity("playlist", queryClient, `${id}`, playlist);
     },
   });
 
