@@ -54,9 +54,8 @@ export async function skipNext(
   return true;
 }
 
-export async function toggleRepeat(
-  data?: IPlayerData | null
-): Promise<boolean> {
+export async function toggleRepeat(): Promise<boolean> {
+  const data = await getPlayerData();
   if (!data) {
     throw new Error();
   }
@@ -202,15 +201,4 @@ export async function checkRemovedQueueIntegrity(
   }
 
   queryClient.invalidateQueries({ queryKey: ["player_data"] });
-}
-
-export async function onTrackEnd() {
-  const data = await getPlayerData();
-  if (!data) {
-    throw new Error();
-  }
-
-  if (!data.on_repeat) {
-    skipNext(data);
-  }
 }

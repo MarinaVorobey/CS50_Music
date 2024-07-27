@@ -4,7 +4,7 @@ import styles from "../player.module.css";
 import { getPlayerData, toggleRepeat } from "@/app/lib/player-control";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
-export default function Repeat() {
+export function Repeat() {
   const queryClient = useQueryClient();
   const { data } = useQuery({
     queryKey: ["player_data"],
@@ -12,7 +12,7 @@ export default function Repeat() {
   });
 
   const repeatMutation = useMutation({
-    mutationFn: () => toggleRepeat(data),
+    mutationFn: toggleRepeat,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["player_data"] });
     },

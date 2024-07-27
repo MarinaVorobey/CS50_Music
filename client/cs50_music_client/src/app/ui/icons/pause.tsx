@@ -1,6 +1,6 @@
 export function Pause(color: string) {
   return (
-    <svg width="13" height="16" viewBox="-0.5 0 8 8">
+    <svg width="13" height="16" viewBox="-0.4 0 8 8">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-227.000000, -3765.000000)" fill={color}>
           <g transform="translate(56.000000, 160.000000)">

@@ -29,7 +29,7 @@ export default function RootLayout({
             <main className={styles.main}>{children}</main>
           </div>
           <Player />
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </ReactQueryProvider>
       </body>
     </html>

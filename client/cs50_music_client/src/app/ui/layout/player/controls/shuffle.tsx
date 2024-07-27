@@ -4,7 +4,7 @@ import styles from "../player.module.css";
 import { shuffle } from "@/app/lib/player-control";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function Shuffle() {
+export function Shuffle() {
   const queryClient = useQueryClient();
   const shuffleMutation = useMutation({
     mutationFn: shuffle,

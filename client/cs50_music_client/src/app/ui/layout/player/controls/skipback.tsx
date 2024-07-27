@@ -6,7 +6,7 @@ import styles from "../player.module.css";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPlayerData, skipBack } from "@/app/lib/player-control";
 
-export default function Skipback() {
+export function Skipback() {
   const queryClient = useQueryClient();
   const playerData = useQuery({
     queryKey: ["player_data"],

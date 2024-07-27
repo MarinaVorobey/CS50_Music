@@ -36,6 +36,13 @@ export function formatDuration(time: string): string {
   return `${timeArr[1]}:${seconds < 9 ? `0${seconds}` : `${seconds}`}`;
 }
 
+export function formatDurationFromNumber(time: number) {
+  const passed = new Date(time * 1000);
+  return `${passed.getMinutes()}:${
+    passed.getSeconds() < 10 ? "0" : ""
+  }${passed.getSeconds()}`;
+}
+
 export function moveSearchbar(): void {
   const search = document.getElementById("search");
   search?.classList.toggle("search__inactive");

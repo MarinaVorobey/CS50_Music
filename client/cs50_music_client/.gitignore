@@ -37,3 +37,4 @@ next-env.d.ts
 
 # static files
 /public/artist_covers
+/public/tracks

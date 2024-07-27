@@ -4,7 +4,7 @@ import styles from "../player.module.css";
 import { getPlayerData, skipNext } from "@/app/lib/player-control";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
-export default function Skipnext() {
+export function Skipnext() {
   const queryClient = useQueryClient();
   const playerData = useQuery({
     queryKey: ["player_data"],

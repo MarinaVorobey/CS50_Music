@@ -1,22 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import Icon from "../../icon";
-import { colors } from "../../colors";
 import styles from "./player.module.css";
-import { ITrack } from "@/app/lib/definitions";
+import { IPlayerData, ITrack } from "@/app/lib/definitions";
 import { fetchCurrentTrack } from "@/app/lib/data";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { formatDuration } from "@/app/lib/utils";
 import Link from "next/link";
 import LikeBtn from "../../network/like-btn";
 import PlayerSkeleton from "./player-skeleton";
-import Skipback from "./controls/skipback";
-import Skipnext from "./controls/skipnext";
-import Shuffle from "./controls/shuffle";
-import Play from "./controls/play";
-import Repeat from "./controls/repeat";
+import { useRef, useState } from "react";
+import { getPlayerData, skipNext } from "@/app/lib/player-control";
+import { AudioController } from "./controls/AudioController";
+import { Skipback, Skipnext, Play, Shuffle, Repeat, Volume } from "./controls";
+import Progress from "./controls/progress";
 
 export default function Player() {
   const { data, isError, isLoading }: UseQueryResult<ITrack, AxiosError> =
@@ -25,12 +22,27 @@ export default function Player() {
       queryFn: fetchCurrentTrack,
     });
 
+  const playerData: UseQueryResult<IPlayerData, Error> = useQuery({
+    queryKey: ["player_data"],
+    queryFn: getPlayerData,
+  });
+
+  const [controller, setController] = useState<AudioController | null>(null);
+  const audioElement = useRef<HTMLAudioElement | null>(null);
+
   if (isLoading || isError || !data) {
     return <PlayerSkeleton />;
   }
 
   return (
     <footer className={styles.footer}>
+      <audio
+        loop={playerData.data ? playerData.data.on_repeat : false}
+        ref={audioElement}
+        onEnded={() => skipNext()}
+      >
+        <source src="/tracks/Coldplay Yellow.mp3" />
+      </audio>
       <div className={`${styles.player} flex`}>
         <div className={`${styles.track__name} flex`}>
           <Image
@@ -55,23 +67,17 @@ export default function Player() {
           <div className={styles.controls__header}>
             <Shuffle />
             <Skipback />
-            <Play />
+            <Play
+              audioController={controller}
+              setController={setController}
+              audioElement={audioElement}
+            />
             <Skipnext />
             <Repeat />
           </div>
-
-          <div className={styles.controls__footer}>
-            <span className={styles.time__start}>0:26</span>
-            <div className={styles.range__play} id="range-play"></div>
-            <span className={styles.time__end}>
-              {formatDuration(data.duration)}
-            </span>
-          </div>
+          <Progress controller={controller} data={data} />
         </div>
-        <div className={styles.volume}>
-          <Icon type="sound" defaultColor={colors.greyAA} />
-          <div className={styles.volume__range} id="range-value"></div>
-        </div>
+        <Volume audioController={controller} />
       </div>
     </footer>
   );
