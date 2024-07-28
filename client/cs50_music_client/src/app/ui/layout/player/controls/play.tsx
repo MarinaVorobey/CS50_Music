@@ -15,23 +15,30 @@ import { AudioController } from "./AudioController";
 export function Play({
   audioController,
   audioElement,
-  setController,
+  setHasController,
+  currSrc,
 }: {
-  audioController: AudioController | null;
+  currSrc: string;
+  audioController: MutableRefObject<AudioController | null>;
   audioElement: MutableRefObject<HTMLAudioElement | null>;
-  setController: Dispatch<SetStateAction<AudioController | null>>;
+  setHasController: Dispatch<SetStateAction<boolean>>;
 }) {
   const [playing, setPlaying] = useState(false);
   const [audio, setAudio] = useState(audioElement.current);
 
   useEffect(() => {
+    if (audioElement.current && playing) {
+      audioElement.current.play();
+    }
     setAudio(audioElement.current);
-  }, [audioElement]);
+  }, [audioElement, currSrc, playing]);
 
   function handlePlay() {
-    if (!audioController && audio) {
-      setController(new AudioController(audio));
+    if (!audioController.current && audio) {
+      audioController.current = new AudioController(audio);
+      setHasController(true);
     }
+
     if (!playing) {
       audio?.play();
     } else {

@@ -27,7 +27,8 @@ export default function Player() {
     queryFn: getPlayerData,
   });
 
-  const [controller, setController] = useState<AudioController | null>(null);
+  const controller = useRef<AudioController | null>(null);
+  const [hasController, setHasController] = useState(!!controller.current);
   const audioElement = useRef<HTMLAudioElement | null>(null);
 
   if (isLoading || isError || !data) {
@@ -37,12 +38,11 @@ export default function Player() {
   return (
     <footer className={styles.footer}>
       <audio
+        src={`/tracks/${data?.path}`}
         loop={playerData.data ? playerData.data.on_repeat : false}
         ref={audioElement}
         onEnded={() => skipNext()}
-      >
-        <source src="/tracks/Coldplay Yellow.mp3" />
-      </audio>
+      ></audio>
       <div className={`${styles.player} flex`}>
         <div className={`${styles.track__name} flex`}>
           <Image
@@ -68,16 +68,24 @@ export default function Player() {
             <Shuffle />
             <Skipback />
             <Play
+              currSrc={data.path}
+              setHasController={setHasController}
               audioController={controller}
-              setController={setController}
               audioElement={audioElement}
             />
             <Skipnext />
             <Repeat />
           </div>
-          <Progress controller={controller} data={data} />
+          <Progress
+            hasController={hasController}
+            controller={controller.current}
+            data={data}
+          />
         </div>
-        <Volume audioController={controller} />
+        <Volume
+          hasController={hasController}
+          audioController={controller.current}
+        />
       </div>
     </footer>
   );

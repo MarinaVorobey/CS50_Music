@@ -9,22 +9,24 @@ import { useEffect, useState } from "react";
 export default function Progress({
   data,
   controller,
+  hasController,
 }: {
   data?: ITrack;
   controller: AudioController | null;
+  hasController: boolean;
 }) {
   const [currTime, setCurrTime] = useState(
-    controller ? controller.elapsedTime : 0
+    hasController && controller ? controller.elapsedTime : 0
   );
   useEffect(() => {
-    if (controller) {
+    if (hasController && controller) {
       const interval = setInterval(() => {
         setCurrTime(controller.elapsedTime ?? 0);
       }, 500);
 
       return () => clearInterval(interval);
     }
-  }, [controller, currTime]);
+  }, [controller, currTime, hasController]);
 
   return (
     <div className={styles.controls__footer}>
@@ -41,7 +43,12 @@ export default function Progress({
           id="range-play"
           type="range"
           min={0}
-          max={controller.audio.duration}
+          max={
+            !controller?.audio?.duration ||
+            Number.isNaN(controller.audio.duration)
+              ? 0
+              : controller.audio.duration
+          }
           value={currTime}
           step="1.00"
         />

@@ -25,6 +25,7 @@ export interface IArtist {
 export interface ITrack {
   id: number;
   name: string;
+  path: string;
   duration: string;
   created_at: string;
   album?: string;

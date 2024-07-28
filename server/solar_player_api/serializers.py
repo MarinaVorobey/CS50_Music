@@ -18,7 +18,7 @@ class TrackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Track
-        exclude = ["likes", "path"]
+        exclude = ["likes"]
         read_only_fields = ["id", "created_at"]
         depth = 1
 

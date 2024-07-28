@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
 
 class Track(models.Model):
     name = models.CharField(max_length=150)
-    path = models.FilePathField(path=tracks_path())
+    path = models.CharField(max_length=1000)
     duration = models.DurationField()
     created_at = models.DateTimeField(auto_now_add=True)
     album = models.CharField(max_length=256, blank=True)

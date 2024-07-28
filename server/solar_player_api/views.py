@@ -195,15 +195,3 @@ def track(request, track_id):
 
     track_data = TrackSerializer(track, context={"request": request})
     return Response(track_data.data)
-
-
-# Music files
-# from django.http import FileResponse
-
-
-# class getSongData(APIView):
-#     serializer_class=serializers.SongSerializer
-
-#     def get(self, request, id, *args, **kwargs):
-#         song = models.Song.objects.get(id=id)
-#         return FileResponse(song.audio_file.open())

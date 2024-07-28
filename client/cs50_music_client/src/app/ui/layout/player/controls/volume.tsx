@@ -6,7 +6,9 @@ import { AudioController } from "./AudioController";
 
 export function Volume({
   audioController,
+  hasController,
 }: {
+  hasController: boolean;
   audioController: AudioController | null;
 }) {
   const [volume, setVolume] = useState("1");
@@ -16,7 +18,9 @@ export function Volume({
     <div className={styles.volume}>
       <button
         onClick={() => {
-          audioController?.changeVolume(volume === "0" ? prevVolume : "0");
+          if (hasController) {
+            audioController?.changeVolume(volume === "0" ? prevVolume : "0");
+          }
           setVolume((prev) => (prev === "0" ? prevVolume : "0"));
         }}
       >
