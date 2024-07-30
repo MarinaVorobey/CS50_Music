@@ -53,6 +53,8 @@
   font-size: 14px;
   color: var(--black11);
   display: inline-block;
+  -webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
 
@@ -91,6 +93,8 @@
   bottom: 20px;
   left: 20px;
   background: var(--greyE8);
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
 

@@ -1,9 +1,13 @@
 .content_wrap {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
 .main {
   padding: 35px 53px 145px 340px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 

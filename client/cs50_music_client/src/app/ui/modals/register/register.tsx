@@ -150,7 +150,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
             switchType(false);
           }}
           type="button"
-          className={styles.switch__btn}
+          className={generalStyles.switch__btn}
         >
           Log in
         </button>

@@ -24,7 +24,7 @@ export default function SearchResult() {
     retry: 1,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || !query) return <Loading />;
   if (isError) {
     return <ErrorBlock status={error.response?.status ?? 500} />;
   }

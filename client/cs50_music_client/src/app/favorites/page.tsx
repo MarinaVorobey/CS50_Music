@@ -9,7 +9,6 @@ import { AxiosError } from "axios";
 import ErrorBlock from "../ui/network/error-block";
 import SearchResult from "../ui/network/search-result";
 import { useCheckMounted, useSearchTracks } from "../lib/utils";
-import { useState, useEffect } from "react";
 
 export default function Favorites() {
   const searched = useSearchTracks();

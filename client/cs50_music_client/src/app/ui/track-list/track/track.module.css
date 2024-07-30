@@ -7,7 +7,11 @@
   max-width: 434px;
   padding-right: 10px;
   width: 100%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -17,6 +21,7 @@
   padding-right: 22px;
   white-space: nowrap;
   overflow: hidden;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 
@@ -51,34 +56,22 @@
   position: relative;
 }
 
-.btn__dropdown:focus {
-  outline: none;
-  border-color: var(--greyAA);
-}
-
-.btn__dropdown:focus circle {
-  fill: var(--orange);
-}
-
-.btn__dropdown:active svg {
-  transform: rotate(90deg);
-}
-
-.btn__dropdown svg {
-  transition: transform 0.3s ease-in-out;
-}
-
-.name__link::before,
-.btn__dropdown {
+.name__link::before {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -o-transition: border-color 0.3s ease-in-out;
   transition: border-color 0.3s ease-in-out;
 }
 
 .name__link {
+  -webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
 
 .btn__add circle,
 .btn__remove svg {
+  -webkit-transition: fill 0.3s ease-in-out;
+  -o-transition: fill 0.3s ease-in-out;
   transition: fill 0.3s ease-in-out;
 }
 
@@ -97,7 +90,9 @@
 .img {
   width: 60px;
   height: 60px;
+  -o-object-fit: cover;
   object-fit: cover;
+  -o-object-position: center;
   object-position: center;
   margin-right: 10px;
 }
@@ -126,6 +121,8 @@
   color: var(--greyA4);
   font-weight: 500;
   font-size: 14px;
+  -webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
 
@@ -152,11 +149,21 @@
   z-index: 2;
   width: 40px;
   height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   border-radius: 100%;
+  -webkit-transition: border-color 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
 
 @media (min-width: 1200px) {
@@ -231,11 +238,15 @@
   .item__album,
   .item__data {
     max-width: none;
+    -webkit-box-flex: 4;
+    -ms-flex: 4;
     flex: 4;
   }
 
   .item__name {
     max-width: none;
+    -webkit-box-flex: 8;
+    -ms-flex: 8;
     flex: 8;
   }
 }
@@ -246,6 +257,8 @@
   }
 
   .item__data {
+    -webkit-box-flex: 0;
+    -ms-flex: 0;
     flex: 0;
   }
 }

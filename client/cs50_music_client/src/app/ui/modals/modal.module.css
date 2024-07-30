@@ -41,11 +41,21 @@
   max-height: 75vh;
   padding: 20px;
   border: 1px solid var(--greyAA);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column wrap;
   flex-flow: column wrap;
   background: var(--whiteFF);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  -webkit-animation: animatetop 0.4s ease-in-out;
   animation: animatetop 0.4s ease-in-out;
   overflow-y: auto;
   overflow-x: hidden;
@@ -85,18 +95,30 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   gap: 10px;
   margin-bottom: 15px;
 }
 
 .submit__btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 20px 50px;
   font-weight: 500;
@@ -144,6 +166,12 @@
 
 .submit__pending {
   padding: 12px 42px;
+}
+
+.switch__btn {
+  color: var(--orange);
+  font-size: 16px;
+  text-decoration: underline;
 }
 
 @media (max-width: 992px) {

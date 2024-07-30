@@ -138,7 +138,7 @@ export default function Login({
             switchType(false);
           }}
           type="button"
-          className={styles.switch__btn}
+          className={generalStyles.switch__btn}
         >
           Register
         </button>
