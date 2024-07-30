@@ -3,8 +3,13 @@
 }
 
 .title {
+  margin-bottom: 20px;
   font-size: 20px;
   color: var(--black11);
+}
+
+.instruction {
+  margin-bottom: 10px;
 }
 
 .checkbox:checked+.label {
@@ -18,9 +23,12 @@
 .playlist {
   width: 288px;
   height: 40px;
-  margin-top: 20px;
   padding: 10px 0;
   cursor: pointer;
+}
+
+.playlist:not(:first-child) {
+  margin-top: 18px;
 }
 
 .playlist_content {

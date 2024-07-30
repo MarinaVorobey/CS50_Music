@@ -1,16 +1,12 @@
 import { colors } from "@/app/ui/colors";
 import Icon from "@/app/ui/icon";
 import styles from "../player.module.css";
-import { getPlayerData, toggleRepeat } from "@/app/lib/player-control";
-import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import { toggleRepeat } from "@/app/lib/player-control";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { IPlayerData } from "@/app/lib/definitions";
 
-export function Repeat() {
+export function Repeat({ data }: { data: IPlayerData }) {
   const queryClient = useQueryClient();
-  const { data } = useQuery({
-    queryKey: ["player_data"],
-    queryFn: getPlayerData,
-  });
-
   const repeatMutation = useMutation({
     mutationFn: toggleRepeat,
     onSuccess: () => {

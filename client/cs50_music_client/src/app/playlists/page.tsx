@@ -19,7 +19,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { deletePlaylist, fetchPlaylists, getUserToken } from "../lib/data";
 import Loading from "../loading";
 import ErrorBlock from "../ui/network/error-block";
-import { useSearchPlaylists } from "../lib/utils";
+import { useCheckMounted, useSearchPlaylists } from "../lib/utils";
 
 export default function Playlists() {
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
@@ -51,7 +51,12 @@ export default function Playlists() {
   });
 
   const dataFiltered = useSearchPlaylists(data);
-  if (isLoading || typeof window === "undefined") return <Loading />;
+  const isMounted = useCheckMounted();
+  if (!isMounted) {
+    return null;
+  }
+
+  if (isLoading) return <Loading />;
   if (isError || mutation.isError || !userToken.data) {
     const status =
       error && error.response

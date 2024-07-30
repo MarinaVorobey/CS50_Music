@@ -18,6 +18,7 @@ export default function Progress({
   const [currTime, setCurrTime] = useState(
     hasController && controller ? controller.elapsedTime : 0
   );
+
   useEffect(() => {
     if (hasController && controller) {
       const interval = setInterval(() => {

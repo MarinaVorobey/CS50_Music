@@ -4,7 +4,12 @@ import Image from "next/image";
 import styles from "./player.module.css";
 import { IPlayerData, ITrack } from "@/app/lib/definitions";
 import { fetchCurrentTrack } from "@/app/lib/data";
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import {
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Link from "next/link";
 import LikeBtn from "../../network/like-btn";
@@ -27,11 +32,20 @@ export default function Player() {
     queryFn: getPlayerData,
   });
 
+  const queryClient = useQueryClient();
+  const skipNextMutation = useMutation({
+    mutationFn: skipNext,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["curr_track"] });
+      queryClient.invalidateQueries({ queryKey: ["player_data"] });
+    },
+  });
+
   const controller = useRef<AudioController | null>(null);
   const [hasController, setHasController] = useState(!!controller.current);
   const audioElement = useRef<HTMLAudioElement | null>(null);
 
-  if (isLoading || isError || !data) {
+  if (isLoading || isError || !data || !playerData.data) {
     return <PlayerSkeleton />;
   }
 
@@ -41,7 +55,7 @@ export default function Player() {
         src={`/tracks/${data?.path}`}
         loop={playerData.data ? playerData.data.on_repeat : false}
         ref={audioElement}
-        onEnded={() => skipNext()}
+        onEnded={() => skipNextMutation.mutate(playerData.data)}
       ></audio>
       <div className={`${styles.player} flex`}>
         <div className={`${styles.track__name} flex`}>
@@ -66,15 +80,15 @@ export default function Player() {
         <div className={styles.controls}>
           <div className={styles.controls__header}>
             <Shuffle />
-            <Skipback />
+            <Skipback data={playerData.data} />
             <Play
               currSrc={data.path}
               setHasController={setHasController}
               audioController={controller}
               audioElement={audioElement}
             />
-            <Skipnext />
-            <Repeat />
+            <Skipnext data={playerData.data} />
+            <Repeat data={playerData?.data} />
           </div>
           <Progress
             hasController={hasController}

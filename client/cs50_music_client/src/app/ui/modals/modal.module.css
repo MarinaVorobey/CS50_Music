@@ -65,6 +65,10 @@
   color: var(--black11);
 }
 
+.bigger__margin {
+  margin-bottom: 20px;
+}
+
 .input {
   padding: 15px;
   border: 1px solid var(--orange);

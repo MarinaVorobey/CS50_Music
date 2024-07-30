@@ -15,7 +15,9 @@ export default function Confirm({
 }: IConfirmProps) {
   return (
     <>
-      <h2 className={generalStyles.title}>{title}</h2>
+      <h2 className={`${generalStyles.title} ${generalStyles.bigger__margin}`}>
+        {title}
+      </h2>
       <div className={generalStyles.submit__block}>
         <button onClick={onConfirm} className={generalStyles.submit__btn}>
           {confirmText}

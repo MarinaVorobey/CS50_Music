@@ -80,3 +80,13 @@ export function useSearchPlaylists(data?: IPlaylistMany[]) {
 
   return dataFiltered;
 }
+
+export function useCheckMounted(): boolean {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  return isMounted;
+}

@@ -101,6 +101,7 @@ export default function AddToPlaylist({
           method="POST"
           className={styles.form}
         >
+          <p className={styles.instruction}>Choose playlists:</p>
           <ul className={styles.playlist__content}>
             {data.map((p) => (
               <li key={p.id} className={styles.playlist}>
@@ -123,7 +124,7 @@ export default function AddToPlaylist({
                   <div className={styles.playlist__title}>{p.name}</div>
                   <div className={styles.playlist__info}>
                     {p.track_count > 0
-                      ? `${p.track_count} tracks`
+                      ? `${p.track_count} track${p.track_count > 1 ? "s" : ""}`
                       : "No tracks"}
                   </div>
                 </label>

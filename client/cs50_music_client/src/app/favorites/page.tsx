@@ -8,7 +8,8 @@ import TrackList from "../ui/track-list/track-list";
 import { AxiosError } from "axios";
 import ErrorBlock from "../ui/network/error-block";
 import SearchResult from "../ui/network/search-result";
-import { useSearchTracks } from "../lib/utils";
+import { useCheckMounted, useSearchTracks } from "../lib/utils";
+import { useState, useEffect } from "react";
 
 export default function Favorites() {
   const searched = useSearchTracks();
@@ -26,7 +27,12 @@ export default function Favorites() {
     enabled: !!userToken.data,
   });
 
-  if (isLoading || typeof window === "undefined") return <Loading />;
+  const isMounted = useCheckMounted();
+  if (!isMounted) {
+    return null;
+  }
+
+  if (isLoading) return <Loading />;
   if (isError || !userToken.data) {
     const status =
       error && error.response

@@ -76,7 +76,6 @@ export default function CreatePlaylist({ onClose }: { onClose: () => void }) {
                 })}
               />
               <Image
-                priority={true}
                 width={60}
                 height={60}
                 className={styles.chioce__img}

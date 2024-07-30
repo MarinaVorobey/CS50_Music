@@ -115,6 +115,10 @@ body {
   justify-content: center;
 }
 
+input[type=range] {
+  accent-color: #e06200
+}
+
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);

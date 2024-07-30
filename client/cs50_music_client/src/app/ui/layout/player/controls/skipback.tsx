@@ -3,16 +3,12 @@
 import { colors } from "@/app/ui/colors";
 import Icon from "@/app/ui/icon";
 import styles from "../player.module.css";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getPlayerData, skipBack } from "@/app/lib/player-control";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { skipBack } from "@/app/lib/player-control";
+import { IPlayerData } from "@/app/lib/definitions";
 
-export function Skipback() {
+export function Skipback({ data }: { data: IPlayerData }) {
   const queryClient = useQueryClient();
-  const playerData = useQuery({
-    queryKey: ["player_data"],
-    queryFn: getPlayerData,
-  });
-
   const skipBackMutation = useMutation({
     mutationFn: skipBack,
     onSuccess: () => {
@@ -23,8 +19,8 @@ export function Skipback() {
 
   return (
     <button
-      onClick={() => skipBackMutation.mutate(playerData.data)}
-      disabled={!playerData.data || !playerData.data.previous.length}
+      onClick={() => skipBackMutation.mutate(data)}
+      disabled={!data || !data.previous.length}
       key="play-prev"
       className={`${styles.controls__btn} ${styles.skipback__btn}`}
     >

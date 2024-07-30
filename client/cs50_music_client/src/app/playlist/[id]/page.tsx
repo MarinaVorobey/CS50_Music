@@ -2,7 +2,7 @@
 
 import { fetchPlaylist } from "@/app/lib/data";
 import { IPlaylistSingle } from "@/app/lib/definitions";
-import { useSearchTracks } from "@/app/lib/utils";
+import { useCheckMounted, useSearchTracks } from "@/app/lib/utils";
 import Loading from "@/app/loading";
 import ErrorBlock from "@/app/ui/network/error-block";
 import SearchResult from "@/app/ui/network/search-result";
@@ -24,7 +24,12 @@ export default function Playlist() {
     queryFn: async ({ queryKey }) => await fetchPlaylist(queryKey[1]),
   });
 
-  if (isLoading || typeof window === "undefined") return <Loading />;
+  const isMounted = useCheckMounted();
+  if (!isMounted) {
+    return null;
+  }
+
+  if (isLoading) return <Loading />;
   if (isError) {
     return (
       <ErrorBlock
