@@ -12,17 +12,19 @@ import {
 } from "react";
 import { AudioController } from "./AudioController";
 
+interface IPlayProps {
+  currSrc: string;
+  audioController: MutableRefObject<AudioController | null>;
+  audioElement: MutableRefObject<HTMLAudioElement | null>;
+  setHasController: Dispatch<SetStateAction<boolean>>;
+}
+
 export function Play({
   audioController,
   audioElement,
   setHasController,
   currSrc,
-}: {
-  currSrc: string;
-  audioController: MutableRefObject<AudioController | null>;
-  audioElement: MutableRefObject<HTMLAudioElement | null>;
-  setHasController: Dispatch<SetStateAction<boolean>>;
-}) {
+}: IPlayProps) {
   const [playing, setPlaying] = useState(false);
   const [audio, setAudio] = useState(audioElement.current);
 
@@ -49,6 +51,7 @@ export function Play({
 
   return (
     <button
+      aria-label={playing ? "Pause track" : "Play track"}
       onClick={() => handlePlay()}
       key="play"
       className={styles.play__btn}

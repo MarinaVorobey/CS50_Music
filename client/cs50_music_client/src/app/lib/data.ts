@@ -67,11 +67,7 @@ export async function fetchTracks(query?: string | null): Promise<ITrack[]> {
 
   const response = await axios
     .get(url.toString(), { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 
   return response;
 }
@@ -80,11 +76,7 @@ export async function fetchArtist(id: string): Promise<IArtistData[]> {
   const headers = await makeHeaders();
   const response = await axios
     .get(`http://127.0.0.1:8000/artist/${id}`, { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 
   return response;
 }
@@ -93,11 +85,7 @@ export async function fetchFavorites(): Promise<ITrack[]> {
   const headers = await makeHeaders();
   const response = await axios
     .get("http://127.0.0.1:8000/favorites", { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 
   return response;
 }
@@ -120,10 +108,6 @@ export async function login(data: FieldValues): Promise<ILoginResponse> {
       };
       window.localStorage.setItem("user", JSON.stringify(userData));
       return response.data;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      throw error;
     });
 
   return response;
@@ -165,11 +149,8 @@ export async function logout() {
     .then((response) => {
       window.localStorage.removeItem("user");
       return response;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      throw error;
     });
+
   return response;
 }
 
@@ -177,11 +158,7 @@ export async function likeTrack(id: string): Promise<boolean> {
   const headers = await makeHeaders();
   const response = await axios
     .patch(`http://127.0.0.1:8000/track/${id}/like`, {}, { headers })
-    .then((r) => r.data["liked"])
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data["liked"]);
 
   return response;
 }
@@ -190,11 +167,7 @@ export async function fetchPlaylists(): Promise<IPlaylistMany> {
   const headers = await makeHeaders();
   const response = await axios
     .get("http://127.0.0.1:8000/playlists", { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 
   return response;
 }
@@ -203,11 +176,7 @@ export async function fetchPlaylist(id: string): Promise<IPlaylistSingle> {
   const headers = await makeHeaders();
   const response = await axios
     .get(`http://127.0.0.1:8000/playlist/${id}`, { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 
   return response;
 }
@@ -223,23 +192,16 @@ export async function createPlaylist(
   const headers = await makeHeaders();
   const response = axios
     .post("http://127.0.0.1:8000/playlists/create", formattedData, { headers })
-    .then((r) => r.data)
-    .catch((error: AxiosError) => {
-      console.log(error);
-      throw error;
-    });
+    .then((r) => r.data);
 
   return response;
 }
 
 export async function deletePlaylist(id: string): Promise<AxiosResponse> {
   const headers = await makeHeaders();
-  const response = await axios
-    .delete(`http://127.0.0.1:8000/playlist/${id}`, { headers })
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+  const response = await axios.delete(`http://127.0.0.1:8000/playlist/${id}`, {
+    headers,
+  });
 
   return response;
 }
@@ -250,11 +212,7 @@ export async function fetchPlaylistsForAdding(
   const headers = await makeHeaders();
   const response = await axios
     .get(`http://127.0.0.1:8000/playlists/add/${id}`, { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 
   return response;
 }
@@ -274,14 +232,13 @@ export async function addToPlaylist(
     playlist_ids: playlistIds,
   };
 
-  const response = await axios
-    .patch(`http://127.0.0.1:8000/playlists/add/${id}`, formattedData, {
+  const response = await axios.patch(
+    `http://127.0.0.1:8000/playlists/add/${id}`,
+    formattedData,
+    {
       headers,
-    })
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    }
+  );
 
   return response;
 }
@@ -292,20 +249,15 @@ export async function removeFromPlaylist(
 ): Promise<AxiosResponse> {
   const headers = await makeHeaders();
 
-  const response = await axios
-    .patch(
-      `http://127.0.0.1:8000/playlist/${playlistId}`,
-      {
-        track_id: trackId,
-      },
-      {
-        headers,
-      }
-    )
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+  const response = await axios.patch(
+    `http://127.0.0.1:8000/playlist/${playlistId}`,
+    {
+      track_id: trackId,
+    },
+    {
+      headers,
+    }
+  );
 
   return response;
 }
@@ -322,11 +274,8 @@ export async function fetchCurrentTrack(): Promise<ITrack | null> {
 
   const headers = await makeHeaders();
   const playerData: IPlayerData = JSON.parse(data);
+
   return axios
     .get(`http://127.0.0.1:8000/track/${playerData.curr_track}`, { headers })
-    .then((r) => r.data)
-    .catch((err: AxiosError) => {
-      console.error(err);
-      throw err;
-    });
+    .then((r) => r.data);
 }

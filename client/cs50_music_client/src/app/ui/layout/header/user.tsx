@@ -55,7 +55,11 @@ export default function User() {
         defaultColor={!userToken.data ? colors.greyAA : colors.orange}
       />
       <span className={styles.user__text}>{username}</span>
-      <button onClick={() => setModalOpen(true)} className={styles.user__auth}>
+      <button
+        aria-label="Open authention modal"
+        onClick={() => setModalOpen(true)}
+        className={styles.user__auth}
+      >
         <Icon
           type="door"
           className={styles.user__auth__icon}

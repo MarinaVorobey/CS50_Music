@@ -28,6 +28,7 @@ export default function Search() {
     >
       <input
         onChange={(e) => handleSearch(e.target.value)}
+        aria-label="Search input"
         className={styles.search__field}
         type="search"
         name="search"

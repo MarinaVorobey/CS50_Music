@@ -6,15 +6,17 @@ import { AudioController } from "./AudioController";
 import { formatDuration, formatDurationFromNumber } from "@/app/lib/utils";
 import { useEffect, useState } from "react";
 
+interface IProgressProps {
+  data?: ITrack;
+  controller: AudioController | null;
+  hasController: boolean;
+}
+
 export default function Progress({
   data,
   controller,
   hasController,
-}: {
-  data?: ITrack;
-  controller: AudioController | null;
-  hasController: boolean;
-}) {
+}: IProgressProps) {
   const [currTime, setCurrTime] = useState(
     hasController && controller ? controller.elapsedTime : 0
   );
@@ -36,6 +38,7 @@ export default function Progress({
       </span>
       {controller ? (
         <input
+          aria-label="Progress input for the track"
           className={styles.range__play}
           onChange={(e) => {
             controller.elapsedTime = +e.target.value;

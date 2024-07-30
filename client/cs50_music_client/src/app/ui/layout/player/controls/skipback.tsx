@@ -19,6 +19,7 @@ export function Skipback({ data }: { data: IPlayerData }) {
 
   return (
     <button
+      aria-label="Previous track"
       onClick={() => skipBackMutation.mutate(data)}
       disabled={!data || !data.previous.length}
       key="play-prev"

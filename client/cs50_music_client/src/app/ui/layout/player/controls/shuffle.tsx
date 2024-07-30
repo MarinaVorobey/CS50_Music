@@ -15,6 +15,7 @@ export function Shuffle() {
 
   return (
     <button
+      aria-label="Shuffle tracks"
       onClick={() => shuffleMutation.mutate()}
       key="shuffle"
       className={`${styles.controls__btn} ${styles.shuffle__btn}`}

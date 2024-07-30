@@ -119,6 +119,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
       )}
       <div className={generalStyles.submit__block}>
         <button
+          aria-label="Submit form"
           className={`${generalStyles.submit__btn}${
             mutation.isPending ? " " + generalStyles.submit__pending : ""
           }`}
@@ -135,6 +136,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
           Register
         </button>
         <button
+          aria-label="Close modal"
           onClick={onClose}
           type="button"
           className={generalStyles.close__btn}
@@ -145,6 +147,7 @@ export default function Register({ onClose, switchType }: IRegisterProps) {
       <div>
         Already have an account?{" "}
         <button
+          aria-label="Switch to the login form"
           onClick={() => {
             mutation.reset();
             switchType(false);

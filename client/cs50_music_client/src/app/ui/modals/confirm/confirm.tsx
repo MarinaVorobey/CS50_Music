@@ -22,7 +22,11 @@ export default function Confirm({
         <button onClick={onConfirm} className={generalStyles.submit__btn}>
           {confirmText}
         </button>
-        <button onClick={onClose} className={generalStyles.close__btn}>
+        <button
+          aria-label="Close modal"
+          onClick={onClose}
+          className={generalStyles.close__btn}
+        >
           Cancel
         </button>
       </div>

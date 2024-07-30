@@ -15,6 +15,7 @@ export default function SuggestAuth({ message }: { message: string }) {
       <p className={styles.message}>{message}</p>
       <p className={styles.suggest}>
         <button
+          aria-label="Open login modal form"
           onClick={() => {
             setModalOpen(true);
             setModalType("login");
@@ -25,6 +26,7 @@ export default function SuggestAuth({ message }: { message: string }) {
         </button>
         <span>or</span>
         <button
+          aria-label="Open register modal form"
           onClick={() => {
             setModalOpen(true);
             setModalType("register");

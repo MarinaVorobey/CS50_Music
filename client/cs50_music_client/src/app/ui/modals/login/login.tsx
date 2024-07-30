@@ -107,6 +107,7 @@ export default function Login({
       )}
       <div className={generalStyles.submit__block}>
         <button
+          aria-label="Submit form"
           className={`${generalStyles.submit__btn}${
             mutation.isPending ? " " + generalStyles.submit__pending : ""
           }`}
@@ -123,6 +124,7 @@ export default function Login({
           Log in
         </button>
         <button
+          aria-label="Close modal"
           onClick={onClose}
           type="button"
           className={generalStyles.close__btn}
@@ -133,6 +135,7 @@ export default function Login({
       <div>
         Don&apos;t have an account?{" "}
         <button
+          aria-label="Switch to the register form"
           onClick={() => {
             mutation.reset();
             switchType(false);

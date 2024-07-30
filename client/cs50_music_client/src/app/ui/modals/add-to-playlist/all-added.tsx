@@ -8,6 +8,7 @@ export default function AllAdded({ onClose }: { onClose: () => void }) {
         All of your playlists contatin this track
       </p>
       <button
+        aria-label="Close modal"
         type="button"
         onClick={onClose}
         className={generalStyles.submit__btn}

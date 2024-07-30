@@ -8,7 +8,12 @@ import {
   checkRemovedQueueIntegrity,
 } from "@/app/lib/player-control";
 
-export default function LikeBtn({ liked, id }: { liked: boolean; id: number }) {
+interface ILikeBtnProps {
+  liked: boolean;
+  id: number;
+}
+
+export default function LikeBtn({ liked, id }: ILikeBtnProps) {
   const queryClient = useQueryClient();
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const likeAction = useMutation({
@@ -25,6 +30,7 @@ export default function LikeBtn({ liked, id }: { liked: boolean; id: number }) {
 
   return (
     <button
+      aria-label="Like the track"
       onClick={() => likeAction.mutate()}
       disabled={!userToken.data}
       className={styles.like__btn}

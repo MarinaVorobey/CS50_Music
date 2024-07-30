@@ -19,13 +19,12 @@ import { FieldValues, useForm } from "react-hook-form";
 import AllAdded from "./all-added";
 import { checkAddedQueueIntegrity } from "@/app/lib/player-control";
 
-export default function AddToPlaylist({
-  onClose,
-  id,
-}: {
+interface IAddToPlaylistProps {
   onClose: () => void;
   id: string;
-}) {
+}
+
+export default function AddToPlaylist({ onClose, id }: IAddToPlaylistProps) {
   const {
     data,
     isError,
@@ -106,6 +105,7 @@ export default function AddToPlaylist({
             {data.map((p) => (
               <li key={p.id} className={styles.playlist}>
                 <input
+                  aria-label={`Add to playlist ${p.name}`}
                   {...register(`${p.id}`, {
                     onChange: () => setPlaylistChosen(validateChoice()),
                   })}
@@ -133,6 +133,7 @@ export default function AddToPlaylist({
           </ul>
           <div className={styles.footer}>
             <button
+              aria-label="Submit form"
               type="submit"
               className={styles.submit__btn}
               disabled={!playlistChosen || mutation.isPending}
@@ -140,6 +141,7 @@ export default function AddToPlaylist({
               Done
             </button>
             <button
+              aria-label="Close modal"
               type="button"
               onClick={onClose}
               className={styles.close__btn}

@@ -16,6 +16,9 @@ export function Repeat({ data }: { data: IPlayerData }) {
 
   return (
     <button
+      aria-label={
+        data && data.on_repeat ? "Stop repeating track" : "Repeat track"
+      }
       onClick={() => repeatMutation.mutate()}
       key="repeat"
       className={`${styles.controls__btn} ${styles.repeat__btn}`}

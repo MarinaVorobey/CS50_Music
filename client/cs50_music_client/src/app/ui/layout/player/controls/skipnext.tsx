@@ -17,6 +17,7 @@ export function Skipnext({ data }: { data: IPlayerData }) {
 
   return (
     <button
+      aria-label="Next track"
       onClick={() => skipNextMutation.mutate(data)}
       disabled={!data || !data.next.length}
       key="skip-next"

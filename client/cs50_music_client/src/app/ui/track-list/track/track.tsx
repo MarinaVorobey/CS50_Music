@@ -18,13 +18,12 @@ import {
   checkRemovedQueueIntegrity,
 } from "@/app/lib/player-control";
 
-export default function Track({
-  number,
-  trackData,
-}: {
+interface ITrackProps {
   number: number;
   trackData: ITrack;
-}) {
+}
+
+export default function Track({ number, trackData }: ITrackProps) {
   const { id, name, created_at, duration, album, artist, liked } = trackData;
   const pathname = usePathname();
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
@@ -71,7 +70,7 @@ export default function Track({
           height={60}
           className={styles.img}
           src={`/artist_covers/${artist.image}`}
-          alt={name}
+          alt={`Image of ${name}`}
         />
         <div className={styles.content}>
           <h3 className={styles.name}>
@@ -99,6 +98,11 @@ export default function Track({
       <time className={styles.item__time}>{formatDuration(duration)}</time>
       <div className={styles.item__drop}>
         <button
+          aria-label={
+            !pathname.includes("playlist") || searchParams.get("query")
+              ? "Add track to playlists"
+              : "Remove track from the playlist"
+          }
           disabled={!userToken.data}
           onClick={() => setModalOpen(true)}
           className={

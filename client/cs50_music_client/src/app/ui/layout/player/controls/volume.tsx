@@ -4,13 +4,12 @@ import styles from "../player.module.css";
 import { useState } from "react";
 import { AudioController } from "./AudioController";
 
-export function Volume({
-  audioController,
-  hasController,
-}: {
+interface IVolumeProps {
   hasController: boolean;
   audioController: AudioController | null;
-}) {
+}
+
+export function Volume({ audioController, hasController }: IVolumeProps) {
   const [volume, setVolume] = useState("1");
   const [prevVolume, setPrevVolume] = useState("1");
 
@@ -27,6 +26,7 @@ export function Volume({
         <Icon type="sound" defaultColor={colors.greyAA} />
       </button>
       <input
+        aria-label="Volume"
         onChange={(e) => {
           if (volume !== "0") {
             setPrevVolume(volume);
