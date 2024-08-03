@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import {
   IArtistData,
   ILoginResponse,
@@ -122,11 +122,7 @@ export async function registerUser(data: FieldValues): Promise<AxiosResponse> {
 
   const response = axios
     .post("http://127.0.0.1:8000/register", formattedData)
-    .then((response) => response)
-    .catch((error: AxiosError) => {
-      console.log(error);
-      throw error;
-    });
+    .then((response) => response);
 
   return response;
 }

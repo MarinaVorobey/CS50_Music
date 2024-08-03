@@ -22,10 +22,13 @@ export interface IArtist {
   image: string;
 }
 
+export type TLicenseTypes = "CC BY" | "CC0" | "CC BY-SA" | "CC BY-ND";
+
 export interface ITrack {
   id: number;
   name: string;
   path: string;
+  license: TLicenseTypes;
   duration: string;
   created_at: string;
   album?: string;

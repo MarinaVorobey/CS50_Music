@@ -23,6 +23,7 @@ export default function RootLayout({
       <body className={`${lato.className} antialiased`}>
         <ReactQueryProvider>
           <div id="modal-root" />
+          <div id="dropdown-root" />
           <Header />
           <div className={`${styles.content_wrap} flex`}>
             <SideNavbar />

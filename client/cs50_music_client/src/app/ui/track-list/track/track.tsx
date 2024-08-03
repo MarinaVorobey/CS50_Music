@@ -1,22 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { colors } from "../../colors";
-import Icon from "../../icon";
 import { ITrack } from "@/app/lib/definitions";
 import styles from "./track.module.css";
 import { formatDuration, formatTimePassed } from "@/app/lib/utils";
-import { useState } from "react";
-import Modal from "../../modals/modal";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import { getUserToken, removeFromPlaylist } from "@/app/lib/data";
+import { getUserToken } from "@/app/lib/data";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LikeBtn from "../../network/like-btn";
-import {
-  changeTrack,
-  checkRemovedQueueIntegrity,
-} from "@/app/lib/player-control";
+import { changeTrack } from "@/app/lib/player-control";
+import TrackDropdown from "./track-dropdown";
 
 interface ITrackProps {
   number: number;
@@ -24,23 +18,13 @@ interface ITrackProps {
 }
 
 export default function Track({ number, trackData }: ITrackProps) {
-  const { id, name, created_at, duration, album, artist, liked } = trackData;
+  const { id, name, created_at, duration, license, album, artist, liked } =
+    trackData;
   const pathname = usePathname();
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });
   const queryClient = useQueryClient();
-  const searchParams = useSearchParams();
 
-  const [modalOpen, setModalOpen] = useState(false);
   const playlist = useParams().id as string;
-  const removeTrackAction = useMutation({
-    mutationFn: () => removeFromPlaylist(playlist, `${id}`),
-    onSuccess: () => {
-      setModalOpen(false);
-      queryClient.invalidateQueries({ queryKey: ["playlist"] });
-      checkRemovedQueueIntegrity("playlist", queryClient, `${id}`, playlist);
-    },
-  });
-
   const queueType = pathname.includes("playlist")
     ? "playlist"
     : pathname.includes("favorite")
@@ -97,52 +81,15 @@ export default function Track({ number, trackData }: ITrackProps) {
       </div>
       <time className={styles.item__time}>{formatDuration(duration)}</time>
       <div className={styles.item__drop}>
-        <button
-          aria-label={
-            !pathname.includes("playlist") || searchParams.get("query")
-              ? "Add track to playlists"
-              : "Remove track from the playlist"
-          }
-          disabled={!userToken.data}
-          onClick={() => setModalOpen(true)}
-          className={
-            !pathname.includes("playlist") || searchParams.get("query")
-              ? styles.btn__add
-              : styles.btn__remove
-          }
-        >
-          <Icon
-            type={
-              !pathname.includes("playlist") || searchParams.get("query")
-                ? "plus"
-                : "minus"
-            }
-            defaultColor={colors.greyC4}
-          />
-        </button>
+        <TrackDropdown
+          created_at={created_at}
+          license={license}
+          artist={artist}
+          userToken={userToken}
+          id={`${id}`}
+          playlist={playlist}
+        />
       </div>
-
-      {modalOpen ? (
-        !pathname.includes("playlist") || searchParams.get("query") ? (
-          <Modal
-            data={{
-              id: id,
-            }}
-            onClose={() => setModalOpen(false)}
-            type="addToPlaylist"
-          />
-        ) : (
-          <Modal
-            onClose={() => setModalOpen(false)}
-            type="confirm"
-            data={{
-              title: "Remove song from the playlist?",
-              confirmText: "Remove",
-              onConfirm: removeTrackAction.mutate,
-            }}
-          />
-        )
-      ) : null}
     </>
   );
 }

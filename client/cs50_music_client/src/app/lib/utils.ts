@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { IPlaylistMany } from "./definitions";
@@ -89,4 +89,62 @@ export function useCheckMounted(): boolean {
   }, []);
 
   return isMounted;
+}
+
+type Coords = {
+  left: number;
+  top: number;
+};
+
+export function useGetCoords(
+  containerRef: React.RefObject<HTMLDivElement>,
+  dropdownOpen: boolean,
+  leftShift: number,
+  topShift: number
+): [Coords | null] {
+  const [coords, setCoords] = useState<Coords | null>(null);
+
+  useEffect(() => {
+    if (!dropdownOpen) return;
+
+    const getCoords = (): Coords | null => {
+      const box = containerRef.current?.getBoundingClientRect();
+
+      if (box) {
+        return {
+          left: box.left + leftShift,
+          top: box.top + box.height + window.scrollY + topShift,
+        };
+      }
+
+      return null;
+    };
+
+    const coords = getCoords();
+    setCoords(coords);
+  }, [dropdownOpen, containerRef, leftShift, topShift]);
+
+  return [coords];
+}
+
+export function useCloseByClickout(
+  ref: RefObject<HTMLDivElement>,
+  onClose: () => void
+) {
+  useEffect(() => {
+    function handleClick(event: MouseEvent) {
+      if (
+        event.target instanceof Node &&
+        !ref.current?.contains(event.target)
+      ) {
+        onClose();
+      }
+    }
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [onClose, ref]);
 }

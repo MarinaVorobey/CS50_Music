@@ -5,13 +5,15 @@ import Register from "./register/register";
 import Confirm from "./confirm/confirm";
 import AddToPlaylist from "./add-to-playlist/add-to-playlist";
 import CreatePlaylist from "./create-playlist/create-playlist";
+import LegalInfo from "./legal-info/legal-info";
 
 export type TModals =
   | "login"
   | "register"
   | "confirm"
   | "addToPlaylist"
-  | "createPlaylist";
+  | "createPlaylist"
+  | "legalInfo";
 
 interface IModalProps {
   onClose: () => void;
@@ -25,6 +27,7 @@ const typesToModals = {
   confirm: Confirm,
   addToPlaylist: AddToPlaylist,
   createPlaylist: CreatePlaylist,
+  legalInfo: LegalInfo,
 };
 
 export default function Modal({ onClose, type, data }: IModalProps) {

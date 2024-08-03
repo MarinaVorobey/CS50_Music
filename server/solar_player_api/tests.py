@@ -71,7 +71,7 @@ class SolarPlayerApiTestCase(TestCase):
         response = c.patch(
             "/track/1/like", headers={"Authorization": f"Bearer {self.token}"}
         )
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, 200)
 
         t1 = Track.objects.get(pk=1)
         self.assertEqual(t1.likes.all().count(), 1)

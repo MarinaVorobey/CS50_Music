@@ -24,6 +24,7 @@ class Track(models.Model):
     path = models.CharField(max_length=1000)
     duration = models.DurationField()
     created_at = models.DateTimeField(auto_now_add=True)
+    license = models.CharField(max_length=50, blank=True)
     album = models.CharField(max_length=256, blank=True)
     artist = models.ForeignKey(
         "Artist", on_delete=models.CASCADE, related_name="track_artist"

@@ -68,8 +68,7 @@
   transition: color 0.3s ease-in-out;
 }
 
-.btn__add circle,
-.btn__remove svg {
+.dropdown__btn circle {
   -webkit-transition: fill 0.3s ease-in-out;
   -o-transition: fill 0.3s ease-in-out;
   transition: fill 0.3s ease-in-out;
@@ -143,8 +142,7 @@
   z-index: 2;
 }
 
-.btn__add,
-.btn__remove {
+.dropdown__btn {
   position: relative;
   z-index: 2;
   width: 40px;
@@ -166,6 +164,38 @@
   transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 }
 
+.dropdown__option {
+  gap: 8px;
+  padding: 6px 15px;
+  border-left: 1px solid var(--greyC4);
+  border-right: 1px solid var(--greyC4);
+  font-size: 16px;
+  color: var(--grey99);
+  -webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
+}
+
+.dropdown__option:focus {
+  color: var(--orange);
+}
+
+.dropdown__option:first-child {
+  border-top: 1px solid var(--greyC4);
+  padding-top: 15px;
+  border-radius: 15px 15px 0 0;
+}
+
+.dropdown__option:last-child {
+  border-bottom: 1px solid var(--greyC4);
+  padding-bottom: 15px;
+  border-radius: 0 0 15px 15px;
+}
+
+.dropdown__option:first-child:last-child {
+  border-radius: 15px;
+}
+
 @media (min-width: 1200px) {
   .name__link:hover {
     color: var(--orange);
@@ -179,24 +209,16 @@
     fill: var(--orange);
   }
 
-  .btn__add:hover circle {
+  .dropdown__btn:hover circle {
     fill: var(--orange);
-  }
-
-  .btn__remove:hover svg {
-    fill: var(--orange);
-  }
-
-  .btn__add:disabled {
-    cursor: not-allowed;
-  }
-
-  .btn__add:disabled circle {
-    fill: var(--greyC4);
   }
 
   .artist:hover {
     text-decoration: underline;
+    color: var(--orange);
+  }
+
+  .dropdown__option:hover {
     color: var(--orange);
   }
 }
