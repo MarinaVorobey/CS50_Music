@@ -1,0 +1,352 @@
+[
+  {
+    "model": "solar_player_api.track",
+    "pk": 9,
+    "fields": {
+      "name": "Fire",
+      "path": "Seth Power - Fire.mp3",
+      "created_at": "2017-09-27T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:03:30.000000",
+      "album": "Magnolia Soul - EP",
+      "artist": 1,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 13,
+    "fields": {
+      "name": "Stay",
+      "path": "Seth Power - Stay.mp3",
+      "created_at": "2017-09-27T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:06:20.000000",
+      "album": "Magnolia Soul - EP",
+      "artist": 1,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 16,
+    "fields": {
+      "name": "Only Life",
+      "path": "Seth Power - Only Life.mp3",
+      "created_at": "2017-09-27T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:04:27.000000",
+      "album": "Magnolia Soul - EP",
+      "artist": 1,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 18,
+    "fields": {
+      "name": "Savior",
+      "path": "Pipe Choir - Savior.mp3",
+      "created_at": "2016-01-01T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:04:51.000000",
+      "album": "Pipe Choir",
+      "artist": 2,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 3,
+    "fields": {
+      "name": "Infinite Light",
+      "path": "Pipe Choir - Infinite Light.mp3",
+      "created_at": "2016-01-01T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:04:56.000000",
+      "album": "Pipe Choir",
+      "artist": 2,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 8,
+    "fields": {
+      "name": "The Wind Is Rising",
+      "path": "Pipe Choir - The Wind Is Rising.mp3",
+      "created_at": "2016-01-01T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:04:06.000000",
+      "album": "Pipe Choir",
+      "artist": 2,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 17,
+    "fields": {
+      "name": "Ill-Fated Fantasy",
+      "path": "Zane Little - Ill-Fated Fantasy.mp3",
+      "created_at": "2024-05-24T03:55:59Z",
+      "license": "CC0",
+      "duration": "00:03:26.000000",
+      "album": "♥",
+      "artist": 3,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 11,
+    "fields": {
+      "name": "Always and Forever",
+      "path": "Zane Little - Always and Forever.mp3",
+      "created_at": "2024-05-24T03:55:59Z",
+      "license": "CC0",
+      "duration": "00:02:16.000000",
+      "album": "♥",
+      "artist": 3,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 20,
+    "fields": {
+      "name": "Butterflies",
+      "path": "Zane Little - Butterflies.mp3",
+      "created_at": "2024-05-24T03:55:59Z",
+      "license": "CC0",
+      "duration": "00:03:38.000000",
+      "album": "♥",
+      "artist": 3,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 5,
+    "fields": {
+      "name": "A Little Of Hope",
+      "path": "Square_a_Saw - A_Little_Of_Hope.mp3",
+      "created_at": "2020-05-07T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:02:19.000000",
+      "album": "Hope",
+      "artist": 4,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 1,
+    "fields": {
+      "name": "Answer",
+      "path": "Square_a_Saw - Answer.mp3",
+      "created_at": "2020-11-13T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:02:39.000000",
+      "album": "Answer",
+      "artist": 4,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 12,
+    "fields": {
+      "name": "Wake Up",
+      "path": "Square_a_Saw - Wake_Up.mp3",
+      "created_at": "2019-06-04T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:02:42.000000",
+      "album": "Wake Up",
+      "artist": 4,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 14,
+    "fields": {
+      "name": "Host",
+      "path": "Color_Out - Host.mp3",
+      "created_at": "2024-03-10T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:02:57.000000",
+      "album": "Host / Therapy (In My Skin)",
+      "artist": 5,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 21,
+    "fields": {
+      "name": "Anything But Everything",
+      "path": "Color_Out - Anything_But_Everything.mp3",
+      "created_at": "2015-04-07T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:03:56.000000",
+      "album": "Color Out EP",
+      "artist": 5,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 15,
+    "fields": {
+      "name": "Eye Of The Storm",
+      "path": "Modern_Pitch - Eye_Of_The_Storm.mp3",
+      "created_at": "2014-11-06T03:55:59Z",
+      "license": "CC BY-SA",
+      "duration": "00:04:54.000000",
+      "album": "Eye Of The Storm",
+      "artist": 6,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 4,
+    "fields": {
+      "name": "Give Me Hope",
+      "path": "Modern_Pitch - Give_Me_Hope.mp3",
+      "created_at": "2014-06-28T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:04:52.000000",
+      "album": "These Nights",
+      "artist": 6,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 10,
+    "fields": {
+      "name": "These Nights",
+      "path": "Modern_Pitch - These_Nights.mp3",
+      "created_at": "2014-06-28T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:03:34.000000",
+      "album": "These Nights",
+      "artist": 6,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 23,
+    "fields": {
+      "name": "I'll Wait",
+      "path": "Jonathan_Dimmel - I'll_Wait.mp3",
+      "created_at": "2012-05-18T03:55:59Z",
+      "license": "CC BY-SA",
+      "duration": "00:02:54.000000",
+      "album": "The Worst and Best",
+      "artist": 7,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 19,
+    "fields": {
+      "name": "You've Got It",
+      "path": "Jonathan_Dimmel - You've_Got_It.mp3",
+      "created_at": "2012-05-18T03:55:59Z",
+      "license": "CC BY-SA",
+      "duration": "00:05:27.000000",
+      "album": "The Worst and Best",
+      "artist": 7,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 25,
+    "fields": {
+      "name": "My Thoughts",
+      "path": "Jonathan_Dimmel - My_Thoughts.mp3",
+      "created_at": "2012-05-18T03:55:59Z",
+      "license": "CC BY-SA",
+      "duration": "00:02:24.000000",
+      "album": "The Worst and Best",
+      "artist": 7,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 6,
+    "fields": {
+      "name": "Fell In Love With Summer",
+      "path": "Songwriterz - Fell_In_Love_With_Summer.mp3",
+      "created_at": "2021-06-04T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:03:41.000000",
+      "album": "Fell In Love With Summer",
+      "artist": 8,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 7,
+    "fields": {
+      "name": "Paradise",
+      "path": "Songwriterz - Paradise.mp3",
+      "created_at": "2020-06-12T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:04:08.000000",
+      "album": "Paradise",
+      "artist": 8,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 2,
+    "fields": {
+      "name": "How I Feel",
+      "path": "Songwriterz - How_I_Feel.mp3",
+      "created_at": "2019-05-17T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:04:01.000000",
+      "album": "How I Feel",
+      "artist": 8,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 22,
+    "fields": {
+      "name": "No Prayers",
+      "path": "Pokki_DJ - No_Prayers.mp3",
+      "created_at": "2019-07-09T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:03:21.000000",
+      "album": "No Prayers",
+      "artist": 9,
+      "likes": []
+    }
+  },
+  {
+    "model": "solar_player_api.track",
+    "pk": 24,
+    "fields": {
+      "name": "Energy",
+      "path": "Pokki_DJ - Energy.mp3",
+      "created_at": "2014-05-31T03:55:59Z",
+      "license": "CC BY",
+      "duration": "00:03:50.000000",
+      "album": "Energy",
+      "artist": 9,
+      "likes": []
+    }
+  }
+]

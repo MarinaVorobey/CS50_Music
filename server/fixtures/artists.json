@@ -1,0 +1,74 @@
+[
+  {
+    "model": "solar_player_api.artist",
+    "pk": 1,
+    "fields": {
+      "name": "Seth Power",
+      "image": "Seth_Power.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 2,
+    "fields": {
+      "name": "Pipe Choir",
+      "image": "Pipe_Choir.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 3,
+    "fields": {
+      "name": "Zane Little",
+      "image": "Zane_Little.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 4,
+    "fields": {
+      "name": "Square A Saw",
+      "image": "Square_A_Saw.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 5,
+    "fields": {
+      "name": "Color Out",
+      "image": "Color_Out.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 6,
+    "fields": {
+      "name": "Modern Pitch",
+      "image": "Modern_Pitch.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 7,
+    "fields": {
+      "name": "Jonathan Dimmel",
+      "image": "Jonathan_Dimmel.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 8,
+    "fields": {
+      "name": "Songwriterz",
+      "image": "Songwriterz.jpg"
+    }
+  },
+  {
+    "model": "solar_player_api.artist",
+    "pk": 9,
+    "fields": {
+      "name": "Pokki DJ",
+      "image": "Pokki_DJ.jpg"
+    }
+  }
+]
