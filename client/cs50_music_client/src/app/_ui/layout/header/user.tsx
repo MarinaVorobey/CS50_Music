@@ -11,7 +11,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { getUserToken, logout } from "@/app/lib/data";
+import { getUserToken, logout } from "@/app/_lib/data";
 import { AxiosError, AxiosResponse } from "axios";
 import { FieldValues } from "react-hook-form";
 import { useRouter } from "next/navigation";

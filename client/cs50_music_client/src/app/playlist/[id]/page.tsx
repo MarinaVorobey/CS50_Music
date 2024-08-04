@@ -1,8 +1,8 @@
 "use client";
 
-import { fetchPlaylist } from "@/app/lib/data";
-import { IPlaylistSingle } from "@/app/lib/definitions";
-import { useCheckMounted, useSearchTracks } from "@/app/lib/utils";
+import { fetchPlaylist } from "@/app/_lib/data";
+import { IPlaylistSingle } from "@/app/_lib/definitions";
+import { useCheckMounted, useSearchTracks } from "@/app/_lib/utils";
 import Loading from "@/app/loading";
 import ErrorBlock from "@/app/_ui/network/error-block";
 import SearchResult from "@/app/_ui/network/search-result";

@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import styles from "./add-to-playlist.module.css";
-import { IPlaylistMany } from "@/app/lib/definitions";
+import { IPlaylistMany } from "@/app/_lib/definitions";
 import { useState } from "react";
-import { addToPlaylist, fetchPlaylistsForAdding } from "@/app/lib/data";
+import { addToPlaylist, fetchPlaylistsForAdding } from "@/app/_lib/data";
 import {
   UseMutationResult,
   UseQueryResult,
@@ -17,7 +17,7 @@ import ErrorBlock from "../../network/error-block";
 import Loading from "@/app/loading";
 import { FieldValues, useForm } from "react-hook-form";
 import AllAdded from "./all-added";
-import { checkAddedQueueIntegrity } from "@/app/lib/player-control";
+import { checkAddedQueueIntegrity } from "@/app/_lib/player-control";
 
 interface IAddToPlaylistProps {
   onClose: () => void;

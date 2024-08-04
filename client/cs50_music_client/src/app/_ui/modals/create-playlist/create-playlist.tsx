@@ -2,14 +2,14 @@ import generalStyles from "../modal.module.css";
 import styles from "./create-playlist.module.css";
 import { FieldValues, useForm } from "react-hook-form";
 import Image from "next/image";
-import { IPlaylistSingle } from "@/app/lib/definitions";
+import { IPlaylistSingle } from "@/app/_lib/definitions";
 import {
   useQueryClient,
   UseMutationResult,
   useMutation,
 } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { createPlaylist } from "@/app/lib/data";
+import { createPlaylist } from "@/app/_lib/data";
 import { useRouter } from "next/navigation";
 import { colors } from "../../colors";
 import Icon from "../../icon";

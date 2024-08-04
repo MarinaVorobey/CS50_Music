@@ -12,9 +12,9 @@ import {
   useQueryClient,
   UseQueryResult,
 } from "@tanstack/react-query";
-import { removeFromPlaylist } from "@/app/lib/data";
-import { checkRemovedQueueIntegrity } from "@/app/lib/player-control";
-import { IArtist } from "@/app/lib/definitions";
+import { removeFromPlaylist } from "@/app/_lib/data";
+import { checkRemovedQueueIntegrity } from "@/app/_lib/player-control";
+import { IArtist } from "@/app/_lib/definitions";
 
 interface ITrackDropdownProps {
   playlist: string;

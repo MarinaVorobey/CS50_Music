@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import styles from "./player.module.css";
-import { IPlayerData, ITrack } from "@/app/lib/definitions";
-import { fetchCurrentTrack } from "@/app/lib/data";
+import { IPlayerData, ITrack } from "@/app/_lib/definitions";
+import { fetchCurrentTrack } from "@/app/_lib/data";
 import {
   UseQueryResult,
   useMutation,
@@ -15,7 +15,7 @@ import Link from "next/link";
 import LikeBtn from "../../network/like-btn";
 import PlayerSkeleton from "./player-skeleton";
 import { useRef, useState } from "react";
-import { getPlayerData, skipNext } from "@/app/lib/player-control";
+import { getPlayerData, skipNext } from "@/app/_lib/player-control";
 import { AudioController } from "./controls/AudioController";
 import { Skipback, Skipnext, Play, Shuffle, Repeat, Volume } from "./controls";
 import Progress from "./controls/progress";

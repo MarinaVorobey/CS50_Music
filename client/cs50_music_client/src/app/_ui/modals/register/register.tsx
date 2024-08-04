@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { colors } from "../../colors";
-import { registerUser } from "@/app/lib/data";
+import { registerUser } from "@/app/_lib/data";
 import Icon from "../../icon";
 
 interface IRegisterProps {

@@ -1,4 +1,4 @@
-import { getUserToken, likeTrack } from "@/app/lib/data";
+import { getUserToken, likeTrack } from "@/app/_lib/data";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { colors } from "../colors";
 import Icon from "../icon";
@@ -6,7 +6,7 @@ import styles from "./network.module.css";
 import {
   checkAddedQueueIntegrity,
   checkRemovedQueueIntegrity,
-} from "@/app/lib/player-control";
+} from "@/app/_lib/player-control";
 
 interface ILikeBtnProps {
   liked: boolean;

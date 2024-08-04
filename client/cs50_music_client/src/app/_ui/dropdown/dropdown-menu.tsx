@@ -1,6 +1,6 @@
 "use client";
 
-import { useCloseByClickout } from "@/app/lib/utils";
+import { useCloseByClickout } from "@/app/_lib/utils";
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./dropdown.module.css";

@@ -5,10 +5,10 @@ import Icon, { TIconNames } from "../../icon";
 import { colors } from "../../colors";
 import styles from "./side-navbar.module.css";
 import { usePathname } from "next/navigation";
-import { moveSearchbar } from "@/app/lib/utils";
+import { moveSearchbar } from "@/app/_lib/utils";
 import { useState } from "react";
-import { fetchPlaylists, getUserToken } from "@/app/lib/data";
-import { IPlaylistMany } from "@/app/lib/definitions";
+import { fetchPlaylists, getUserToken } from "@/app/_lib/data";
+import { IPlaylistMany } from "@/app/_lib/definitions";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

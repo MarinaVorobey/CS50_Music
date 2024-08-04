@@ -2,7 +2,7 @@
 
 import React, { RefObject } from "react";
 import { DropdownMenu } from "./dropdown-menu";
-import { useGetCoords } from "@/app/lib/utils";
+import { useGetCoords } from "@/app/_lib/utils";
 
 interface IDropdownProps {
   button: React.ReactNode;

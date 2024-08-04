@@ -3,12 +3,12 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import Loading from "./loading";
 import TrackList from "./_ui/track-list/track-list";
-import { fetchTracks } from "./lib/data";
-import { ITrack } from "./lib/definitions";
+import { fetchTracks } from "./_lib/data";
+import { ITrack } from "./_lib/definitions";
 import { AxiosError } from "axios";
 import ErrorBlock from "./_ui/network/error-block";
 import SearchResult from "./_ui/network/search-result";
-import { useSearchTracks } from "./lib/utils";
+import { useSearchTracks } from "./_lib/utils";
 
 export default function Home() {
   const searched = useSearchTracks();

@@ -1,14 +1,14 @@
 "use client";
 
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { fetchFavorites, getUserToken } from "../lib/data";
-import { ITrack } from "../lib/definitions";
+import { fetchFavorites, getUserToken } from "../_lib/data";
+import { ITrack } from "../_lib/definitions";
 import Loading from "../loading";
 import TrackList from "../_ui/track-list/track-list";
 import { AxiosError } from "axios";
 import ErrorBlock from "../_ui/network/error-block";
 import SearchResult from "../_ui/network/search-result";
-import { useCheckMounted, useSearchTracks } from "../lib/utils";
+import { useCheckMounted, useSearchTracks } from "../_lib/utils";
 
 export default function Favorites() {
   const searched = useSearchTracks();

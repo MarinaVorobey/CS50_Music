@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { ITrack } from "@/app/lib/definitions";
+import { ITrack } from "@/app/_lib/definitions";
 import styles from "./track.module.css";
-import { formatDuration, formatTimePassed } from "@/app/lib/utils";
+import { formatDuration, formatTimePassed } from "@/app/_lib/utils";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import { getUserToken } from "@/app/lib/data";
+import { getUserToken } from "@/app/_lib/data";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LikeBtn from "../../network/like-btn";
-import { changeTrack } from "@/app/lib/player-control";
+import { changeTrack } from "@/app/_lib/player-control";
 import TrackDropdown from "./track-dropdown";
 
 interface ITrackProps {

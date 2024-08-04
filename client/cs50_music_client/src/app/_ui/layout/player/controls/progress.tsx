@@ -1,9 +1,9 @@
 "use client";
 
-import { ITrack } from "@/app/lib/definitions";
+import { ITrack } from "@/app/_lib/definitions";
 import styles from "../player.module.css";
 import { AudioController } from "./AudioController";
-import { formatDuration, formatDurationFromNumber } from "@/app/lib/utils";
+import { formatDuration, formatDurationFromNumber } from "@/app/_lib/utils";
 import { useEffect, useState } from "react";
 
 interface IProgressProps {

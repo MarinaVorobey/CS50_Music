@@ -1,4 +1,4 @@
-import { TLicenseTypes } from "@/app/lib/definitions";
+import { TLicenseTypes } from "@/app/_lib/definitions";
 import styles from "./legal-info.module.css";
 import generalStyles from "../modal.module.css";
 

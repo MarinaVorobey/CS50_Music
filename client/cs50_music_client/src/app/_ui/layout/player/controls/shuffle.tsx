@@ -1,7 +1,7 @@
 import { colors } from "@/app/_ui/colors";
 import Icon from "@/app/_ui/icon";
 import styles from "../player.module.css";
-import { shuffle } from "@/app/lib/player-control";
+import { shuffle } from "@/app/_lib/player-control";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function Shuffle() {

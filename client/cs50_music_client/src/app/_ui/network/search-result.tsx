@@ -1,7 +1,7 @@
 "use client";
 
-import { fetchTracks } from "@/app/lib/data";
-import { ITrack } from "@/app/lib/definitions";
+import { fetchTracks } from "@/app/_lib/data";
+import { ITrack } from "@/app/_lib/definitions";
 import Loading from "@/app/loading";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";

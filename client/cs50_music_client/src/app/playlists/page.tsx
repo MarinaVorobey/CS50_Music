@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { IPlaylistMany } from "../lib/definitions";
+import { IPlaylistMany } from "../_lib/definitions";
 import Icon from "../_ui/icon";
 import { colors } from "../_ui/colors";
 import { useState } from "react";
@@ -16,10 +16,10 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { deletePlaylist, fetchPlaylists, getUserToken } from "../lib/data";
+import { deletePlaylist, fetchPlaylists, getUserToken } from "../_lib/data";
 import Loading from "../loading";
 import ErrorBlock from "../_ui/network/error-block";
-import { useCheckMounted, useSearchPlaylists } from "../lib/utils";
+import { useCheckMounted, useSearchPlaylists } from "../_lib/utils";
 
 export default function Playlists() {
   const userToken = useQuery({ queryKey: ["user"], queryFn: getUserToken });

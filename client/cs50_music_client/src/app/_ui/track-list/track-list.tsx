@@ -5,7 +5,7 @@ import { colors } from "../colors";
 import styles from "./track-list.module.css";
 import Track from "./track/track";
 import Image from "next/image";
-import { ITrack, TTracklists } from "@/app/lib/definitions";
+import { ITrack, TTracklists } from "@/app/_lib/definitions";
 
 interface ITrackListProps {
   type: TTracklists;

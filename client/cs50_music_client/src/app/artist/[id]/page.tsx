@@ -1,8 +1,8 @@
 "use client";
 
-import { fetchArtist } from "@/app/lib/data";
-import { IArtistData } from "@/app/lib/definitions";
-import { useSearchTracks } from "@/app/lib/utils";
+import { fetchArtist } from "@/app/_lib/data";
+import { IArtistData } from "@/app/_lib/definitions";
+import { useSearchTracks } from "@/app/_lib/utils";
 import Loading from "@/app/loading";
 import ErrorBlock from "@/app/_ui/network/error-block";
 import SearchResult from "@/app/_ui/network/search-result";

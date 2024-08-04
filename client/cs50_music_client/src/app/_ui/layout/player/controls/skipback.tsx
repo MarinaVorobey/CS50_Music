@@ -4,8 +4,8 @@ import { colors } from "@/app/_ui/colors";
 import Icon from "@/app/_ui/icon";
 import styles from "../player.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { skipBack } from "@/app/lib/player-control";
-import { IPlayerData } from "@/app/lib/definitions";
+import { skipBack } from "@/app/_lib/player-control";
+import { IPlayerData } from "@/app/_lib/definitions";
 
 export function Skipback({ data }: { data: IPlayerData }) {
   const queryClient = useQueryClient();

@@ -1,14 +1,14 @@
 import styles from "./login.module.css";
 import generalStyles from "../modal.module.css";
 import { FieldValues, useForm } from "react-hook-form";
-import { login } from "@/app/lib/data";
+import { login } from "@/app/_lib/data";
 import {
   useMutation,
   UseMutationResult,
   useQueryClient,
 } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { ILoginResponse } from "@/app/lib/definitions";
+import { ILoginResponse } from "@/app/_lib/definitions";
 import Icon from "../../icon";
 import { colors } from "../../colors";
 
