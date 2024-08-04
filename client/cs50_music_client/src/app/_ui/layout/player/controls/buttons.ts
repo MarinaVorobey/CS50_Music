@@ -1,4 +1,4 @@
-import { TIconNames } from "@/app/ui/icon";
+import { TIconNames } from "@/app/_ui/icon";
 import styles from "../player.module.css";
 
 interface IControlButtonInfo {

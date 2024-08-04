@@ -1,5 +1,5 @@
-import { colors } from "./ui/colors";
-import Icon from "./ui/icon";
+import { colors } from "./_ui/colors";
+import Icon from "./_ui/icon";
 
 export default function Loading() {
   return (

@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { IPlaylistMany } from "../lib/definitions";
-import Icon from "../ui/icon";
-import { colors } from "../ui/colors";
+import Icon from "../_ui/icon";
+import { colors } from "../_ui/colors";
 import { useState } from "react";
-import Modal from "../ui/modals/modal";
+import Modal from "../_ui/modals/modal";
 import {
   UseMutationResult,
   UseQueryResult,
@@ -18,7 +18,7 @@ import {
 import { AxiosError, AxiosResponse } from "axios";
 import { deletePlaylist, fetchPlaylists, getUserToken } from "../lib/data";
 import Loading from "../loading";
-import ErrorBlock from "../ui/network/error-block";
+import ErrorBlock from "../_ui/network/error-block";
 import { useCheckMounted, useSearchPlaylists } from "../lib/utils";
 
 export default function Playlists() {

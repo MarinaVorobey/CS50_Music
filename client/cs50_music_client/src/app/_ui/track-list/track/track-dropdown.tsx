@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { colors } from "../../colors";
 import { Dropdown } from "../../dropdown/dropdown";
 import Icon from "../../icon";

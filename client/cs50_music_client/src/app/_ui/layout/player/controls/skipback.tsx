@@ -1,7 +1,7 @@
 "use client";
 
-import { colors } from "@/app/ui/colors";
-import Icon from "@/app/ui/icon";
+import { colors } from "@/app/_ui/colors";
+import Icon from "@/app/_ui/icon";
 import styles from "../player.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { skipBack } from "@/app/lib/player-control";

@@ -8,6 +8,7 @@ import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import TrackList from "../track-list/track-list";
 import ErrorBlock from "./error-block";
+import { Suspense } from "react";
 
 export default function SearchResult() {
   const searchParams = useSearchParams();
