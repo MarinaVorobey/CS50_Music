@@ -54,7 +54,9 @@ Most of the files are created automatically as part of any Django Project. The o
 2. Run "pip install requirements.txt"
 3. Go to "server" folder
 4. Run "python manage.py migrate"
-5. Run "python manage.py runserver"
+5. Run "python manage.py loaddata fixtures/artists.json"
+6. Run "python manage.py loaddata fixtures/data.json"
+7. Run "python manage.py runserver"
 
 **Client:**
 
