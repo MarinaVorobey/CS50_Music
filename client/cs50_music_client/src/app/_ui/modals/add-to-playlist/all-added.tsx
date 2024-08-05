@@ -5,7 +5,7 @@ export default function AllAdded({ onClose }: { onClose: () => void }) {
   return (
     <>
       <p className={styles.no__data__message}>
-        All of your playlists contatin this track
+        There are no playlists the track can be added to.
       </p>
       <button
         aria-label="Close modal"

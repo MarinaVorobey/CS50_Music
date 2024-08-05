@@ -109,7 +109,7 @@
 }
 
 .success__message {
-  padding-top: 10px;
+  margin-bottom: 10px;
   font-size: 16px;
   text-align: center;
   color: darkgreen;

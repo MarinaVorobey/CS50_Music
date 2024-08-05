@@ -10,8 +10,8 @@ export default function Header() {
       <Logo />
       <Suspense>
         <Search />
-        <User />
       </Suspense>
+      <User />
     </header>
   );
 }

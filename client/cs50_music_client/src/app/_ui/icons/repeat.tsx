@@ -1,5 +1,4 @@
 export function Repeat(color: string) {
-  // Colored: svg => path => fill => greyAA
   return (
     <svg
       width="16"

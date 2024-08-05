@@ -101,13 +101,13 @@
     "model": "solar_player_api.track",
     "pk": 11,
     "fields": {
-      "name": "Always and Forever",
-      "path": "Zane Little - Always and Forever.mp3",
-      "created_at": "2024-05-24T03:55:59Z",
-      "license": "CC0",
-      "duration": "00:02:16.000000",
-      "album": "♥",
-      "artist": 3,
+      "name": "Burn Together",
+      "path": "Pokki_DJ - Burn_Together.mp3",
+      "created_at": "2023-01-16T03:55:59Z",
+      "license": "CC BY-ND",
+      "duration": "00:02:36.000000",
+      "album": "Burn Together",
+      "artist": 9,
       "likes": []
     }
   },

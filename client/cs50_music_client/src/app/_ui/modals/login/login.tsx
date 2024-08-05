@@ -117,7 +117,7 @@ export default function Login({
           {mutation.isPending ? (
             <Icon
               type="loading"
-              className={`loading__icon ${generalStyles.modal__loading}`}
+              className={`${generalStyles.modal__loading}`}
               defaultColor={colors.purple}
             />
           ) : null}

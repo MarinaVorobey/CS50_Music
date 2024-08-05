@@ -158,12 +158,6 @@
   text-align: left;
 }
 
-.modal__loading svg {
-  margin-top: 5px;
-  width: 15px;
-  height: 15px;
-}
-
 .submit__pending {
   padding: 12px 42px;
 }
@@ -172,6 +166,38 @@
   color: var(--orange);
   font-size: 16px;
   text-decoration: underline;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.modal__loading svg {
+  margin: 5px 10px 10px 0;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @media (max-width: 992px) {
