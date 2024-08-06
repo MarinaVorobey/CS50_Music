@@ -39,7 +39,7 @@ Most of the files are created automatically as part of any Django Project. The o
 - .gitignore (tells git which files not to include in repo)
 - solar_player_api/admin.py (used to work with admin panel)
 - solar_player_api/models.py (defines models the DB would be based on)
-- solar_player_api/serializers.py (difnes serializers that are used to validate and format JSON data to return it to the client)
+- solar_player_api/serializers.py (defines serializers that are used to validate and format JSON data to return it to the client)
 - solar_player_api/tests.py (used in testing)
 - solar_player_api/users.py (api endpoints)
 - solar_player_api/views.py (the functions performed while accessing api endpoint)
